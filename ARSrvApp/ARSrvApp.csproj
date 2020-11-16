@@ -53,6 +53,8 @@
     <Compile Include="Data\IncidenceQueryData.cs" />
     <Compile Include="Data\UserRoleQueryData.cs" />
     <Compile Include="Query\AsistenciasQueryHandler.cs" />
+    <Compile Include="Data\ClaveMesQueryData.cs" />
+    <Compile Include="Query\ClaveMesQueryHandler.cs" />
     <Compile Include="Query\DepartamentQueryHandler.cs" />
     <Compile Include="Command\LoginCommandHandler.cs" />
     <Compile Include="Data\DepartamentQueryData.cs" />

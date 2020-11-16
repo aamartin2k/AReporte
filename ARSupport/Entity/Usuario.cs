@@ -14,9 +14,10 @@ namespace AReport.Support.Entity
         public EntityState Status
         { get; set; }
 
+        public int Id
+        { get; set; }
 
-       
-        public string UserID
+        public string UserId
         { get; set; }
 
         public string Login

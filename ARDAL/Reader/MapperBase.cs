@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace AReport.DAL.Reader
 {
-    abstract class MapperBase<T>
+    public abstract class MapperBase<T>
     {
         protected abstract T Map(IDataRecord record);
 

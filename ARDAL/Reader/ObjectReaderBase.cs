@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AReport.DAL.Reader
 {
-    abstract class ObjectReaderBase<T>
+    public abstract class ObjectReaderBase<T>
     {
         //protected abstract IDbConnection GetConnection();
         protected abstract string CommandText { get; }
@@ -18,7 +18,7 @@ namespace AReport.DAL.Reader
             return Connection.GetConnection();
         }
 
-        public Collection<T> Execute()
+        public Collection<T> Read()
         {
             Collection<T> collection = new Collection<T>();
 

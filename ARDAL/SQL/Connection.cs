@@ -8,8 +8,9 @@ namespace AReport.DAL.SQL
 {
     class Connection
     {
-        private static string m_connectionString = @"Data Source=APP;Initial Catalog=relojapp;Integrated Security=True";
-        //private static string m_connectionString = @"Data Source=localhost;Initial Catalog=relojapp;Integrated Security=True";
+        //private static string m_connectionString = @"Data Source=APP;Initial Catalog=relojapp;Integrated Security=True";
+        private static string m_connectionString = @"Data Source=localhost;Initial Catalog=relojapp;Integrated Security=True";
+
 
         public static string ConnectionString
         {

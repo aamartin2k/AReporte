@@ -7,9 +7,9 @@ namespace AReport.Srv.Data
 {
     internal class LoginCommandData
     {
-        private UsuarioDataReader _dataReader;
+        private UsuarioDataHandler _dataReader;
 
-        public LoginCommandData(UsuarioDataReader dataReader)
+        public LoginCommandData(UsuarioDataHandler dataReader)
         {
             _dataReader =dataReader;
         }

@@ -27,7 +27,7 @@ namespace AReport.Srv
         #region Command Handling
         public CommandStatus Handle(LoginCommand command)
         {
-            UsuarioDataReader dataReader = new UsuarioDataReader();
+            UsuarioDataHandler dataReader = new UsuarioDataHandler();
             LoginCommandData cmdData = new LoginCommandData(dataReader);
             LoginCommandHandler cmdHandler = new LoginCommandHandler(cmdData);
 
@@ -40,7 +40,7 @@ namespace AReport.Srv
 
         public UserRoleQueryResult Handle(UserRoleQuery query)
         {
-            UsuarioDataReader dataReader = new UsuarioDataReader();
+            UsuarioDataHandler dataReader = new UsuarioDataHandler();
             UserRoleQueryData qryData = new UserRoleQueryData(dataReader);
             UserRoleQueryHandler qryHandler = new UserRoleQueryHandler(qryData);
 
@@ -50,9 +50,18 @@ namespace AReport.Srv
 
         public DepartamentQueryResult Handle(DepartamentQuery query)
         {
-            DepartamentoDataReader dataReader = new DepartamentoDataReader();
+            DepartamentoDataHandler dataReader = new DepartamentoDataHandler();
             DepartamentQueryData qryData = new DepartamentQueryData(dataReader);
             DepartamentQueryHandler qryHandler = new DepartamentQueryHandler(qryData);
+
+            return qryHandler.Handle(query);
+        }
+
+        public ClaveMesQueryResult Handle(ClaveMesQuery query)
+        {
+            ClaveMesDataHandler dataReader = new ClaveMesDataHandler();
+            ClaveMesQueryData qryData = new ClaveMesQueryData(dataReader);
+            ClaveMesQueryHandler qryHandler = new ClaveMesQueryHandler(qryData);
 
             return qryHandler.Handle(query);
         }

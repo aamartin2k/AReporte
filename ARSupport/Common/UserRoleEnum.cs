@@ -6,6 +6,6 @@ using System.Text;
 namespace AReport.Support.Common
 {
     public enum UserRoleEnum
-    { JefeDepartamento, Supervisor, Administrador }
+    { JefeDepartamento = 1, Supervisor = 2 , Administrador = 3}
     
 }

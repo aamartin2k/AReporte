@@ -9,9 +9,9 @@ namespace AReport.Srv.Data
 {
     internal class UserRoleQueryData
     {
-        private UsuarioDataReader _dataReader;
+        private UsuarioDataHandler _dataReader;
 
-        public UserRoleQueryData(UsuarioDataReader dataReader)
+        public UserRoleQueryData(UsuarioDataHandler dataReader)
         {
             _dataReader = dataReader;
         }
@@ -28,7 +28,7 @@ namespace AReport.Srv.Data
                 //string userId = usuario.UserID;
                 //return new UserRoleQueryResult(roleId, userId);
 
-                return new UserRoleQueryResult(usuario.RoleIdEnum, usuario.UserID);
+                return new UserRoleQueryResult(usuario.RoleIdEnum, usuario.UserId);
             }
             return null;
         }

@@ -5,7 +5,12 @@ using AReport.Support.Interface;
 
 namespace AReport.Support.Entity
 {
-    // Tabla: AA_CausaIncidencia
+    /*
+    CREATE TABLE [dbo].[AA_CausaIncidencia](
+       [CausaId] [int] IDENTITY(1,1) NOT NULL,
+       [Description] [varchar](20) NOT NULL
+    */
+
     [Serializable]
     public class CausaIncidencia : IEntityStatus, IDescriptor
     {

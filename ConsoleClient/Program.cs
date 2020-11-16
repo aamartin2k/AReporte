@@ -21,7 +21,9 @@ namespace ConsoleClient
         static void Main(string[] args)
         {
             // Pruebas a DAL
-            ReadUsuario();
+            // Tabla AA_Usuarios
+            //Test_Usuario();
+
 
 
             // Pruebas a Servidor
@@ -58,8 +60,8 @@ namespace ConsoleClient
         {
             var loginCmd = new LoginCommand
             {
-                UserName = "Pepe",
-                Password = "PaswordPepe",
+                UserName = "Tata",
+                Password = "PasswordTata",
             };
 
             var status = proxy.Handle(loginCmd);
@@ -70,11 +72,8 @@ namespace ConsoleClient
                 Console.WriteLine("Login Aceptado.");
 
                 // Leer User Role
-                var URquery = new UserRoleQuery
-                {
-                    Login = "Pepe"
-                };
-
+                var URquery = new UserRoleQuery("Tata");
+                
                 var result = proxy.Handle(URquery);
                 Console.WriteLine(string.Format("Login Aceptado. UserID: {0}  Rol: {1}", result.UserID, result.UserRole));
 
@@ -82,7 +81,7 @@ namespace ConsoleClient
             }
             else
             {
-                Console.WriteLine(string.Format("Login Denegado. Mensaje: {}", (status as Failure).Errormessage ));
+                Console.WriteLine(string.Format("Login Denegado. Mensaje: {0}", (status as Failure).Errormessage ));
                 return false;
             }
             
@@ -95,24 +94,123 @@ namespace ConsoleClient
             DepartamentQuery dptQry = new DepartamentQuery();
             DepartamentQueryResult rst = proxy.Handle(dptQry);
 
-            foreach (var dpt in rst.Departamentos)
+            if (rst.Departamentos != null)
             {
-                Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.Status));
+                foreach (var dpt in rst.Departamentos)
+                {
+                    Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.Status));
+                }
             }
+            else
+                Console.WriteLine("No hay registros en Departamentos.");
+           // leyendo claves de mes
+
+           ClaveMesQuery kmQry = new ClaveMesQuery();
+            ClaveMesQueryResult kmRst = proxy.Handle(kmQry);
+
+            if (kmRst.ClavesMes != null)
+            {
+                foreach (var keym in kmRst.ClavesMes)
+                {
+                    Console.WriteLine(string.Format("Entity Id:: {0} \tMes: {1} \tAño: {2}", keym.MesId, keym.Mes, keym.Anno));
+                }
+            }
+            else
+                Console.WriteLine("No hay registros en ClavesMes.");
+
         }
 
 
         #endregion
 
         #region Test DAL
-        static void ReadUsuario()
+
+        static void Test_Usuario()
         {
-            UsuarioDataReader reader = new UsuarioDataReader();
+            Collection<Usuario> people;
+
+            // leer usuario
+            people = ReadUsuario();
+            PrintOutUsuario(people);
+
+            // crear 3 usuarios
+            // como efecto secundario en coleccion
+            CreateUsuarios(people);
+
+            // escribir usuarios
+            WriteUsuario(people);
+
+            // leer usuarios
+            people = ReadUsuario();
+            PrintOutUsuario(people);
+
+            // actualizar usuario
+
+            // eliminar usuario
+
+        }
+
+        static void PrintOutUsuario(Collection<Usuario> people)
+        {
+            foreach (Usuario p in people)
+                Console.WriteLine(string.Format("Entity Id: {4}\t User ID: {0}\tRoleID: {1}\tLogin: {2}\tPassword: {3}", p.UserId, p.RoleId, p.Login, p.Password, p.Id));
+        }
+
+        static Collection<Usuario> ReadUsuario()
+        {
+            UsuarioDataHandler reader = new UsuarioDataHandler();
             Collection<Usuario> people = reader.Collection;
 
-            foreach (Usuario p in people)
-                Console.WriteLine(string.Format("ID: {0} \tRoleID: {1} \tLogin: {2} \tPassword: {3} ", p.UserID, p.RoleId, p.Login, p.Password));
+            Console.WriteLine(string.Format("Leída Coleccion Usuario: {0} entidades", people.Count));
+
+            return people;
         }
+
+        static void WriteUsuario(Collection<Usuario> people)
+        {
+            UsuarioDataHandler handler = new UsuarioDataHandler();
+      
+            var ret = handler.Write(people);
+
+            if (ret)
+                Console.WriteLine("Coleccion Usuario actualizada sin error");
+            else
+                Console.WriteLine("Error actualizando Coleccion Usuario");
+        }
+
+        static void CreateUsuarios(Collection<Usuario> people)
+        {
+            var usr = new Usuario();
+            usr.Status = EntityState.Added;
+            usr.UserId = "62111332336";
+            usr.RoleIdEnum = UserRoleEnum.JefeDepartamento;
+            usr.Login = "Pepe";
+            usr.Password = "PasswordPepe";
+
+            people.Add(usr);
+
+            usr = new Usuario();
+            usr.Status = EntityState.Added;
+            usr.UserId = "62020815065";
+            usr.RoleIdEnum = UserRoleEnum.Supervisor;
+            usr.Login = "Tata";
+            usr.Password = "PasswordTata";
+
+            people.Add(usr);
+
+
+            usr = new Usuario();
+            usr.Status = EntityState.Added;
+            usr.UserId = "59020201384";
+            usr.RoleIdEnum = UserRoleEnum.Administrador;
+            usr.Login = "Admin";
+            usr.Password = "PasswordAdmin";
+
+            people.Add(usr);
+
+        }
+
+        
 
 
         #endregion

@@ -19,6 +19,8 @@ namespace AReport.Support.Interface
 
         DepartamentQueryResult Handle(DepartamentQuery query);
 
+        ClaveMesQueryResult Handle (ClaveMesQuery query);
+
         IncidenceQueryResult Handle(IncidenceQuery query);
 
         AsistenciaQueryResult Handle(AsistenciaQuery query);

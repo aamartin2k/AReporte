@@ -8,7 +8,7 @@ namespace AReport.Support.Entity
 {
     // Tabla:  AA_ClavesMes
     [Serializable]
-    public class ClavesMes : IEntityStatus
+    public class ClaveMes : IEntityStatus
     {
         public EntityState Status
         { get; set; }

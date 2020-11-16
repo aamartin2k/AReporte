@@ -8,7 +8,9 @@ using System.Data;
 
 namespace AReport.DAL.Reader
 {
-    /*  [Deptid] [int] IDENTITY(1,1) NOT NULL,
+    /*  
+       CREATE TABLE [dbo].[Dept](
+	    [Deptid] [int] IDENTITY(1,1) NOT NULL,
 	    [DeptName] [varchar](50) NOT NULL,
 	    [SupDeptid] [int] NOT NULL,
      */

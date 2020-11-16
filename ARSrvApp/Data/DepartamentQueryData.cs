@@ -10,9 +10,9 @@ namespace AReport.Srv.Data
 {
     internal class DepartamentQueryData
     {
-        private DepartamentoDataReader _dataReader;
+        private DepartamentoDataHandler _dataReader;
 
-        public DepartamentQueryData(DepartamentoDataReader dataReader)
+        public DepartamentQueryData(DepartamentoDataHandler dataReader)
         {
             _dataReader = dataReader;
         }
