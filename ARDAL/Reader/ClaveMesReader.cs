@@ -1,24 +1,20 @@
-﻿
-using AReport.Support.Entity;
+﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
 
 namespace AReport.DAL.Reader
 {
     /*
-     CREATE TABLE [dbo].[AA_Usuarios](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [varchar](20) NOT NULL,
-	[RoleId] [int] NOT NULL,
-	[Login] [varchar](20) NOT NULL,
-	[Password] [varchar](20) NOT NULL,
-    */
-
-    class UsuarioReader : ObjectReaderBase<Usuario>
+     CREATE TABLE [dbo].[AA_ClavesMes](
+	[MesId] [int] IDENTITY(1,1) NOT NULL,
+	[Mes] [int] NOT NULL,
+	[Anno] [int] NOT NULL,
+     */
+    class ClaveMesReader :  ObjectReaderBase<ClaveMes>
     {
         protected override string CommandText
         {
-            get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
+            get { return "SELECT [MesId], [Mes], [Anno] FROM AA_ClavesMes"; }
         }
 
         protected override CommandType CommandType
@@ -26,9 +22,9 @@ namespace AReport.DAL.Reader
             get { return System.Data.CommandType.Text; }
         }
 
-        protected override MapperBase<Usuario> GetMapper()
+        protected override MapperBase<ClaveMes> GetMapper()
         {
-            MapperBase<Usuario> mapper = new UsuarioMapper();
+            MapperBase<ClaveMes> mapper = new ClavesMesMapper();
             return mapper;
         }
 
@@ -38,5 +34,4 @@ namespace AReport.DAL.Reader
             return collection;
         }
     }
-
 }

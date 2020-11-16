@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AReport.DAL.Writer.ObjectWriterBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EACAAAAAAAAAAAWAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\ObjectWriterBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.RoleInsert" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAQAgAAA=</HashCode>
+      <FileName>Writer\RoleWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.RoleUpdate" Collapsed="true">
+    <Position X="4.75" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAAAACAAAAAAgAAAAAAAAAAgAQAgAAA=</HashCode>
+      <FileName>Writer\RoleWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.RoleDelete" Collapsed="true">
+    <Position X="2.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAgAAAAAAAAAAgAQAAAAA=</HashCode>
+      <FileName>Writer\RoleWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.CommandTextWriter&lt;T&gt;" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\CommandTextWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorInsert&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAAAgQAgAAA=</HashCode>
+      <FileName>Writer\DescriptorInsert.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorUpdate&lt;T&gt;" Collapsed="true">
+    <Position X="4.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAACAAQAACAAAAAAgAAAAAAAAAAggQAgAAA=</HashCode>
+      <FileName>Writer\DescriptorUpdate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorDelete&lt;T&gt;" Collapsed="true">
+    <Position X="2.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAAAAAAAAgAAAAAAAAAAggQAAAAA=</HashCode>
+      <FileName>Writer\DescriptorDelete.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.ObjectReaderBase&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAgBAACAA=</HashCode>
+      <FileName>Reader\ObjectReaderBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.CommandTextReader&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reader\CommandTextReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.DescriptorReader&lt;T&gt;" Collapsed="true">
+    <Position X="10" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAggQAAAAA=</HashCode>
+      <FileName>Reader\DescriptorReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.RoleReader" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAQAACAA=</HashCode>
+      <FileName>Reader\RoleReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

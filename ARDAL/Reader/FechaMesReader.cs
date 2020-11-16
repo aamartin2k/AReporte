@@ -1,24 +1,23 @@
-﻿
-using AReport.Support.Entity;
+﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
 
 namespace AReport.DAL.Reader
 {
     /*
-     CREATE TABLE [dbo].[AA_Usuarios](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[UserId] [varchar](20) NOT NULL,
-	[RoleId] [int] NOT NULL,
-	[Login] [varchar](20) NOT NULL,
-	[Password] [varchar](20) NOT NULL,
-    */
+     CREATE TABLE [dbo].[AA_FechasMes](
+	    [FechaId] [int] IDENTITY(1,1) NOT NULL,
+	    [MesId] [int] NOT NULL,
+	    [Fecha] [date] NOT NULL,
+	    [DiaSemanaId] [int] NOT NULL,
+     */
 
-    class UsuarioReader : ObjectReaderBase<Usuario>
+    class FechaMesReader : ObjectReaderBase<FechaMes>
     {
+
         protected override string CommandText
         {
-            get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
+            get { return "SELECT [FechaId], [MesId], [Fecha], [DiaSemanaId] FROM [dbo].[AA_FechasMes]"; }
         }
 
         protected override CommandType CommandType
@@ -26,9 +25,9 @@ namespace AReport.DAL.Reader
             get { return System.Data.CommandType.Text; }
         }
 
-        protected override MapperBase<Usuario> GetMapper()
+        protected override MapperBase<FechaMes> GetMapper()
         {
-            MapperBase<Usuario> mapper = new UsuarioMapper();
+            MapperBase<FechaMes> mapper = new FechaMesMapper();
             return mapper;
         }
 
@@ -37,6 +36,6 @@ namespace AReport.DAL.Reader
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
         }
-    }
 
+    }
 }

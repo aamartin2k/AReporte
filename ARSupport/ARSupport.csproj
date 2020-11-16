@@ -51,7 +51,7 @@
     <Compile Include="Entity\Departamento.cs" />
     <Compile Include="Entity\DiaSemana.cs" />
     <Compile Include="Entity\EntityState.cs" />
-    <Compile Include="Entity\FechasMes.cs" />
+    <Compile Include="Entity\FechaMes.cs" />
     <Compile Include="Entity\Incidencia.cs" />
     <Compile Include="Entity\JefesDept.cs" />
     <Compile Include="Entity\Role.cs" />

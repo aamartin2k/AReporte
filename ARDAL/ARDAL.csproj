@@ -44,6 +44,7 @@
     <Compile Include="Entity\DepartamentoDataHandler.cs" />
     <Compile Include="Entity\DiaSemanaDataHandler.cs" />
     <Compile Include="Entity\EntityDataHandler.cs" />
+    <Compile Include="Entity\FechaMesDataHandler.cs" />
     <Compile Include="Entity\RoleDataHandler.cs" />
     <Compile Include="Entity\UsuarioDataHandler.cs" />
     <Compile Include="Reader\CausaIncidenciaMapper.cs" />
@@ -56,6 +57,8 @@
     <Compile Include="Reader\DescriptorReader.cs" />
     <Compile Include="Reader\DiaSemanaMapper.cs" />
     <Compile Include="Reader\DiaSemanaReader.cs" />
+    <Compile Include="Reader\FechaMesMapper.cs" />
+    <Compile Include="Reader\FechaMesReader.cs" />
     <Compile Include="Reader\RoleMapper.cs" />
     <Compile Include="Reader\RoleReader.cs" />
     <Compile Include="Reader\UsuarioMapper.cs" />
@@ -64,24 +67,28 @@
     <Compile Include="Reader\MapperBase.cs" />
     <Compile Include="Reader\ObjectReaderBase.cs" />
     <Compile Include="SQL\Connection.cs" />
-    <Compile Include="Writer\CausaIncidenciaHandler.cs" />
     <Compile Include="Writer\CausaIncidenciaWriter.cs" />
-    <Compile Include="Writer\ClaveMesHandler.cs" />
+    <Compile Include="Writer\CausaIncidenciaIUDWriter.cs" />
     <Compile Include="Writer\ClaveMesWriter.cs" />
-    <Compile Include="Writer\DepartamentoHandler.cs" />
+    <Compile Include="Writer\ClaveMesIUDWriter.cs" />
     <Compile Include="Writer\DepartamentoWriter.cs" />
+    <Compile Include="Writer\DepartamentoIUDWriter.cs" />
     <Compile Include="Writer\DescriptorDelete.cs" />
     <Compile Include="Writer\DescriptorInsert.cs" />
     <Compile Include="Writer\DescriptorUpdate.cs" />
-    <Compile Include="Writer\DiaSemanaHandler.cs" />
     <Compile Include="Writer\DiaSemanaWriter.cs" />
+    <Compile Include="Writer\DiaSemanaIUDWriter.cs" />
+    <Compile Include="Writer\FechaMesIUDWriter.cs" />
+    <Compile Include="Writer\FechaMesWriter.cs" />
+    <Compile Include="Writer\IntermWriter.cs" />
     <Compile Include="Writer\ObjectWriter.cs" />
     <Compile Include="Writer\EntityWriter.cs" />
-    <Compile Include="Writer\RoleHandler.cs" />
     <Compile Include="Writer\RoleWriter.cs" />
+    <Compile Include="Writer\RoleIUDWriter.cs" />
     <Compile Include="Writer\CommandTextWriter.cs" />
-    <Compile Include="Writer\UsuarioHandler.cs" />
+    <Compile Include="Writer\TableDataWriter.cs" />
     <Compile Include="Writer\UsuarioWriter.cs" />
+    <Compile Include="Writer\UsuarioIUDWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\Descriptors.cd" />
@@ -92,6 +99,9 @@
       <Project>{cc1fdd27-2233-4a31-8c82-415f999e0b84}</Project>
       <Name>ARSupport</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="In Process.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

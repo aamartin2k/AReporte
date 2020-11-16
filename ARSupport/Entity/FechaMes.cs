@@ -6,15 +6,20 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
-    // Tabla: AA_FechasMes
+   
+    /*
+     CREATE TABLE [dbo].[AA_FechasMes](
+	    [FechaId] [int] IDENTITY(1,1) NOT NULL,
+	    [MesId] [int] NOT NULL,
+	    [Fecha] [date] NOT NULL,
+	    [DiaSemanaId] [int] NOT NULL,
+     */
 
     [Serializable]
-    public class FechasMes : IEntityStatus
+    public class FechaMes : IEntityStatus
     {
         public EntityState Status
         { get; set; }
-
-
 
         public int FechaId
         { get; set; }
