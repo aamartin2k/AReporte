@@ -13,19 +13,14 @@ namespace AReport.DAL.Writer
 	    [Password] [varchar](20) NOT NULL,
      */
 
-    public class UsuarioInsert : CommandTextWriter<Usuario>
+    public class UsuarioInsert : UsuarioTableData
     {
-        private const string paramUserId = "@UserId";
-        private const string paramRoleId = "@RoleId";
-        private const string paramLogin = "@Login";
-        private const string paramPwd = "@Password";
-        private const string table = "[AA_Usuarios]";
-
         protected override string CommandText
         {
             get
             {
-                return string.Format("INSERT INTO [dbo].{4} VALUES ({0}, {1}, {2}, {3})", paramUserId, paramRoleId, paramLogin, paramPwd, table);
+                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2}, {3}, {4})", 
+                    TableName, ParamUserId, ParamRoleId, ParamLogin, ParamPassword);
             }
         }
 
@@ -35,22 +30,22 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramUserId;
+            param1.ParameterName = ParamUserId;
             param1.Value = Entity.UserId;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramRoleId;
+            param1.ParameterName = ParamRoleId;
             param1.Value = Entity.RoleId;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramLogin;
+            param1.ParameterName = ParamLogin;
             param1.Value = Entity.Login;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramPwd;
+            param1.ParameterName = ParamPassword;
             param1.Value = Entity.Password;
             collection.Add(param1);
 
@@ -58,21 +53,15 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class UsuarioUpdate : CommandTextWriter<Usuario>
+    public class UsuarioUpdate : UsuarioTableData
     {
-        private const string paramId = "@Id";
-        private const string paramUserId = "@UserId";
-        private const string paramRoleId = "@RoleId";
-        private const string paramLogin = "@Login";
-        private const string paramPwd = "@Password";
-        private const string table = "[AA_Usuarios]";
-
+       
         protected override string CommandText
         {
             get
             {
                 return string.Format("UPDATE [dbo].{0} SET [UserId] = {1}, [RoleId] = {2}, [Login] = {3}, [Password] = {4} WHERE [Id] = {5}",
-                                      table, paramUserId, paramRoleId, paramLogin, paramPwd, paramId);
+                                      TableName, ParamUserId, ParamRoleId, ParamLogin, ParamPassword, ParamPKId);
             }
         }
 
@@ -81,22 +70,22 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramUserId;
+            param1.ParameterName = ParamUserId;
             param1.Value = Entity.UserId;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramRoleId;
+            param1.ParameterName = ParamRoleId;
             param1.Value = Entity.RoleId;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramLogin;
+            param1.ParameterName = ParamLogin;
             param1.Value = Entity.Login;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramPwd;
+            param1.ParameterName = ParamPassword;
             param1.Value = Entity.Password;
             collection.Add(param1);
 
@@ -104,15 +93,14 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class UsuarioDelete : CommandTextWriter<Usuario>
+    public class UsuarioDelete : UsuarioTableData
     {
-        private const string paramId = "@Id";
-        private const string table = "[AA_Usuarios]";
+       
         protected override string CommandText
         {
             get
             {
-                return string.Format("DELETE FROM [dbo].{1} WHERE [UserId] = {0}", paramId, table);
+                return string.Format("DELETE FROM [dbo].{0} WHERE [Id] = {1}", TableName, ParamPKId);
             }
         }
 
@@ -121,7 +109,7 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramId;
+            param1.ParameterName = ParamPKId;
             param1.Value = Entity.Id;
             collection.Add(param1);
 

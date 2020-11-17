@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AReport.DAL.Writer.EntityWriter&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EACAAAAAAAAAAAWAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\EntityWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.CommandTextWriter&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\CommandTextWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.FechaMesInsert" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\FechaMesIUDWriter.cs</FileName>
+      <NewMemberFileName>Writer\UsuarioIUDWriter.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorInsert&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAAAgAAgAAA=</HashCode>
+      <FileName>Writer\DescriptorInsert.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorUpdate&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAQAACAAAAAAgAAAAAAAAAAggAAgAAA=</HashCode>
+      <FileName>Writer\DescriptorUpdate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DescriptorDelete&lt;T&gt;" Collapsed="true">
+    <Position X="4.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAggAAAAAA=</HashCode>
+      <FileName>Writer\DescriptorDelete.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DiaSemanaInsert" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAQAgAAA=</HashCode>
+      <FileName>Writer\DiaSemanaIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DiaSemanaUpdate" Collapsed="true">
+    <Position X="2.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAACAAAAAAgAAAAAAAAgAgAQAgAAA=</HashCode>
+      <FileName>Writer\DiaSemanaIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DiaSemanaDelete" Collapsed="true">
+    <Position X="4.5" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAgAgAQAAAAA=</HashCode>
+      <FileName>Writer\DiaSemanaIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.FechaMesTableData" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAgAAAQQAAAA=</HashCode>
+      <FileName>Writer\FechaMesTableData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.FechaMesUpdate" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\FechaMesIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.FechaMesDelete" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\FechaMesIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.TableDataBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
+      <FileName>Writer\TableDataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

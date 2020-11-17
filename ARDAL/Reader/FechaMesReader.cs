@@ -12,17 +12,12 @@ namespace AReport.DAL.Reader
 	    [DiaSemanaId] [int] NOT NULL,
      */
 
-    class FechaMesReader : ObjectReaderBase<FechaMes>
+    class FechaMesReader : CommandTextReader<FechaMes>
     {
 
         protected override string CommandText
         {
             get { return "SELECT [FechaId], [MesId], [Fecha], [DiaSemanaId] FROM [dbo].[AA_FechasMes]"; }
-        }
-
-        protected override CommandType CommandType
-        {
-            get { return System.Data.CommandType.Text; }
         }
 
         protected override MapperBase<FechaMes> GetMapper()

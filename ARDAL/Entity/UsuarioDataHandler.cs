@@ -1,11 +1,7 @@
 ﻿using AReport.DAL.Reader;
 using AReport.DAL.Writer;
 using AReport.Support.Entity;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+
 
 namespace AReport.DAL.Entity
 {

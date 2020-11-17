@@ -5,21 +5,25 @@ using System.Data;
 namespace AReport.DAL.Reader
 {
     /*
-     CREATE TABLE [dbo].[AA_ClavesMes](
-	[MesId] [int] IDENTITY(1,1) NOT NULL,
-	[Mes] [int] NOT NULL,
-	[Anno] [int] NOT NULL,
+     CREATE TABLE [dbo].[Checkinout](
+	    [Logid] [int] IDENTITY(1,1) NOT NULL,
+	    [Userid] [varchar](20) NOT NULL,
+	    [CheckTime] [datetime] NOT NULL,
+	    [CheckType] [int] NOT NULL,
+	..
      */
-    class ClaveMesReader : CommandTextReader<ClaveMes> 
+
+    class CheckinoutReader : CommandTextReader<Checkinout>
     {
+
         protected override string CommandText
         {
-            get { return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]"; }
+            get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
         }
 
-        protected override MapperBase<ClaveMes> GetMapper()
+        protected override MapperBase<Checkinout> GetMapper()
         {
-            MapperBase<ClaveMes> mapper = new ClavesMesMapper();
+            MapperBase<Checkinout> mapper = new CheckinoutMapper();
             return mapper;
         }
 

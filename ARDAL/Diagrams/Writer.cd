@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AReport.DAL.Writer.ObjectWriterBase&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAEAA=</HashCode>
+      <FileName>Writer\ObjectWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.UsuarioWriter" Collapsed="true">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\UsuarioWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.CausaIncidenciaWriter" Collapsed="true">
+    <Position X="4.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\CausaIncidenciaWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.IntermWriter&lt;T&gt;" Collapsed="true">
+    <Position X="2.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAEAA=</HashCode>
+      <FileName>Writer\IntermWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.DiaSemanaWriter" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\DiaSemanaWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

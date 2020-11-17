@@ -5,12 +5,11 @@ using System.Data;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class DescriptorInsert<T> : CommandTextWriter<T>
+    public abstract class DescriptorInsert<T> : TableDataBase<T>
     {
         protected abstract string DescriptionParam { get; }
         protected abstract string DescriptionValue { get; }
-        protected abstract string TableName { get; }
-
+       
         protected override string CommandText
         {
             get

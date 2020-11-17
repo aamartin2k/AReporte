@@ -6,7 +6,12 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
-    // Tabla: AA_JefesDept
+    /*
+      CREATE TABLE [dbo].[AA_JefesDept](
+	    [JefeId] [int] IDENTITY(1,1) NOT NULL,
+	    [DeptId] [int] NOT NULL,
+	    [UserId] [varchar](20) NOT NULL,
+     */
 
     [Serializable]
     public class JefesDept : IEntityStatus
@@ -14,6 +19,9 @@ namespace AReport.Support.Entity
         public EntityState Status
         { get; set; }
 
+
+        public int JefeId
+        { get; set; }
 
         public int DepartamentoId
         { get; set; }

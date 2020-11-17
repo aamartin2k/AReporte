@@ -1,4 +1,5 @@
-﻿using AReport.Support.Entity;
+﻿using System;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Writer
 {
@@ -24,8 +25,10 @@ namespace AReport.DAL.Writer
             get { return "[AA_CausaIncidencia]"; }
         }
 
-       
-
+        protected override string ParamPKId
+        {
+            get { return "@Id"; }
+        }
     }
 
     public class CausaIncidenciaUpdate : DescriptorUpdate<CausaIncidencia>
@@ -39,7 +42,7 @@ namespace AReport.DAL.Writer
         {
             get { return "[CausaId]"; }
         }
-        protected override string IdParam
+        protected override string ParamPKId
         {
             get { return "@Id"; }
         }
@@ -61,7 +64,6 @@ namespace AReport.DAL.Writer
             get { return "@Description"; }
         }
 
-
     }
 
     public class CausaIncidenciaDelete : DescriptorDelete<CausaIncidencia>
@@ -75,7 +77,7 @@ namespace AReport.DAL.Writer
         {
             get { return "[CausaId]"; }
         }
-        protected override string IdParam
+        protected override string ParamPKId
         {
             get { return "@Id"; }
         }

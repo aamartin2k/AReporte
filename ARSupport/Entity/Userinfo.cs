@@ -6,8 +6,16 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
+    /*
+     CREATE TABLE [dbo].[Userinfo](
+	    [Userid] [varchar](20) NOT NULL,
+	    [Name] [varchar](50) NULL,
+        [Deptid] [int] NOT NULL,
+     */
+
     // Tabla: Userinfo
-    // No se leen todos las columnas, solo las necesarias para usar como selector.
+    // Empleados, no confundir con usuarios del sistema. No se leen todos las columnas, 
+    // solo las necesarias para usar como selector.
     [Serializable]
     public class Userinfo : IEntityStatus
     {
@@ -20,5 +28,7 @@ namespace AReport.Support.Entity
         public string Nombre
         { get; set; }
 
+        public int DepartamentoId
+        { get; set; }
     }
 }

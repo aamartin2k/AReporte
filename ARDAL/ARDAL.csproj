@@ -40,18 +40,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\CausaIncidenciaDataHandler.cs" />
+    <Compile Include="Entity\CheckinoutDataHandler.cs" />
     <Compile Include="Entity\ClaveMesDataHandler.cs" />
     <Compile Include="Entity\DepartamentoDataHandler.cs" />
     <Compile Include="Entity\DiaSemanaDataHandler.cs" />
     <Compile Include="Entity\EntityDataHandler.cs" />
     <Compile Include="Entity\FechaMesDataHandler.cs" />
     <Compile Include="Entity\RoleDataHandler.cs" />
+    <Compile Include="Entity\UserinfoDataHandler.cs" />
     <Compile Include="Entity\UsuarioDataHandler.cs" />
     <Compile Include="Reader\CausaIncidenciaMapper.cs" />
     <Compile Include="Reader\CausaIncidenciaReader.cs" />
+    <Compile Include="Reader\CheckinoutMapper.cs" />
+    <Compile Include="Reader\CheckinoutReader.cs" />
     <Compile Include="Reader\ClaveMesReader.cs" />
     <Compile Include="Reader\ClavesMesMapper.cs" />
     <Compile Include="Reader\CommandTextReader.cs" />
+    <Compile Include="Reader\DepartamentoMapper.cs" />
     <Compile Include="Reader\DepartamentoReader.cs" />
     <Compile Include="Reader\DescriptorMapper.cs" />
     <Compile Include="Reader\DescriptorReader.cs" />
@@ -61,6 +66,8 @@
     <Compile Include="Reader\FechaMesReader.cs" />
     <Compile Include="Reader\RoleMapper.cs" />
     <Compile Include="Reader\RoleReader.cs" />
+    <Compile Include="Reader\UserinfoMapper.cs" />
+    <Compile Include="Reader\UserinfoReader.cs" />
     <Compile Include="Reader\UsuarioMapper.cs" />
     <Compile Include="Reader\UsuarioReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +76,7 @@
     <Compile Include="SQL\Connection.cs" />
     <Compile Include="Writer\CausaIncidenciaWriter.cs" />
     <Compile Include="Writer\CausaIncidenciaIUDWriter.cs" />
+    <Compile Include="Writer\ClaveMesTableData.cs" />
     <Compile Include="Writer\ClaveMesWriter.cs" />
     <Compile Include="Writer\ClaveMesIUDWriter.cs" />
     <Compile Include="Writer\DepartamentoWriter.cs" />
@@ -86,13 +94,17 @@
     <Compile Include="Writer\RoleWriter.cs" />
     <Compile Include="Writer\RoleIUDWriter.cs" />
     <Compile Include="Writer\CommandTextWriter.cs" />
-    <Compile Include="Writer\TableDataWriter.cs" />
+    <Compile Include="Writer\FechaMesTableData.cs" />
+    <Compile Include="Writer\TableDataBase.cs" />
+    <Compile Include="Writer\UsuarioTableData.cs" />
     <Compile Include="Writer\UsuarioWriter.cs" />
     <Compile Include="Writer\UsuarioIUDWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Diagrams\Descriptors.cd" />
-    <None Include="Diagrams\Writers.cd" />
+    <None Include="Diagrams\Reader.cd" />
+    <None Include="Diagrams\Writer.cd" />
+    <None Include="Diagrams\EntityWriter.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ARSupport\ARSupport.csproj">

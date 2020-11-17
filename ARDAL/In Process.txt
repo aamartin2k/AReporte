@@ -2,37 +2,39 @@ Implementar DAL, entities readers/mappers and writers/updaters
 
 Implementando DataHandlers genericos
 Comprobrar via CMD + DAL
-						DataHandler	Reader
-Checkinout
-Dept						*		*
-Status
-Userinfo
+De datos, solo lectura:
+						DataHandler	Reader	Mapper
+Checkinout					*		*		*
+Dept						*		*		*
+Status ??
+Userinfo					*		*		*
 
 De aplicación lectura y escritura:
-						DataHandler	Reader	Writer  Insert  Delete  Update
+						DataHandler	Reader	Writer  Insert  Delete  Update	TableDataBase
 AA_Asistencias																
-AA_CausaIncidencia			*		*		*		*		*		*	
-AA_ClavesMes				*		*		*		*		*		*	
+AA_CausaIncidencia D		*		*		*		*		*		*			
+AA_ClavesMes				*		*		*		*		*		*		*	
 AA_Configuracion
-AA_DiasSemana				*		*		*		*		*		*
+AA_DiasSemana D				*		*		*		*		*		*
 
-AA_FechasMes				*		*
+AA_FechasMes				*		*		*		*		*		*		*
 AA_Incidencias
-AA_JefesDept
-AA_Roles					*		*		*		*		*		*
-AA_Usuarios					*		*		*		*		*		*
+>AA_JefesDept
+AA_Roles D					*		*		*		*		*		*
+AA_Usuarios					*		*		*		*		*		*		*
  
  
  
+ Implementar que todos los Readers que no deriven de Descriptor, deriven de CommandTextReader
+  -AA_Asistencias  -AA_Configuracion  -AA_Incidencias -AA_JefesDept 
+  -Checkinout 
  
+ Implementar que todos los IUD Writers que no deriven de Descriptor, deriven de TableDataBase
  
- Implementar que todos los IUD Writers (que no deriven de Descriptor) deriven de CommandTextWriter
-   Usuario
 
  Implementar que todos los (handlers)Writers  deriven de IntermWriter<T>
    Usuario
 
- Implementar clase <>TableData que Derive de CommandTextWriter<T> , con nombre de tabla, campos y argumentos
- ,  se requiere una para cada tipo.
+ Implementar clase <>TableData que Derive de CommandTextWriter<T> , con nombre de tabla, campos y parametros,  se requiere una para cada tipo.
 
  

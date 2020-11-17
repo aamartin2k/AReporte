@@ -14,16 +14,11 @@ namespace AReport.DAL.Reader
 	[Password] [varchar](20) NOT NULL,
     */
 
-    class UsuarioReader : ObjectReaderBase<Usuario>
+    class UsuarioReader : CommandTextReader<Usuario> 
     {
         protected override string CommandText
         {
             get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
-        }
-
-        protected override CommandType CommandType
-        {
-            get { return System.Data.CommandType.Text; }
         }
 
         protected override MapperBase<Usuario> GetMapper()

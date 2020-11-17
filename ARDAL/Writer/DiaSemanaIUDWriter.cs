@@ -1,4 +1,5 @@
-﻿using AReport.Support.Entity;
+﻿using System;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Writer
 {
@@ -26,6 +27,10 @@ namespace AReport.DAL.Writer
             get { return "[AA_DiasSemana]"; }
         }
 
+        protected override string ParamPKId
+        {
+            get { return "@Id"; }
+        }
     }
 
     public class DiaSemanaUpdate : DescriptorUpdate<DiaSemana>
@@ -39,7 +44,7 @@ namespace AReport.DAL.Writer
         {
             get { return "[DiaSemanaId]"; }
         }
-        protected override string IdParam
+        protected override string ParamPKId
         {
             get { return "@Id"; }
         }
@@ -74,7 +79,7 @@ namespace AReport.DAL.Writer
         {
             get { return "[DiaSemanaId]"; }
         }
-        protected override string IdParam
+        protected override string ParamPKId
         {
             get { return "@Id"; }
         }

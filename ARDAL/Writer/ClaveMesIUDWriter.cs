@@ -11,17 +11,13 @@ namespace AReport.DAL.Writer
    [Anno] [int] NOT NULL,
     */
 
-    public class ClaveMesInsert : CommandTextWriter<ClaveMes> 
+    public class ClaveMesInsert : ClaveMesTableData
     {
-        private const string paramMes = "@Mes";
-        private const string paramAnno = "@Anno";
-        private const string table = "[AA_ClavesMes]";
-
         protected override string CommandText
         {
             get
             {
-                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2})",  table, paramMes, paramAnno);
+                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2})",  TableName, ParamMes, ParamAnno);
             }
         }
 
@@ -30,12 +26,12 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramMes;
+            param1.ParameterName = ParamMes;
             param1.Value = Entity.Mes;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramAnno;
+            param1.ParameterName = ParamAnno;
             param1.Value = Entity.Anno;
             collection.Add(param1);
 
@@ -44,19 +40,14 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class ClaveMesUpdate : CommandTextWriter<ClaveMes> 
+    public class ClaveMesUpdate : ClaveMesTableData
     {
-        private const string paramId = "@MesId";
-        private const string paramMes = "@Mes";
-        private const string paramAnno = "@Anno";
-        private const string table = "[AA_ClavesMes]";
-
         protected override string CommandText
         {
             get
             {
                 return string.Format("UPDATE [dbo].{0} SET [Mes] = {1}, [Anno] = {2} WHERE [MesId] = {3}",
-                                      table, paramMes, paramAnno, paramId);
+                                      TableName, ParamMes, ParamAnno, ParamPKId);
             }
         }
        
@@ -65,17 +56,17 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramMes;
+            param1.ParameterName = ParamMes;
             param1.Value = Entity.Mes;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramAnno;
+            param1.ParameterName = ParamAnno;
             param1.Value = Entity.Anno;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = paramId;
+            param1.ParameterName = ParamPKId;
             param1.Value = Entity.MesId;
             collection.Add(param1);
 
@@ -84,16 +75,13 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class ClaveMesDelete : CommandTextWriter<ClaveMes> 
+    public class ClaveMesDelete : ClaveMesTableData
     {
-
-        private const string paramId = "@MesId";
-        private const string table = "[AA_ClavesMes]";
         protected override string CommandText
         {
             get
             {
-                return string.Format("DELETE FROM [dbo].{0} WHERE [MesId] = {1}", table, paramId);
+                return string.Format("DELETE FROM [dbo].{0} WHERE [MesId] = {1}", TableName, ParamPKId);
             }
         }
 
@@ -102,7 +90,7 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = paramId;
+            param1.ParameterName = ParamPKId;
             param1.Value = Entity.MesId;
             collection.Add(param1);
 

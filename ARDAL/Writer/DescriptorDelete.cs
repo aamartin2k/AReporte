@@ -3,12 +3,11 @@ using System.Data;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class DescriptorDelete<T> : CommandTextWriter<T>
+    public abstract class DescriptorDelete<T> : TableDataBase<T>
     {
-        protected abstract string TableName { get; }
+      
 
         protected abstract string IdField { get; }
-        protected abstract string IdParam { get; }
         protected abstract int IdValue { get; }
 
 
@@ -16,7 +15,7 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("DELETE FROM [dbo].{0} WHERE {1} = {2}", TableName, IdField, IdParam);
+                return string.Format("DELETE FROM [dbo].{0} WHERE {1} = {2}", TableName, IdField, ParamPKId);
             }
         }
 
@@ -25,7 +24,7 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = IdParam;
+            param1.ParameterName = ParamPKId;
             param1.Value = IdValue;
             collection.Add(param1);
 

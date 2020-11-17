@@ -1,13 +1,12 @@
 ﻿using AReport.Support.Common;
 using AReport.Support.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace AReport.Support.Entity
 {
-    // Tabla:  AA_Usuarios
+    // Tabla:  AA_Usuarios  Usuarios del sistema
+
     [Serializable]
     public class Usuario : IEntityStatus 
     {

@@ -55,7 +55,7 @@ namespace AReport.DAL.Writer
             get
             {
                 return string.Format("UPDATE [dbo].{0} SET [MesId] = {1}, [Fecha] = {2}, [DiaSemanaId] = {3} WHERE [FechaId] = {4}",
-                                      TableName, ParamMesId, ParamFecha, ParamDiaSemana, ParamFechaId);
+                                      TableName, ParamMesId, ParamFecha, ParamDiaSemana, ParamPKId);
             }
         }
 
@@ -79,7 +79,7 @@ namespace AReport.DAL.Writer
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = ParamFechaId;
+            param1.ParameterName = ParamPKId;
             param1.Value = Entity.FechaId;
             collection.Add(param1);
 
@@ -94,7 +94,7 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("DELETE FROM [dbo].{0} WHERE [UserId] = {1}", TableName, ParamFechaId);
+                return string.Format("DELETE FROM [dbo].{0} WHERE [UserId] = {1}", TableName, ParamPKId);
             }
         }
 
@@ -103,7 +103,7 @@ namespace AReport.DAL.Writer
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
 
             IDataParameter param1 = command.CreateParameter();
-            param1.ParameterName = ParamFechaId;
+            param1.ParameterName = ParamPKId;
             param1.Value = Entity.FechaId;
             collection.Add(param1);
 
