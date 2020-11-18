@@ -1,12 +1,15 @@
 ﻿using AReport.Support.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace AReport.Support.Entity
 {
-    // Tabla: AA_Incidencias
+    /*
+     CREATE TABLE [dbo].[AA_Incidencias](
+	    [IncidenciaId] [int] IDENTITY(1,1) NOT NULL,
+	    [CausaId] [int] NOT NULL,
+	    [Observacion] [varchar](80) NULL,
+    */
 
     [Serializable]
     public class Incidencia : IEntityStatus

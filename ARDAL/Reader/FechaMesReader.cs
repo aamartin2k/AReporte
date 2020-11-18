@@ -1,6 +1,4 @@
 ﻿using AReport.Support.Entity;
-using System.Collections.ObjectModel;
-using System.Data;
 using System;
 
 namespace AReport.DAL.Reader

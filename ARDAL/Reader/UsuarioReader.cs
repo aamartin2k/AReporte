@@ -1,6 +1,5 @@
 ﻿
 using AReport.Support.Entity;
-
 using System;
 
 namespace AReport.DAL.Reader
@@ -25,12 +24,6 @@ namespace AReport.DAL.Reader
         {
             get { return "[AA_Usuarios]"; } 
         }
-
-        // To Override if needed Select with paramaters
-        //protected override string CommandText
-        //{
-        //    get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
-        //}
 
         protected override string ColumnList
         {

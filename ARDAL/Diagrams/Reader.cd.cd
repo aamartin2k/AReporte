@@ -1,28 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="AReport.DAL.Reader.ObjectReaderBase&lt;T&gt;" Collapsed="true">
-    <Position X="2.5" Y="1.75" Width="1.75" />
+    <Position X="2.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAASAAAAAAAAgAAAAAAAAAAAAgBAACAA=</HashCode>
       <FileName>Reader\ObjectReaderBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AReport.DAL.Reader.TableDataBase&lt;T&gt;" Collapsed="true">
-    <Position X="2.5" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
-      <FileName>Reader\TableDataBase.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AReport.DAL.Reader.MapperBase&lt;T&gt;" Collapsed="true">
-    <Position X="7" Y="1.75" Width="1.75" />
+    <Position X="9.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Reader\MapperBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.UsuarioMapper" Collapsed="true">
-    <Position X="6.5" Y="4.5" Width="1.75" />
+    <Position X="9.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Reader\UsuarioMapper.cs</FileName>
@@ -43,21 +36,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.FechaMesMapper" Collapsed="true">
-    <Position X="8.5" Y="4.5" Width="1.75" />
+    <Position X="11.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Reader\FechaMesMapper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.CommonReader&lt;T&gt;" Collapsed="true">
-    <Position X="2.5" Y="3" Width="1.75" />
+    <Position X="2.5" Y="2" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAgAAgQAAAAA=</HashCode>
       <FileName>Reader\CommonReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.ClaveMesReader" Collapsed="true">
-    <Position X="4.5" Y="4.5" Width="1.5" />
+    <Position X="4.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
       <FileName>Reader\ClaveMesReader.cs</FileName>
@@ -71,17 +64,59 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.CheckinoutReader" Collapsed="true">
-    <Position X="2.5" Y="5.5" Width="1.5" />
+    <Position X="2.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAgAAgQAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
       <FileName>Reader\CheckinoutReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.CheckinoutMapper" Collapsed="true">
-    <Position X="6.5" Y="5.5" Width="1.75" />
+    <Position X="9.25" Y="4.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Reader\CheckinoutMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.DescriptorReader&lt;T&gt;" Collapsed="true">
+    <Position X="6.75" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAACAgAAAAAA=</HashCode>
+      <FileName>Reader\DescriptorReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.CausaIncidenciaReader" Collapsed="true">
+    <Position X="6.75" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgCAAQAACAA=</HashCode>
+      <FileName>Reader\CausaIncidenciaReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.RoleReader" Collapsed="true">
+    <Position X="8.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgCAAQAACAA=</HashCode>
+      <FileName>Reader\RoleReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.IncidenciaReader" Collapsed="true">
+    <Position X="4" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
+      <FileName>Reader\IncidenciaReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.IncidenciaMapper" Collapsed="true">
+    <Position X="11.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reader\IncidenciaMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.DiaSemanaReader" Collapsed="true">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgCAAQAACAA=</HashCode>
+      <FileName>Reader\DiaSemanaReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

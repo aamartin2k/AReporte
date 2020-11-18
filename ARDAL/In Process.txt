@@ -6,28 +6,28 @@ De datos, solo lectura:
 						DataHandler	Reader	Mapper
 Checkinout					*		*		*
 Dept						*		*		*
-Status ?? D					*		
+Status ?? D					*		*		*
 Userinfo					*		*		*
 
 De aplicación lectura y escritura:
-						DataHandler	Reader	Writer  Insert  Delete  Update	TableDataBase
+						DataHandlr	Read/Map	Writer  Insert  Delete  Update	TableDataBase
 AA_Asistencias																
-AA_CausaIncidencia D		*		*		*		*		*		*			
-AA_ClavesMes				*		*		*		*		*		*		*	
+AA_CausaIncidencia D		*		*			*		*		*		*			
+AA_ClavesMes				*		*			*		*		*		*		*	
 AA_Configuracion
-AA_DiasSemana D				*		*		*		*		*		*
+AA_DiasSemana D				*		*			*		*		*		*
 
-AA_FechasMes				*		*		*		*		*		*		*
-AA_Incidencias
->AA_JefesDept
-AA_Roles D					*		*		*		*		*		*
-AA_Usuarios					*		*		*		*		*		*		*
+AA_FechasMes				*		*			*		*		*		*		*
+AA_Incidencias				*		*			*		*		*		*		*		
+>AA_JefesDept				*		*			*		*		*		*		*
+AA_Roles D					*		*			*		*		*		*
+AA_Usuarios					*		*			*		*		*		*		*
  
  
  
- Implementar que todos los Readers que no deriven de Descriptor, deriven de CommandTextReader
-  -AA_Asistencias  -AA_Configuracion  -AA_Incidencias -AA_JefesDept 
-  -Checkinout 
+ Implementar que todos los Readers que no deriven de Descriptor, deriven de CommonReader
+  -AA_Asistencias  -AA_Configuracion   -AA_JefesDept 
+  
  
  Implementar que todos los IUD Writers que no deriven de Descriptor, deriven de TableDataBase
  
@@ -37,5 +37,5 @@ AA_Usuarios					*		*		*		*		*		*		*
 
  Implementar clase <>TableData que Derive de CommandTextWriter<T> , con nombre de tabla, campos y parametros,  se requiere una para cada tipo.
 
- Analizar si DescriptorMapper y Reader puedn derivar nombre s comunes
+ 
  

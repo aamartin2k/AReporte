@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Reader.DescriptorReader&lt;T&gt;" Collapsed="true">
-    <Position X="2.5" Y="4" Width="1.75" />
+    <Position X="2.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAQAAAAAAAAAAAAAAAAAAACAgAAAAAA=</HashCode>
       <FileName>Reader\DescriptorReader.cs</FileName>
@@ -82,6 +82,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Reader\StatusMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Reader.DepartamentoReader" Collapsed="true">
+    <Position X="3.5" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAQAAAAAAAAAAAAAAAAAAACAAQAACAA=</HashCode>
+      <FileName>Reader\DepartamentoReader.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

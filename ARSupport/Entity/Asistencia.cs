@@ -6,7 +6,16 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
-    // Tabla:  AA_Asistencias
+    /*
+     CREATE TABLE [dbo].[AA_Asistencias](
+	    [FechaId] [int] NOT NULL,
+	    [Userid] [varchar](20) NOT NULL,
+	    [ChekInId] [int] NULL,
+	    [ChekOutId] [int] NULL,
+	    [IncidenciaId] [int] NULL
+     ) ON [PRIMARY]
+     */
+
     [Serializable]
     public class Asistencia : IEntityStatus
     {

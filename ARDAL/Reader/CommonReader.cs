@@ -8,6 +8,10 @@ namespace AReport.DAL.Reader
 {
     public abstract class CommonReader<T> : ObjectReaderBase<T>
     {
+        protected abstract string TableName { get; }
+
+        protected abstract string ParamPKId { get; }
+
         protected abstract string ColumnList { get; }
 
 

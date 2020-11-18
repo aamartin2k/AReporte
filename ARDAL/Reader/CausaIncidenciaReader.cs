@@ -31,6 +31,15 @@ namespace AReport.DAL.Reader
             get { return "@CausaIdParam"; }
         }
 
+        //protected override string ColumnList
+        //{
+        //    get
+        //    {
+        //        // "SELECT {0}, {1} FROM [dbo].{2}", IdFieldName, DescriptionFieldName, TableName); }
+        //        return string.Format("{0}, {1}", IdFieldName, DescriptionFieldName);
+        //    }
+        //}
+
         protected override MapperBase<CausaIncidencia> GetMapper()
         {
             MapperBase<CausaIncidencia> mapper = new CausaIncidenciaMapper();

@@ -18,31 +18,22 @@ namespace AReport.DAL.Reader
     {
         protected override string ColumnList
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return "[Logid], [Userid], [CheckTime], [CheckType]"; }
         }
 
-        protected override string CommandText
-        {
-            get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
-        }
+        //protected override string CommandText
+        //{
+        //    get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
+        //}
 
         protected override string ParamPKId
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return "@LogidParam"; }
         }
 
         protected override string TableName
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return "[Checkinout]"; }
         }
 
         protected override MapperBase<Checkinout> GetMapper()
@@ -51,10 +42,6 @@ namespace AReport.DAL.Reader
             return mapper;
         }
 
-        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
-        {
-            Collection<IDataParameter> collection = new Collection<IDataParameter>();
-            return collection;
-        }
+        
     }
 }
