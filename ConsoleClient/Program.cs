@@ -98,7 +98,7 @@ namespace ConsoleClient
             {
                 foreach (var dpt in rst.Departamentos)
                 {
-                    Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.Status));
+                    Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.State));
                 }
             }
             else
@@ -181,7 +181,7 @@ namespace ConsoleClient
         static void CreateUsuarios(Collection<Usuario> people)
         {
             var usr = new Usuario();
-            usr.Status = EntityState.Added;
+            usr.State = EntityState.Added;
             usr.UserId = "62111332336";
             usr.RoleIdEnum = UserRoleEnum.JefeDepartamento;
             usr.Login = "Pepe";
@@ -190,7 +190,7 @@ namespace ConsoleClient
             people.Add(usr);
 
             usr = new Usuario();
-            usr.Status = EntityState.Added;
+            usr.State = EntityState.Added;
             usr.UserId = "62020815065";
             usr.RoleIdEnum = UserRoleEnum.Supervisor;
             usr.Login = "Tata";
@@ -200,7 +200,7 @@ namespace ConsoleClient
 
 
             usr = new Usuario();
-            usr.Status = EntityState.Added;
+            usr.State = EntityState.Added;
             usr.UserId = "59020201384";
             usr.RoleIdEnum = UserRoleEnum.Administrador;
             usr.Login = "Admin";

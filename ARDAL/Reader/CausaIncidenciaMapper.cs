@@ -1,4 +1,5 @@
-﻿using AReport.Support.Entity;
+﻿using System;
+using AReport.Support.Entity;
 using AReport.Support.Interface;
 
 namespace AReport.DAL.Reader
@@ -11,22 +12,20 @@ namespace AReport.DAL.Reader
 
     class CausaIncidenciaMapper : DescriptorMapper<CausaIncidencia>
     {
-        protected override string DescriptionField
+        protected override string DescriptionFieldName
         {
             get { return "[Description]"; }
         }
 
         protected override IDescriptor GetEntity
         {
-            get
-            {
-                return new CausaIncidencia();
-            }
+            get {   return new CausaIncidencia();   }
         }
 
-        protected override string IdField
+        protected override string IdFieldName
         {
             get { return "[CausaId]"; }
         }
+
     }
 }

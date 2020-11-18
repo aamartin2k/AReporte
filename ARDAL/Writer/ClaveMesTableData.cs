@@ -9,7 +9,7 @@ namespace AReport.DAL.Writer
    [Anno] [int] NOT NULL,
     */
 
-    public abstract class ClaveMesTableData : TableDataBase<ClaveMes>
+    public abstract class ClaveMesTableData : CommandTextWriter<ClaveMes>
     {
         protected override string TableName
         { get { return "[AA_ClavesMes]"; } }

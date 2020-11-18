@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Writer.CausaIncidenciaWriter" Collapsed="true">
-    <Position X="4.5" Y="4.25" Width="1.75" />
+    <Position X="4.25" Y="4.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
       <FileName>Writer\CausaIncidenciaWriter.cs</FileName>
@@ -33,6 +33,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
       <FileName>Writer\DiaSemanaWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.FechaMesWriter" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\FechaMesWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.ClaveMesWriter" Collapsed="true">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABBQAAAAAAAAAAA=</HashCode>
+      <FileName>Writer\ClaveMesWriter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

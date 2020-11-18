@@ -3,7 +3,7 @@ using System.Data;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class DescriptorDelete<T> : TableDataBase<T>
+    public abstract class DescriptorDelete<T> : CommandTextWriter<T>
     {
       
 

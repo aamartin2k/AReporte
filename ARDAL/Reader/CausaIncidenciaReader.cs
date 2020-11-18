@@ -1,4 +1,5 @@
-﻿using AReport.Support.Entity;
+﻿using System;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Reader
 {
@@ -15,14 +16,19 @@ namespace AReport.DAL.Reader
             get { return "[AA_CausaIncidencia]"; }
         }
 
-        protected override string IdField
+        protected override string IdFieldName
         {
             get { return "[CausaId]"; }
         }
 
-        protected override string DescriptionField
+        protected override string DescriptionFieldName
         {
             get { return "[Description]"; }
+        }
+
+        protected override string ParamPKId
+        {
+            get { return "@CausaIdParam"; }
         }
 
         protected override MapperBase<CausaIncidencia> GetMapper()

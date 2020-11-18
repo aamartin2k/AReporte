@@ -1,7 +1,7 @@
 ﻿
 using AReport.Support.Entity;
-using System.Collections.ObjectModel;
-using System.Data;
+
+using System;
 
 namespace AReport.DAL.Reader
 {
@@ -14,11 +14,27 @@ namespace AReport.DAL.Reader
 	[Password] [varchar](20) NOT NULL,
     */
 
-    class UsuarioReader : CommandTextReader<Usuario> 
+    class UsuarioReader : CommonReader<Usuario>   
     {
-        protected override string CommandText
+        protected override string ParamPKId
         {
-            get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
+            get {   throw new NotImplementedException();    }
+        }
+
+        protected override string TableName
+        {
+            get { return "[AA_Usuarios]"; } 
+        }
+
+        // To Override if needed Select with paramaters
+        //protected override string CommandText
+        //{
+        //    get { return "SELECT [Id], [UserId], [RoleId], [Login], [Password] FROM [dbo].[AA_Usuarios]"; }
+        //}
+
+        protected override string ColumnList
+        {
+            get { return "[Id], [UserId], [RoleId], [Login], [Password]";  }
         }
 
         protected override MapperBase<Usuario> GetMapper()
@@ -27,11 +43,7 @@ namespace AReport.DAL.Reader
             return mapper;
         }
 
-        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
-        {
-            Collection<IDataParameter> collection = new Collection<IDataParameter>();
-            return collection;
-        }
+        
     }
 
 }

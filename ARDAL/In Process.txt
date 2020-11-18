@@ -6,7 +6,7 @@ De datos, solo lectura:
 						DataHandler	Reader	Mapper
 Checkinout					*		*		*
 Dept						*		*		*
-Status ??
+Status ?? D					*		
 Userinfo					*		*		*
 
 De aplicación lectura y escritura:
@@ -37,4 +37,5 @@ AA_Usuarios					*		*		*		*		*		*		*
 
  Implementar clase <>TableData que Derive de CommandTextWriter<T> , con nombre de tabla, campos y parametros,  se requiere una para cada tipo.
 
+ Analizar si DescriptorMapper y Reader puedn derivar nombre s comunes
  

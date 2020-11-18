@@ -32,7 +32,7 @@ namespace AReport.DAL.Writer
                     //IEntityStatus nent = entity as IEntityStatus;
                     //ObjectWriterBase<T> writer = GetWriter(nent.Status);
                   
-                    EntityWriter<T> writer = GetWriter((entity as IEntityStatus).Status);
+                    EntityWriter<T> writer = GetWriter((entity as IEntityStatus).State);
 
                     if (writer != null)
                     {

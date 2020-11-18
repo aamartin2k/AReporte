@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
+using System;
 
 namespace AReport.DAL.Reader
 {
@@ -10,23 +11,35 @@ namespace AReport.DAL.Reader
 	[Mes] [int] NOT NULL,
 	[Anno] [int] NOT NULL,
      */
-    class ClaveMesReader : CommandTextReader<ClaveMes> 
+    class ClaveMesReader : CommonReader<ClaveMes> 
     {
-        protected override string CommandText
+        protected override string ColumnList
         {
-            get { return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]"; }
+            get { return "[MesId], [Mes], [Anno]"; }
+        }
+
+        //protected override string CommandText
+        //{
+        //    get { return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]"; }
+        //}
+
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get { return "[AA_ClavesMes]"; }
         }
 
         protected override MapperBase<ClaveMes> GetMapper()
         {
             MapperBase<ClaveMes> mapper = new ClavesMesMapper();
             return mapper;
-        }
-
-        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
-        {
-            Collection<IDataParameter> collection = new Collection<IDataParameter>();
-            return collection;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class ClaveMes : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
 

@@ -14,9 +14,9 @@ namespace AReport.Support.Query
     [Serializable]
     public class DepartamentQueryResult
     {
-        public Collection<Departamento> Departamentos { get; }
+        public Collection<Dept> Departamentos { get; }
 
-        public DepartamentQueryResult(Collection<Departamento> datos)
+        public DepartamentQueryResult(Collection<Dept> datos)
         { Departamentos = datos; }
     }
 }

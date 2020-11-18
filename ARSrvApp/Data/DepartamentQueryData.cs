@@ -17,7 +17,7 @@ namespace AReport.Srv.Data
             _dataReader = dataReader;
         }
 
-        public Collection<Departamento> Departamentos
+        public Collection<Dept> Departamentos
         {
             get { return _dataReader.Collection; }
            

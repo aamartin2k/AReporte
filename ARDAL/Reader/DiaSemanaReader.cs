@@ -15,14 +15,19 @@ namespace AReport.DAL.Reader
             get { return "[AA_DiasSemana]"; }
         }
 
-        protected override string IdField
+        protected override string IdFieldName
         {
             get { return "[DiaSemanaId]"; }
         }
 
-        protected override string DescriptionField
+        protected override string DescriptionFieldName
         {
             get { return "[Description]"; }
+        }
+
+        protected override string ParamPKId
+        {
+            get { return "@DiaSemanaIdParam"; }
         }
 
         protected override MapperBase<DiaSemana> GetMapper()

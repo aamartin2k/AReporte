@@ -5,6 +5,6 @@ namespace AReport.Support.Interface
 {
     public interface IEntityStatus
     {
-        EntityState Status { get; set; }
+        EntityState State { get; set; }
     }
 }

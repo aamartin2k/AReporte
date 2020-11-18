@@ -1,20 +1,19 @@
-﻿
+﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
+using System;
+
 
 namespace AReport.DAL.Reader
 {
-   
-
-    public abstract class DescriptorReader<T> : ObjectReaderBase<T>
+    public abstract class CommonReader<T> : ObjectReaderBase<T>
     {
-        protected abstract string IdFieldName { get; }
-        protected abstract string DescriptionFieldName { get;  }
+        protected abstract string ColumnList { get; }
 
 
         protected override string CommandText
         {
-            get { return string.Format("SELECT {0}, {1} FROM [dbo].{2}", IdFieldName, DescriptionFieldName, TableName); }
+            get { return string.Format( "SELECT {0} FROM [dbo].{1}", ColumnList, TableName); }
         }
 
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)
@@ -22,5 +21,6 @@ namespace AReport.DAL.Reader
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
         }
+
     }
 }

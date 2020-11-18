@@ -11,7 +11,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class Incidencia : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
 

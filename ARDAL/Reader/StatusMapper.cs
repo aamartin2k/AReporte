@@ -4,28 +4,29 @@ using AReport.Support.Interface;
 
 namespace AReport.DAL.Reader
 {
-    /*
-     CREATE TABLE [dbo].[AA_DiasSemana](
-	    [DiaSemanaId] [int] IDENTITY(1,1) NOT NULL,
-	    [Description] [varchar](12) NOT NULL,
-     */
-
-    class DiaSemanaMapper : DescriptorMapper<DiaSemana> 
+    class StatusMapper : DescriptorMapper<Status>
     {
         protected override string DescriptionFieldName
         {
-            get { return "[Description]"; }
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         protected override IDescriptor GetEntity
         {
-            get {   return new DiaSemana(); }
+            get { return new Status(); }
         }
+
+       
 
         protected override string IdFieldName
         {
-            get { return "[DiaSemanaId]"; }
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
-  
     }
 }

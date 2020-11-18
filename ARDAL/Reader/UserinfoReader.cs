@@ -12,11 +12,35 @@ namespace AReport.DAL.Reader
        [Deptid] [int] NOT NULL,
     */
 
-    class UserinfoReader : CommandTextReader<Userinfo>
+    class UserinfoReader : CommonReader<Userinfo>
     {
+        protected override string ColumnList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         protected override string CommandText
         {
             get { return "SELECT [Userid], [Name], [Deptid] FROM [dbo].[Userinfo]"; }
+        }
+
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         protected override MapperBase<Userinfo> GetMapper()

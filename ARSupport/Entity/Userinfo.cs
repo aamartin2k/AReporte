@@ -19,7 +19,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class Userinfo : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
         public string Id

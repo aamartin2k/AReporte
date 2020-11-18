@@ -49,13 +49,14 @@
     <Compile Include="Entity\Checkinout.cs" />
     <Compile Include="Entity\ClavesMes.cs" />
     <Compile Include="Entity\Configuracion.cs" />
-    <Compile Include="Entity\Departamento.cs" />
+    <Compile Include="Entity\Dept.cs" />
     <Compile Include="Entity\DiaSemana.cs" />
     <Compile Include="Entity\EntityState.cs" />
     <Compile Include="Entity\FechaMes.cs" />
     <Compile Include="Entity\Incidencia.cs" />
     <Compile Include="Entity\JefesDept.cs" />
     <Compile Include="Entity\Role.cs" />
+    <Compile Include="Entity\Status.cs" />
     <Compile Include="Entity\Userinfo.cs" />
     <Compile Include="Entity\Usuario.cs" />
     <Compile Include="Interface\IDescriptor.cs" />

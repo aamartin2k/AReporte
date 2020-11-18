@@ -10,7 +10,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class Usuario : IEntityStatus 
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
         public int Id

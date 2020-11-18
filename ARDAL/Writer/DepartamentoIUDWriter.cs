@@ -14,7 +14,7 @@ namespace AReport.DAL.Writer
         La Tabla Dept solo se lee.
   */
 
-    public class DepartamentoInsert : CommandTextWriter<Departamento>
+    public class DepartamentoInsert : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {
@@ -24,7 +24,21 @@ namespace AReport.DAL.Writer
             }
         }
 
-      
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)
         {
@@ -32,7 +46,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class DepartamentoUpdate : CommandTextWriter<Departamento>
+    public class DepartamentoUpdate : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {
@@ -42,7 +56,21 @@ namespace AReport.DAL.Writer
             }
         }
 
-        
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)
         {
@@ -50,7 +78,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class DepartamentoDelete : CommandTextWriter<Departamento>
+    public class DepartamentoDelete : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {
@@ -60,6 +88,21 @@ namespace AReport.DAL.Writer
             }
         }
 
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)
         {

@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
+using System;
 
 namespace AReport.DAL.Reader
 {
@@ -11,25 +12,43 @@ namespace AReport.DAL.Reader
 	    [SupDeptid] [int] NOT NULL,
      */
 
-    class DepartamentoReader : CommandTextReader<Departamento> 
+    class DepartamentoReader : DescriptorReader<Dept> 
     {
         protected override string CommandText
         {
                 get { return "SELECT [Deptid], [DeptName] FROM [dbo].[Dept]"; }
         }
 
-       
-        protected override MapperBase<Departamento> GetMapper()
+        protected override string DescriptionFieldName
         {
-            MapperBase<Departamento> mapper = new DepartamentoMapper();
+            get { return "[DeptName]"; }
+        }
+
+        protected override string IdFieldName
+        {
+            get { return "[Deptid]"; }
+        }
+
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get { return "[Dept]"; }
+        }
+
+        protected override MapperBase<Dept> GetMapper()
+        {
+            MapperBase<Dept> mapper = new DepartamentoMapper();
             return mapper;
         }
 
-        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
-        {
-            Collection<IDataParameter> collection = new Collection<IDataParameter>();
-            return collection;
-        }
+       
     }
 
 

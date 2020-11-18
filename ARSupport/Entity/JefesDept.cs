@@ -16,7 +16,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class JefesDept : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
 

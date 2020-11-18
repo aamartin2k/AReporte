@@ -10,7 +10,7 @@ namespace AReport.DAL.Writer
 	    [DiaSemanaId] [int] NOT NULL,
      */
 
-    public abstract class FechaMesTableData : TableDataBase<FechaMes>
+    public abstract class FechaMesTableData : CommandTextWriter<FechaMes>
     {
         
         protected override string TableName

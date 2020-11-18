@@ -17,7 +17,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class Checkinout : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
         public int LogId

@@ -47,6 +47,7 @@
     <Compile Include="Entity\EntityDataHandler.cs" />
     <Compile Include="Entity\FechaMesDataHandler.cs" />
     <Compile Include="Entity\RoleDataHandler.cs" />
+    <Compile Include="Entity\StatusDataHandler.cs" />
     <Compile Include="Entity\UserinfoDataHandler.cs" />
     <Compile Include="Entity\UsuarioDataHandler.cs" />
     <Compile Include="Reader\CausaIncidenciaMapper.cs" />
@@ -55,7 +56,9 @@
     <Compile Include="Reader\CheckinoutReader.cs" />
     <Compile Include="Reader\ClaveMesReader.cs" />
     <Compile Include="Reader\ClavesMesMapper.cs" />
-    <Compile Include="Reader\CommandTextReader.cs" />
+    <None Include="Diagrams\Reader.cd.cd" />
+    <None Include="Reader\CommandTextReader.cs" />
+    <Compile Include="Reader\CommonReader.cs" />
     <Compile Include="Reader\DepartamentoMapper.cs" />
     <Compile Include="Reader\DepartamentoReader.cs" />
     <Compile Include="Reader\DescriptorMapper.cs" />
@@ -66,6 +69,9 @@
     <Compile Include="Reader\FechaMesReader.cs" />
     <Compile Include="Reader\RoleMapper.cs" />
     <Compile Include="Reader\RoleReader.cs" />
+    <Compile Include="Reader\StatusMapper.cs" />
+    <Compile Include="Reader\StatusReader.cs" />
+    <Compile Include="Reader\TableDataBase.cs" />
     <Compile Include="Reader\UserinfoMapper.cs" />
     <Compile Include="Reader\UserinfoReader.cs" />
     <Compile Include="Reader\UsuarioMapper.cs" />
@@ -95,14 +101,13 @@
     <Compile Include="Writer\RoleIUDWriter.cs" />
     <Compile Include="Writer\CommandTextWriter.cs" />
     <Compile Include="Writer\FechaMesTableData.cs" />
-    <Compile Include="Writer\TableDataBase.cs" />
     <Compile Include="Writer\UsuarioTableData.cs" />
     <Compile Include="Writer\UsuarioWriter.cs" />
     <Compile Include="Writer\UsuarioIUDWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Diagrams\Descriptors.cd" />
-    <None Include="Diagrams\Reader.cd" />
+    <None Include="Diagrams\Descriptors - Reader.cd" />
+    <None Include="Diagrams\Descriptors - Writer.cd" />
     <None Include="Diagrams\Writer.cd" />
     <None Include="Diagrams\EntityWriter.cd" />
   </ItemGroup>

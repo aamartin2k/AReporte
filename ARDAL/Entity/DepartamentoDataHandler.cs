@@ -6,17 +6,19 @@ using System;
 
 namespace AReport.DAL.Entity
 {
-    public class DepartamentoDataHandler : EntityDataHandler<Departamento>
+    public class DepartamentoDataHandler : EntityDataHandler<Dept>
     {
-        protected override ObjectWriterBase<Departamento> GetWriter()
-        {
-            return new DepartamentoWriter();
-        }
-
-        protected override ObjectReaderBase<Departamento> GetReader()
+        protected override ObjectReaderBase<Dept> GetReader()
         {
             return new DepartamentoReader();
         }
+
+        protected override ObjectWriterBase<Dept> GetWriter()
+        {
+            throw new NotImplementedException();
+        }
+
+        
 
        
 

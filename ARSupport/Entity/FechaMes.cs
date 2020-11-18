@@ -18,7 +18,7 @@ namespace AReport.Support.Entity
     [Serializable]
     public class FechaMes : IEntityStatus
     {
-        public EntityState Status
+        public EntityState State
         { get; set; }
 
         public int FechaId

@@ -1,6 +1,6 @@
-﻿using AReport.Support.Entity;
-using System.Collections.ObjectModel;
-using System.Data;
+﻿using System;
+using AReport.Support.Entity;
+
 
 namespace AReport.DAL.Reader
 {
@@ -16,16 +16,21 @@ namespace AReport.DAL.Reader
             get { return "[AA_Roles]"; }
         }
 
-        protected override string IdField
+        protected override string IdFieldName
         {
             get { return "[RoleId]"; }
         }
 
-        protected override string DescriptionField
+        protected override string DescriptionFieldName
         {
             get { return "[Description]"; }
         }
-       
+
+        protected override string ParamPKId
+        {
+            get { return "@RoleIdParam"; }
+        }
+
         protected override MapperBase<Role> GetMapper()
         {
             MapperBase<Role> mapper = new RoleMapper();

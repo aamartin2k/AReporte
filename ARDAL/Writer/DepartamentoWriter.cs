@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AReport.DAL.Writer
 {
-    class DepartamentoWriter : IntermWriter<Departamento> 
+    class DepartamentoWriter : IntermWriter<Dept> 
     {
-        protected override EntityWriter<Departamento> GetDeleteWriter
+        protected override EntityWriter<Dept> GetDeleteWriter
         {
             get
             {
@@ -16,7 +16,7 @@ namespace AReport.DAL.Writer
             }
         }
 
-        protected override EntityWriter<Departamento> GetInsertWriter
+        protected override EntityWriter<Dept> GetInsertWriter
         {
             get
             {
@@ -24,7 +24,7 @@ namespace AReport.DAL.Writer
             }
         }
 
-        protected override EntityWriter<Departamento> GetUpdateWriter
+        protected override EntityWriter<Dept> GetUpdateWriter
         {
             get
             {

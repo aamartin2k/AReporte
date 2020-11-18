@@ -13,7 +13,7 @@
   <Class Name="AReport.DAL.Writer.CommandTextWriter&lt;T&gt;" Collapsed="true">
     <Position X="2.25" Y="1.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
       <FileName>Writer\CommandTextWriter.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -68,7 +68,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Writer.FechaMesTableData" Collapsed="true">
-    <Position X="8.75" Y="4.5" Width="1.75" />
+    <Position X="8.75" Y="4" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAgAAAQQAAAA=</HashCode>
       <FileName>Writer\FechaMesTableData.cs</FileName>
@@ -88,11 +88,32 @@
       <FileName>Writer\FechaMesIUDWriter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AReport.DAL.Writer.TableDataBase&lt;T&gt;" Collapsed="true">
-    <Position X="2.25" Y="2.75" Width="1.75" />
+  <Class Name="AReport.DAL.Writer.UsuarioTableData" Collapsed="true">
+    <Position X="8.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAQAAAAA=</HashCode>
-      <FileName>Writer\TableDataBase.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAQAAAgAAAIgAAAQAAAAA=</HashCode>
+      <FileName>Writer\UsuarioTableData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.UsuarioInsert" Collapsed="true">
+    <Position X="11.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\UsuarioIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.UsuarioUpdate" Collapsed="true">
+    <Position X="13.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\UsuarioIUDWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.DAL.Writer.UsuarioDelete" Collapsed="true">
+    <Position X="9.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Writer\UsuarioIUDWriter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

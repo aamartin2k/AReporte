@@ -5,13 +5,13 @@ using System.Data;
 namespace AReport.DAL.Reader
 {
 
-    class DepartamentoMapper : MapperBase<Departamento>
+    class DepartamentoMapper : MapperBase<Dept>
     {
-        protected override Departamento Map(IDataRecord record)
+        protected override Dept Map(IDataRecord record)
         {
             try
             {
-                Departamento dept = new Departamento();
+                Dept dept = new Dept();
 
 
                 dept.Id = (DBNull.Value == record["Deptid"]) ?

@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using System.Data;
+using System;
 
 namespace AReport.DAL.Reader
 {
@@ -13,12 +14,35 @@ namespace AReport.DAL.Reader
 	..
      */
 
-    class CheckinoutReader : CommandTextReader<Checkinout>
+    class CheckinoutReader : CommonReader<Checkinout>
     {
+        protected override string ColumnList
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         protected override string CommandText
         {
             get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
+        }
+
+        protected override string ParamPKId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        protected override string TableName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         protected override MapperBase<Checkinout> GetMapper()

@@ -5,13 +5,20 @@ using System.Data;
 
 namespace AReport.DAL.Reader
 {
-    public abstract class ObjectReaderBase<T>
+    public abstract class ObjectReaderBase<T> : TableDataBase<T>
     {
-        //protected abstract IDbConnection GetConnection();
+        
         protected abstract string CommandText { get; }
-        protected abstract CommandType CommandType { get; }
+        
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command);
         protected abstract MapperBase<T> GetMapper();
+
+
+        protected  CommandType CommandType
+        {
+            get { return CommandType.Text; }
+        }
+
 
         protected  System.Data.IDbConnection GetConnection()
         {
