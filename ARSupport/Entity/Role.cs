@@ -7,13 +7,15 @@ using System.Text;
 namespace AReport.Support.Entity
 {
     [Serializable]
-    public class Role : IEntityStatus, IDescriptor
+    public class Role : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 
-        public int Id
-        { get; set; }
+       
 
         public string Description
         { get; set; }

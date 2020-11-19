@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AReport.DAL.Reader
 {
-    public abstract class ObjectReaderBase<T> //: TableDataBase<T>
+    public abstract class ObjectReaderBase<T> 
     {
         
         protected abstract string CommandText { get; }

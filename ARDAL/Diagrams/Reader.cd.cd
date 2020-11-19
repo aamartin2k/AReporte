@@ -24,7 +24,7 @@
   <Class Name="AReport.DAL.Reader.UsuarioReader" Collapsed="true">
     <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
       <FileName>Reader\UsuarioReader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,17 +42,10 @@
       <FileName>Reader\FechaMesMapper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AReport.DAL.Reader.CommonReader&lt;T&gt;" Collapsed="true">
-    <Position X="2.5" Y="2" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAgAAgQAAAAA=</HashCode>
-      <FileName>Reader\CommonReader.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AReport.DAL.Reader.ClaveMesReader" Collapsed="true">
     <Position X="4.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
       <FileName>Reader\ClaveMesReader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -66,7 +59,7 @@
   <Class Name="AReport.DAL.Reader.CheckinoutReader" Collapsed="true">
     <Position X="2.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAgAAAQAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
       <FileName>Reader\CheckinoutReader.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,17 +70,10 @@
       <FileName>Reader\CheckinoutMapper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AReport.DAL.Reader.DescriptorReader&lt;T&gt;" Collapsed="true">
-    <Position X="6.75" Y="5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAACAgAAAAAA=</HashCode>
-      <FileName>Reader\DescriptorReader.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AReport.DAL.Reader.CausaIncidenciaReader" Collapsed="true">
     <Position X="6.75" Y="6.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAgCAAQAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAACAA=</HashCode>
       <FileName>Reader\CausaIncidenciaReader.cs</FileName>
     </TypeIdentifier>
   </Class>

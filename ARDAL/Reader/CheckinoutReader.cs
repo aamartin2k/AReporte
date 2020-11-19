@@ -14,26 +14,13 @@ namespace AReport.DAL.Reader
 	..
      */
 
-    class CheckinoutReader : CommonReader<Checkinout>
+    class CheckinoutReader : ObjectReaderBase<Checkinout>
     {
-        protected override string ColumnList
-        {
-            get { return "[Logid], [Userid], [CheckTime], [CheckType]"; }
-        }
 
-        //protected override string CommandText
-        //{
-        //    get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
-        //}
 
-        protected override string ParamPKId
+        protected override string CommandText
         {
-            get { return "@LogidParam"; }
-        }
-
-        protected override string TableName
-        {
-            get { return "[Checkinout]"; }
+            get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
         }
 
         protected override MapperBase<Checkinout> GetMapper()
@@ -42,6 +29,11 @@ namespace AReport.DAL.Reader
             return mapper;
         }
 
-        
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
+        }
+
     }
 }

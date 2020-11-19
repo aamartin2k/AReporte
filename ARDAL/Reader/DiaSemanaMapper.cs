@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using AReport.Support.Entity;
 using AReport.Support.Interface;
 
@@ -10,22 +11,31 @@ namespace AReport.DAL.Reader
 	    [Description] [varchar](12) NOT NULL,
      */
 
-    class DiaSemanaMapper : DescriptorMapper<DiaSemana> 
+    class DiaSemanaMapper : MapperBase<DiaSemana>
     {
-        protected override string DescriptionFieldName
+        protected override DiaSemana Map(IDataRecord record)
         {
-            get { return "[Description]"; }
-        }
+            try
+            {
+                DiaSemana obj = new DiaSemana();
 
-        protected override IDescriptor GetEntity
-        {
-            get {   return new DiaSemana(); }
-        }
+                obj.Id = (DBNull.Value == record["DiaSemanaId"]) ?
+                            0 : (int)record["DiaSemanaId"];
 
-        protected override string IdFieldName
-        {
-            get { return "[DiaSemanaId]"; }
+                obj.Description = (DBNull.Value == record["Description"]) ?
+                           string.Empty : (string)record["Description"];
+
+
+                return obj;
+            }
+            catch
+            {
+                throw;
+
+                // NOTE: 
+                // consider handling exeption here instead of re-throwing
+                // if graceful recovery can be accomplished
+            }
         }
-  
     }
 }

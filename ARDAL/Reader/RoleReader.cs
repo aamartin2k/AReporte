@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
+using System.Data;
 using AReport.Support.Entity;
 
 
@@ -9,26 +10,12 @@ namespace AReport.DAL.Reader
 	        [RoleId] [int] IDENTITY(1,1) NOT NULL,
 	        [Description] [varchar](20) NOT NULL,
      */
-    class RoleReader : DescriptorReader<Role> 
+    class RoleReader : ObjectReaderBase<Role> 
     {
-        protected override string TableName
+        
+        protected override string CommandText
         {
-            get { return "[AA_Roles]"; }
-        }
-
-        protected override string IdFieldName
-        {
-            get { return "[RoleId]"; }
-        }
-
-        protected override string DescriptionFieldName
-        {
-            get { return "[Description]"; }
-        }
-
-        protected override string ParamPKId
-        {
-            get { return "@RoleIdParam"; }
+            get { return "SELECT [RoleId], [Description] FROM dbo.[AA_Roles]"; }
         }
 
         protected override MapperBase<Role> GetMapper()
@@ -37,5 +24,10 @@ namespace AReport.DAL.Reader
             return mapper;
         }
 
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
+        }
     }
 }

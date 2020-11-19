@@ -14,14 +14,15 @@ namespace AReport.Support.Entity
      */
 
     [Serializable]
-    public class JefesDept : IEntityStatus
+    public class JefesDept : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 
-
-        public int JefeId
-        { get; set; }
+               
 
         public int DepartamentoId
         { get; set; }

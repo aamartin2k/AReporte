@@ -17,12 +17,16 @@ namespace AReport.Support.Entity
     // Empleados, no confundir con usuarios del sistema. No se leen todos las columnas, 
     // solo las necesarias para usar como selector.
     [Serializable]
-    public class Userinfo : IEntityStatus
+    public class Userinfo : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 
-        public string Id
+
+        public string Userid
         { get; set; }
 
         public string Nombre

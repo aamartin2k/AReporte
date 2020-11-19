@@ -9,10 +9,15 @@ namespace AReport.Support.Entity
     // Tabla:  AA_Configuracion
 
     [Serializable]
-    public class Configuracion : IEntityStatus
+    public class Configuracion : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
+
+
 
         public int CfgId
         { get; set; }

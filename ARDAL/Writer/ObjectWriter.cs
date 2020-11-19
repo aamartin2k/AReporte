@@ -15,7 +15,8 @@ namespace AReport.DAL.Writer
 
         public bool Write(Collection<T> collection)
         {
-            // cambiar result a bool
+            // entidades a ser eliminadas
+            Collection<T> deleteColl = new Collection<T>();
 
             // crear conexion y comenzar transaccion   
             IDbTransaction transaction;
@@ -29,10 +30,8 @@ namespace AReport.DAL.Writer
 
                 foreach (T entity in collection)
                 {
-                    //IEntityStatus nent = entity as IEntityStatus;
-                    //ObjectWriterBase<T> writer = GetWriter(nent.Status);
                   
-                    EntityWriter<T> writer = GetWriter((entity as IEntityStatus).State);
+                    EntityWriter<T> writer = GetWriter((entity as IEntity).State);
 
                     if (writer != null)
                     {
@@ -41,9 +40,27 @@ namespace AReport.DAL.Writer
                         writer.Transaction = transaction;
                         writer.Execute();
                     }
+
+                    // Detectar Delete y almacenar entidad en coleccion para eliminar
+                    if ((entity as IEntity).State == EntityState.Deleted)
+                    {
+                        deleteColl.Add(entity);
+                    }
                 }
 
                 transaction.Commit();
+
+                // Eliminar entidades
+                if (deleteColl.Count > 0)
+                {
+                    foreach (var item in deleteColl)
+                    {
+                        collection.Remove(item);
+                    }
+
+                    deleteColl.Clear();
+                }
+
                 return true;
             }
             catch (Exception)

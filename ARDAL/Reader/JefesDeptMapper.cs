@@ -20,7 +20,7 @@ namespace AReport.DAL.Reader
             {
                 JefesDept jef = new JefesDept();
 
-                jef.JefeId = (DBNull.Value == record["JefeId"]) ?
+                jef.Id = (DBNull.Value == record["JefeId"]) ?
                             0 : (int)record["JefeId"];
 
 

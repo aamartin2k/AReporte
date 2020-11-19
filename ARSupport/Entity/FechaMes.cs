@@ -16,8 +16,11 @@ namespace AReport.Support.Entity
      */
 
     [Serializable]
-    public class FechaMes : IEntityStatus
+    public class FechaMes : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 

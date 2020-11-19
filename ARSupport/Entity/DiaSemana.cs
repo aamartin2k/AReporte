@@ -8,14 +8,15 @@ namespace AReport.Support.Entity
 {
     // Tabla: AA_DiasSemana
     [Serializable]
-    public class DiaSemana : IEntityStatus, IDescriptor
+    public class DiaSemana : IEntity
     {
-        public EntityState State
-        { get; set; }
-
         public int Id
         { get; set; }
 
+        public EntityState State
+        { get; set; }
+
+     
         public string Description
         { get; set; }
 

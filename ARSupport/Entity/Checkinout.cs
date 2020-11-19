@@ -15,10 +15,14 @@ namespace AReport.Support.Entity
      */
 
     [Serializable]
-    public class Checkinout : IEntityStatus
+    public class Checkinout : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
+
 
         public int LogId
         { get; set; }
@@ -31,5 +35,7 @@ namespace AReport.Support.Entity
 
         public int CheckType
         { get; set; }
+
+     
     }
 }

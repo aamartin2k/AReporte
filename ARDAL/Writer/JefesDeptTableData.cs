@@ -19,9 +19,9 @@ namespace AReport.DAL.Writer
 
 
         protected string ParamUserId
-        { get { return "[@UserIdParam]"; } }
+        { get { return "@UserIdParam"; } }
         protected string ParamDeptId
-        { get { return "[@DeptIdParam]"; } }
+        { get { return "@DeptIdParam"; } }
        
 
     }

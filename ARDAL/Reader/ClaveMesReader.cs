@@ -11,35 +11,24 @@ namespace AReport.DAL.Reader
 	[Mes] [int] NOT NULL,
 	[Anno] [int] NOT NULL,
      */
-    class ClaveMesReader : CommonReader<ClaveMes> 
+    class ClaveMesReader : ObjectReaderBase<ClaveMes> 
     {
-        protected override string ColumnList
-        {
-            get { return "[MesId], [Mes], [Anno]"; }
-        }
 
-        //protected override string CommandText
-        //{
-        //    get { return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]"; }
-        //}
-
-        protected override string ParamPKId
+        protected override string CommandText
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override string TableName
-        {
-            get { return "[AA_ClavesMes]"; }
+            get { return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]"; }
         }
 
         protected override MapperBase<ClaveMes> GetMapper()
         {
             MapperBase<ClaveMes> mapper = new ClavesMesMapper();
             return mapper;
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
         }
     }
 }

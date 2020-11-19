@@ -14,14 +14,16 @@ namespace AReport.Support.Entity
     // Tabla: Dept
     // No se leen todos las columnas, solo las necesarias para usar como selector.
     [Serializable]
-    public class Dept : IEntityStatus, IDescriptor
+    public class Dept : IEntity
     {
-        public EntityState State
-        { get; set; }
-
         public int Id
         { get; set; }
 
+        public EntityState State
+        { get; set; }
+
+
+       
         public string Description
         { get; set; }
     }

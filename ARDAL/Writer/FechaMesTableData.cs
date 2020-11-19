@@ -21,11 +21,11 @@ namespace AReport.DAL.Writer
 
 
         protected string ParamMesId
-        { get { return "[@MesId]"; } }
+        { get { return "@MesId"; } }
         protected string ParamFecha
-        { get { return "[@Fecha]"; } }
+        { get { return "@Fecha"; } }
         protected string ParamDiaSemana
-        { get { return "[@DiaSemana]"; } }
+        { get { return "@DiaSemana"; } }
 
 
 

@@ -11,13 +11,15 @@ namespace AReport.Support.Entity
     */
     // No se leen todos las columnas, solo las necesarias para usar como descriptor.
     [Serializable]
-    public class Status : IEntityStatus, IDescriptor
+    public class Status : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 
-        public int Id
-        { get; set; }
+      
 
         public string Description
         { get; set; }

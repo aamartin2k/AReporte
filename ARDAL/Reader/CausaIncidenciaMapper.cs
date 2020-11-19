@@ -1,6 +1,6 @@
-﻿using System;
-using AReport.Support.Entity;
-using AReport.Support.Interface;
+﻿using AReport.Support.Entity;
+using System;
+using System.Data;
 
 namespace AReport.DAL.Reader
 {
@@ -10,21 +10,31 @@ namespace AReport.DAL.Reader
 	    [Description] [varchar](20) NOT NULL
      */
 
-    class CausaIncidenciaMapper : DescriptorMapper<CausaIncidencia>
+    class CausaIncidenciaMapper : MapperBase<CausaIncidencia>
     {
-        protected override string DescriptionFieldName
+        protected override CausaIncidencia Map(IDataRecord record)
         {
-            get { return "[Description]"; }
-        }
+            try
+            {
+                CausaIncidencia obj = new CausaIncidencia();
 
-        protected override IDescriptor GetEntity
-        {
-            get {   return new CausaIncidencia();   }
-        }
+                obj.Id = (DBNull.Value == record["CausaId"]) ?
+                            0 : (int)record["CausaId"];
 
-        protected override string IdFieldName
-        {
-            get { return "[CausaId]"; }
+                obj.Description = (DBNull.Value == record["Description"]) ?
+                           string.Empty : (string)record["Description"];
+
+
+                return obj;
+            }
+            catch
+            {
+                throw;
+
+                // NOTE: 
+                // consider handling exeption here instead of re-throwing
+                // if graceful recovery can be accomplished
+            }
         }
 
     }

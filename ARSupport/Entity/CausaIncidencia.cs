@@ -12,13 +12,15 @@ namespace AReport.Support.Entity
     */
 
     [Serializable]
-    public class CausaIncidencia : IEntityStatus, IDescriptor
+    public class CausaIncidencia : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
 
-        public int Id
-        { get; set; }
+        
 
         public string Description
         { get; set; }

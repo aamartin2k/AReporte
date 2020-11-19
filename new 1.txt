@@ -1,3 +1,0 @@
-https://www.igniterealtime.org/downloadServlet?filename=spark/spark_2_9_4-with-jre.exe
-
-Hora de apagar!

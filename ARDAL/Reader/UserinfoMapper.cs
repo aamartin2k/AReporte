@@ -5,6 +5,8 @@ using System.Data;
 namespace AReport.DAL.Reader
 {
     /*
+     * ** No usa int Ent.Id  , tiene PK string **
+     * 
     CREATE TABLE [dbo].[Userinfo](
        [Userid] [varchar](20) NOT NULL,
        [Name] [varchar](50) NULL,
@@ -19,7 +21,8 @@ namespace AReport.DAL.Reader
             {
                 Userinfo ent = new Userinfo();
 
-                ent.Id = (DBNull.Value == record["Userid"]) ?
+               
+                ent.Userid = (DBNull.Value == record["Userid"]) ?
                             string.Empty : (string)record["Userid"];
 
                 ent.Nombre = (DBNull.Value == record["Name"]) ?

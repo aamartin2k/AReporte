@@ -21,13 +21,13 @@ namespace ConsoleClient
         static void Main(string[] args)
         {
             // Pruebas a DAL
-            // Tabla AA_Usuarios
-            //Test_Usuario();
+            //Test_Tablas_Lectura();
 
+            Test_Tablas_Escritura();
 
 
             // Pruebas a Servidor
-            ConnectSync();
+            //ConnectSync();
 
             Console.ReadKey();
 
@@ -125,29 +125,221 @@ namespace ConsoleClient
 
         #region Test DAL
 
+        #region Test Tablas de Solo Lectura
+        
+        /*
+        Checkinout	*				
+        Dept	    *					
+        Status 		*		
+        Userinfo	*
+         */
+        static void Test_Tablas_Lectura()
+        {
+            Test_Checkinout();
+            Test_Dept();
+            Test_Status();
+            Test_Userinfo();
+        }
+
+        #region Test Checkinout
+        static void Test_Checkinout()
+        {
+            Collection<Checkinout> people;
+
+            people = Read_Checkinout();
+            PrintOut_Checkinout(people);
+            Console.WriteLine();
+        }
+        static void PrintOut_Checkinout(Collection<Checkinout> people)
+        {
+            int count = 0;
+            foreach (Checkinout p in people)
+            {
+                Console.WriteLine(string.Format("Entity Id: {0}\t User ID: {1}\t CheckTime: {2}\t CheckType: {3}",
+                                                   p.Id, p.UserId, p.CheckTime, p.CheckType));
+                count++;
+                if (count > 25)
+                    break;
+            }
+        }
+        static Collection<Checkinout> Read_Checkinout()
+        {
+            CheckinoutDataHandler reader = new CheckinoutDataHandler();
+            Collection<Checkinout> people = reader.Collection;
+
+            Console.WriteLine(string.Format("Leída Colección Checkinout: {0} entidades", people.Count));
+
+            return people;
+        }
+        #endregion
+
+        #region Test Dept
+        static void Test_Dept()
+        {
+            Collection<Dept> people;
+
+            people = Read_Dept();
+            PrintOut_Dept(people);
+            Console.WriteLine();
+        }
+
+        static void PrintOut_Dept(Collection<Dept> people)
+        {
+            int count = 0;
+            foreach (Dept p in people)
+            {
+                Console.WriteLine(string.Format("Entity Id: {0}\t Descript: {1}",
+                                                   p.Id, p.Description));
+                count++;
+                if (count > 25)
+                    break;
+            }
+        }
+
+        static Collection<Dept> Read_Dept()
+        {
+            DepartamentoDataHandler reader = new DepartamentoDataHandler();
+            Collection<Dept> people = reader.Collection;
+
+            Console.WriteLine(string.Format("Leída Colección Departamento: {0} entidades", people.Count));
+
+            return people;
+        }
+
+        #endregion
+
+        #region Test Status
+        static void Test_Status()
+        {
+            Collection<Status> people;
+
+            people = Read_Status();
+            PrintOut_Status(people);
+            Console.WriteLine();
+        }
+
+        static void PrintOut_Status(Collection<Status> people)
+        {
+            int count = 0;
+            foreach (Status p in people)
+            {
+                Console.WriteLine(string.Format("Entity Id: {0}\t Descript: {1}",
+                                                   p.Id, p.Description));
+                count++;
+                if (count > 25)
+                    break;
+            }
+        }
+
+        static Collection<Status> Read_Status()
+        {
+            StatusDataHandler reader = new StatusDataHandler();
+            Collection<Status> people = reader.Collection;
+
+            Console.WriteLine(string.Format("Leída Colección Status:  {0} entidades", people.Count));
+
+            return people;
+        }
+
+        #endregion
+
+        #region Test UserinfO
+        static void Test_Userinfo()
+        {
+            Collection<Userinfo> people;
+
+            people = Read_Userinfo();
+            PrintOut_Userinfo(people);
+            Console.WriteLine();
+        }
+
+        static Collection<Userinfo> Read_Userinfo()
+        {
+            UserinfoDataHandler reader = new UserinfoDataHandler();
+            Collection<Userinfo> people = reader.Collection;
+
+            Console.WriteLine(string.Format("Leída Coleccion Userinfo: {0} entidades", people.Count));
+
+            return people;
+        }
+
+        static void PrintOut_Userinfo(Collection<Userinfo> people)
+        {
+            int count = 0;
+            foreach (Userinfo p in people)
+            {
+                Console.WriteLine(string.Format("Entity Id: {0}\t UserId: {1}\t Nombre: {2}\t Departamento: {3}",
+                                                   p.Id, p.Userid, p.Nombre, p.DepartamentoId));
+                count++;
+                if (count > 25)
+                    break;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Test Tablas de Lectura Escritura
+        /*
+        AA_Asistencias																
+        AA_CausaIncidencia				
+        AA_ClavesMes					
+        AA_Configuracion
+        AA_DiasSemana				
+
+        AA_FechasMes				
+        AA_Incidencias						
+        >AA_JefesDept				
+        AA_Roles				
+        AA_Usuarios	            * 
+        */
+        static void Test_Tablas_Escritura()
+        {
+            Test_Usuario();
+        }
+
+        #endregion
+
+        static string UsrId01 = "62111332336";
+        static string UsrId02 = "64080101709";
+        static string UsrId03 = "59020201384";
+        static string UsrId04 = "71050417985";
+
         static void Test_Usuario()
         {
             Collection<Usuario> people;
 
             // leer usuario
+            Console.WriteLine("Lectura Inicial");
             people = ReadUsuario();
             PrintOutUsuario(people);
 
-            // crear 3 usuarios
+            // crear 3 usuarios nuevos
             // como efecto secundario en coleccion
+            Console.WriteLine("Crear 3 usuarios nuevos");
             CreateUsuarios(people);
 
             // escribir usuarios
             WriteUsuario(people);
-
+            // Write usuario no incrementa, en UpdateUsuario hay solo un usuario y da error
+            // ReadUsuario retorna solo uno.
             // leer usuarios
+            Console.WriteLine("Lectura Usuarios nuevos");
             people = ReadUsuario();
             PrintOutUsuario(people);
 
             // actualizar usuario
+            Console.WriteLine("Actualizar usuarios");
+            UpdateUsuario(people);
+            PrintOutUsuario(people);
 
             // eliminar usuario
+            Console.WriteLine("Eliminar usuarios");
+            DeleteUsuario(people);
+            PrintOutUsuario(people);
 
+            Console.WriteLine();
         }
 
         static void PrintOutUsuario(Collection<Usuario> people)
@@ -180,9 +372,10 @@ namespace ConsoleClient
 
         static void CreateUsuarios(Collection<Usuario> people)
         {
+            // 62020815065
             var usr = new Usuario();
             usr.State = EntityState.Added;
-            usr.UserId = "62111332336";
+            usr.UserId = UsrId01;
             usr.RoleIdEnum = UserRoleEnum.JefeDepartamento;
             usr.Login = "Pepe";
             usr.Password = "PasswordPepe";
@@ -191,7 +384,7 @@ namespace ConsoleClient
 
             usr = new Usuario();
             usr.State = EntityState.Added;
-            usr.UserId = "62020815065";
+            usr.UserId = UsrId02;
             usr.RoleIdEnum = UserRoleEnum.Supervisor;
             usr.Login = "Tata";
             usr.Password = "PasswordTata";
@@ -201,7 +394,7 @@ namespace ConsoleClient
 
             usr = new Usuario();
             usr.State = EntityState.Added;
-            usr.UserId = "59020201384";
+            usr.UserId = UsrId03;
             usr.RoleIdEnum = UserRoleEnum.Administrador;
             usr.Login = "Admin";
             usr.Password = "PasswordAdmin";
@@ -210,7 +403,24 @@ namespace ConsoleClient
 
         }
 
-        
+        static void DeleteUsuario(Collection<Usuario> people)
+        {
+            foreach (var item in people)
+            {
+                item.State = EntityState.Deleted;
+            }
+
+            WriteUsuario(people);
+        }
+
+        static void UpdateUsuario(Collection<Usuario> people)
+        {
+            people[1].Password = "NoPassword";
+            people[1].Login = "NoLogin";
+
+            people[2].Password = "NewPassword";
+            people[2].Login = "NewLogin";
+        }
 
 
         #endregion

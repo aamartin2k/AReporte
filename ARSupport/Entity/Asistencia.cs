@@ -8,30 +8,37 @@ namespace AReport.Support.Entity
 {
     /*
      CREATE TABLE [dbo].[AA_Asistencias](
+	    [Id] [int] IDENTITY(1,1) NOT NULL,
 	    [FechaId] [int] NOT NULL,
-	    [Userid] [varchar](20) NOT NULL,
+	    [UserId] [varchar](20) NOT NULL,
 	    [ChekInId] [int] NULL,
 	    [ChekOutId] [int] NULL,
-	    [IncidenciaId] [int] NULL
-     ) ON [PRIMARY]
+	    [CausaId] [int] NULL,
+	    [Observacion] [varchar](80) NULL,
      */
 
     [Serializable]
-    public class Asistencia : IEntityStatus
+    public class Asistencia : IEntity
     {
+        public int Id
+        { get; set; }
+
         public EntityState State
         { get; set; }
+
 
 
         public int FechaId
         { get; set; }
         public string UserId
         { get; set; }
-        public int ChekinId
+        public int ChekInId
         { get; set; }
-        public int ChekoutId
+        public int ChekOutId
         { get; set; }
-        public int IncidenciaId
+        public int CausaId
+        { get; set; }
+        public string Observacion
         { get; set; }
 
 

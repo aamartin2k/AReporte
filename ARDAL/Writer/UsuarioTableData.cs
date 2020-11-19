@@ -21,13 +21,13 @@ namespace AReport.DAL.Writer
 
 
         protected string ParamUserId
-        { get { return "[@UserId]"; } }
+        { get { return "@UserId"; } }
         protected string ParamRoleId
-        { get { return "[@RoleId]"; } }
+        { get { return "@RoleId"; } }
         protected string ParamLogin
-        { get { return "[@Login]"; } }
+        { get { return "@Login"; } }
         protected string ParamPassword
-        { get { return "[@Password]"; } }
+        { get { return "@Password"; } }
 
     }
 }

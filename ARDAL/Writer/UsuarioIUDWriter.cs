@@ -5,7 +5,7 @@ using System.Data;
 namespace AReport.DAL.Writer
 {
     /*
-       CREATE TABLE [dbo].[AA_Usuarios](
+      CREATE TABLE [dbo].[AA_Usuarios](
 	    [Id] [int] IDENTITY(1,1) NOT NULL,
 	    [UserId] [varchar](20) NOT NULL,
 	    [RoleId] [int] NOT NULL,
@@ -19,7 +19,7 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2}, {3}, {4})", 
+                return string.Format("INSERT INTO [dbo].{0} ([UserId], [RoleId], [Login], [Password]) VALUES ({1}, {2}, {3}, {4})",
                     TableName, ParamUserId, ParamRoleId, ParamLogin, ParamPassword);
             }
         }
@@ -28,7 +28,7 @@ namespace AReport.DAL.Writer
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)
         {
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
-
+            
             IDataParameter param1 = command.CreateParameter();
             param1.ParameterName = ParamUserId;
             param1.Value = Entity.UserId;
@@ -46,6 +46,7 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamPassword;
+            //param1.DbType = DbType.String;
             param1.Value = Entity.Password;
             collection.Add(param1);
 

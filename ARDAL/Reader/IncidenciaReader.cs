@@ -1,5 +1,7 @@
-﻿using AReport.Support.Entity;
-using System;
+﻿
+using System.Collections.ObjectModel;
+using System.Data;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Reader
 {
@@ -10,30 +12,24 @@ namespace AReport.DAL.Reader
 	    [Observacion] [varchar](80) NULL,
     */
 
-    class IncidenciaReader : CommonReader<Incidencia>
+    class IncidenciaReader : ObjectReaderBase<Incidencia>
     {
-        protected override string ColumnList
+       
+        protected override string CommandText
         {
-            get { return "[IncidenciaId], [CausaId], [Observacion]"; }
-        }
-
-        protected override string ParamPKId
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override string TableName
-        {
-            get { return "[AA_Incidencias]"; }
+            get { return "SELECT [IncidenciaId], [CausaId], [Observacion] FROM dbo.[AA_Incidencias]"; }
         }
 
         protected override MapperBase<Incidencia> GetMapper()
         {
             MapperBase<Incidencia> mapper = new IncidenciaMapper();
             return mapper;
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
         }
     }
 }

@@ -19,9 +19,9 @@ namespace AReport.DAL.Writer
 
 
         protected string ParamMes
-        { get { return "[@Mes]"; } }
+        { get { return "@Mes"; } }
         protected string ParamAnno
-        { get { return "[@Anno]"; } }
+        { get { return "@Anno"; } }
 
     }
 }

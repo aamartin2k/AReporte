@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
+using System.Data;
 using AReport.Support.Entity;
 
 namespace AReport.DAL.Reader
@@ -10,35 +11,24 @@ namespace AReport.DAL.Reader
       > [StatusText] [varchar](50) NOT NULL,
    */
 
-    class StatusReader : DescriptorReader<Status>
+    class StatusReader : ObjectReaderBase<Status>
     {
-        protected override string DescriptionFieldName
+        
+        protected override string CommandText
         {
-            get { return "[StatusText]"; }
-        }
-
-        protected override string IdFieldName
-        {
-            get { return "[Statusid]"; }
-        }
-
-        protected override string ParamPKId
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override string TableName
-        {
-            get { return "[Status]"; }
+            get { return "SELECT [Statusid], [StatusText] FROM dbo.[Status]"; }
         }
 
         protected override MapperBase<Status> GetMapper()
         {
             MapperBase<Status> mapper = new StatusMapper();
             return mapper;
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
         }
     }
 }

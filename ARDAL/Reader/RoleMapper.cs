@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using AReport.Support.Entity;
 using AReport.Support.Interface;
 
@@ -10,21 +11,31 @@ namespace AReport.DAL.Reader
            [Description] [varchar](20) NOT NULL,
     */
 
-    class RoleMapper : DescriptorMapper<Role>  
+    class RoleMapper : MapperBase<Role>
     {
-        protected override IDescriptor GetEntity
+        protected override Role Map(IDataRecord record)
         {
-            get { return new Role(); }
-        }
-        protected override string IdFieldName
-        {
-            get { return "[RoleId]"; }
-        }
+            try
+            {
+                Role jef = new Role();
 
-        protected override string DescriptionFieldName
-        {
-            get { return "[Description]"; }
-        }
+                jef.Id = (DBNull.Value == record["RoleId"]) ?
+                            0 : (int)record["RoleId"];
 
+
+                jef.Description = (DBNull.Value == record["Description"]) ?
+                            string.Empty : (string)record["Description"];
+
+                return jef;
+            }
+            catch
+            {
+                throw;
+
+                // NOTE: 
+                // consider handling exeption here instead of re-throwing
+                // if graceful recovery can be accomplished
+            }
+        }
     }
 }

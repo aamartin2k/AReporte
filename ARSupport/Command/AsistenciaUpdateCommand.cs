@@ -21,7 +21,7 @@ namespace AReport.Support.Command
     // Test IMplementar clase generica para
     // <coleccion>UpdateCommand, <coleccion>UpdateCommandHandler y <coleccion>UpdateCommandData
     [Serializable]
-    public class CollectionUpdateCommand<T> where T : IEntityStatus
+    public class CollectionUpdateCommand<T> where T : IEntity
     {
         public Collection<T> Coleccion
         { get; }

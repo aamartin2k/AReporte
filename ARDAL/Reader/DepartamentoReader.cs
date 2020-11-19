@@ -12,43 +12,25 @@ namespace AReport.DAL.Reader
 	    [SupDeptid] [int] NOT NULL,
      */
 
-    class DepartamentoReader : DescriptorReader<Dept> 
+    class DepartamentoReader : ObjectReaderBase<Dept> 
     {
         protected override string CommandText
         {
                 get { return "SELECT [Deptid], [DeptName] FROM [dbo].[Dept]"; }
         }
 
-        protected override string DescriptionFieldName
-        {
-            get { return "[DeptName]"; }
-        }
-
-        protected override string IdFieldName
-        {
-            get { return "[Deptid]"; }
-        }
-
-        protected override string ParamPKId
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override string TableName
-        {
-            get { return "[Dept]"; }
-        }
-
+ 
         protected override MapperBase<Dept> GetMapper()
         {
             MapperBase<Dept> mapper = new DepartamentoMapper();
             return mapper;
         }
 
-       
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
+        }
     }
 
 

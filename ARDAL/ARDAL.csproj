@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\AsistenciaDataHandler.cs" />
     <Compile Include="Entity\CausaIncidenciaDataHandler.cs" />
     <Compile Include="Entity\CheckinoutDataHandler.cs" />
     <Compile Include="Entity\ClaveMesDataHandler.cs" />
@@ -52,6 +53,8 @@
     <Compile Include="Entity\StatusDataHandler.cs" />
     <Compile Include="Entity\UserinfoDataHandler.cs" />
     <Compile Include="Entity\UsuarioDataHandler.cs" />
+    <Compile Include="Reader\AsistenciaMapper.cs" />
+    <Compile Include="Reader\AsistenciaReader.cs" />
     <Compile Include="Reader\CausaIncidenciaMapper.cs" />
     <Compile Include="Reader\CausaIncidenciaReader.cs" />
     <Compile Include="Reader\CheckinoutMapper.cs" />
@@ -59,12 +62,8 @@
     <Compile Include="Reader\ClaveMesReader.cs" />
     <Compile Include="Reader\ClavesMesMapper.cs" />
     <None Include="Diagrams\Reader.cd.cd" />
-    <None Include="Reader\CommandTextReader.cs" />
-    <Compile Include="Reader\CommonReader.cs" />
     <Compile Include="Reader\DepartamentoMapper.cs" />
     <Compile Include="Reader\DepartamentoReader.cs" />
-    <Compile Include="Reader\DescriptorMapper.cs" />
-    <Compile Include="Reader\DescriptorReader.cs" />
     <Compile Include="Reader\DiaSemanaMapper.cs" />
     <Compile Include="Reader\DiaSemanaReader.cs" />
     <Compile Include="Reader\FechaMesMapper.cs" />
@@ -85,6 +84,9 @@
     <Compile Include="Reader\MapperBase.cs" />
     <Compile Include="Reader\ObjectReaderBase.cs" />
     <Compile Include="SQL\Connection.cs" />
+    <Compile Include="Writer\AsistenciaIUDWriter.cs" />
+    <Compile Include="Writer\AsistenciaTableData.cs" />
+    <Compile Include="Writer\AsistenciaWriter.cs" />
     <Compile Include="Writer\CausaIncidenciaWriter.cs" />
     <Compile Include="Writer\CausaIncidenciaIUDWriter.cs" />
     <Compile Include="Writer\ClaveMesTableData.cs" />

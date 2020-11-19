@@ -1,35 +1,45 @@
 ﻿using System;
+using System.Data;
 using AReport.Support.Entity;
-using AReport.Support.Interface;
 
 namespace AReport.DAL.Reader
 {
     /*
     CREATE TABLE [dbo].[Status](
-      > [Statusid] [int] NOT NULL,
+      > [StatusId] [int] NOT NULL,
         [StatusChar] [varchar](2) NOT NULL,
       > [StatusText] [varchar](50) NOT NULL,
    */
 
-    class StatusMapper : DescriptorMapper<Status>
+    class StatusMapper : MapperBase<Status>
     {
-        protected override string IdFieldName
+        protected override Status Map(IDataRecord record)
         {
-            get { return "[Statusid]"; }
+            try
+            {
+                Status jef = new Status();
+
+                jef.Id = (DBNull.Value == record["StatusId"]) ?
+                            0 : (int)record["StatusId"];
+
+
+                jef.Description = (DBNull.Value == record["StatusText"]) ?
+                            string.Empty : (string)record["StatusText"];
+
+                return jef;
+            }
+            catch
+            {
+                throw;
+
+                // NOTE: 
+                // consider handling exeption here instead of re-throwing
+                // if graceful recovery can be accomplished
+            }
         }
 
-        protected override string DescriptionFieldName
-        {
-            get { return "[StatusText]"; }
-        }
 
-        protected override IDescriptor GetEntity
-        {
-            get { return new Status(); }
-        }
 
-       
 
-      
     }
 }

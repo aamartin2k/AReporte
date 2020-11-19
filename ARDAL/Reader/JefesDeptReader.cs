@@ -1,5 +1,6 @@
-﻿using AReport.Support.Entity;
-using System;
+﻿using System.Collections.ObjectModel;
+using System.Data;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Reader
 {
@@ -10,27 +11,23 @@ namespace AReport.DAL.Reader
 	    [UserId] [varchar](20) NOT NULL,
      */
 
-    class JefesDeptReader : CommonReader<JefesDept>
+    class JefesDeptReader : ObjectReaderBase<JefesDept>
     {
-        protected override string ParamPKId
+       
+        protected override string CommandText
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        protected override string TableName
-        {
-            get { return "[AA_JefesDept]"; }
-        }
-
-        protected override string ColumnList
-        {
-            get { return "[JefeId], [DeptId], [UserId]"; }
+            get { return "SELECT [JefeId], [DeptId], [UserId] FROM dbo.[AA_JefesDept]"; }
         }
 
         protected override MapperBase<JefesDept> GetMapper()
         {
             MapperBase<JefesDept> mapper = new JefesDeptMapper();
             return mapper;
+        }
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
         }
     }
 }

@@ -6,12 +6,12 @@ De datos, solo lectura:
 						DataHandler	Reader	Mapper
 Checkinout					*		*		*
 Dept						*		*		*
-Status ?? D					*		*		*
+Status  D					*		*		*
 Userinfo					*		*		*
 
 De aplicación lectura y escritura:
 						DataHandlr	Read/Map	Writer  Insert  Delete  Update	TableDataBase
-AA_Asistencias																
+AA_Asistencias				*		*			*		*		*		*		*												
 AA_CausaIncidencia D		*		*			*		*		*		*			
 AA_ClavesMes				*		*			*		*		*		*		*	
 AA_Configuracion
@@ -22,20 +22,7 @@ AA_Incidencias				*		*			*		*		*		*		*
 >AA_JefesDept				*		*			*		*		*		*		*
 AA_Roles D					*		*			*		*		*		*
 AA_Usuarios					*		*			*		*		*		*		*
- 
- 
- 
- Implementar que todos los Readers que no deriven de Descriptor, deriven de CommonReader
-  -AA_Asistencias  -AA_Configuracion   -AA_JefesDept 
-  
- 
- Implementar que todos los IUD Writers que no deriven de Descriptor, deriven de TableDataBase
- 
 
- Implementar que todos los (handlers)Writers  deriven de IntermWriter<T>
-   Usuario
 
- Implementar clase <>TableData que Derive de CommandTextWriter<T> , con nombre de tabla, campos y parametros,  se requiere una para cada tipo.
-
- 
- 
+ Analizar Implementar Writer INSERT con PArametro output :  SET @NewID = SCOPE_IDENTITY() 
+   OK

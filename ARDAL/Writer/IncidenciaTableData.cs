@@ -19,8 +19,8 @@ namespace AReport.DAL.Writer
 
 
         protected string ParamCausaId
-        { get { return "[@CausaIdParam]"; } }
+        { get { return "@CausaIdParam"; } }
         protected string ParamObservacion
-        { get { return "[@ObservacionParam]"; } }
+        { get { return "@ObservacionParam"; } }
     }
 }

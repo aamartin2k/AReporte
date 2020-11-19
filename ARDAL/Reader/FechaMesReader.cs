@@ -1,5 +1,6 @@
-﻿using AReport.Support.Entity;
-using System;
+﻿using System.Collections.ObjectModel;
+using System.Data;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Reader
 {
@@ -11,29 +12,13 @@ namespace AReport.DAL.Reader
 	    [DiaSemanaId] [int] NOT NULL,
      */
 
-    class FechaMesReader : CommonReader<FechaMes>
+    class FechaMesReader : ObjectReaderBase<FechaMes>
     {
-        protected override string ColumnList
-        {
-            get { return "[FechaId], [MesId], [Fecha], [DiaSemanaId]"; }
-        }
 
-        //protected override string CommandText
-        //{
-        //    get { return "SELECT [FechaId], [MesId], [Fecha], [DiaSemanaId] FROM [dbo].[AA_FechasMes]"; }
-        //}
 
-        protected override string ParamPKId
+        protected override string CommandText
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override string TableName
-        {
-            get { return "[AA_FechasMes]"; }
+            get { return "SELECT [FechaId], [MesId], [Fecha], [DiaSemanaId] FROM [dbo].[AA_FechasMes]"; }
         }
 
         protected override MapperBase<FechaMes> GetMapper()
@@ -41,6 +26,10 @@ namespace AReport.DAL.Reader
             MapperBase<FechaMes> mapper = new FechaMesMapper();
             return mapper;
         }
-
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command)
+        {
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+            return collection;
+        }
     }
 }

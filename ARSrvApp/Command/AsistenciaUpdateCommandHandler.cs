@@ -24,7 +24,7 @@ namespace AReport.Srv.Command
 
     // Test IMplementar clase generica para
     // <coleccion>UpdateCommand, <coleccion>UpdateCommandHandler y <coleccion>UpdateCommandData
-    internal class CollectionUpdateCommandHandler<T> where T : IEntityStatus
+    internal class CollectionUpdateCommandHandler<T> where T : IEntity
     {
         
         private CollectionUpdateCommandData<T> _data;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Collections.ObjectModel;
+using AReport.Support.Interface;
+using AReport.Support.Entity;
 
 namespace AReport.DAL.Writer
 {
@@ -30,13 +32,37 @@ namespace AReport.DAL.Writer
             foreach (IDataParameter param in this.GetParameters(command))
                 command.Parameters.Add(param);
 
+            IDataParameter param1 = null;
+
             try
             {
+                // Detectar Insert y Adicionar OUTPUT parameter
+                if ((Entity as IEntity).State == EntityState.Added)
+                {
+                    string text = " ; SET @NewID = SCOPE_IDENTITY() ; ";
+                    command.CommandText = command.CommandText + text;
+
+                    param1 = command.CreateParameter();
+                    param1.ParameterName = "@NewID";
+                    param1.DbType = DbType.Int32;
+                    param1.Direction = ParameterDirection.Output;
+
+                    command.Parameters.Add(param1);
+                }
+                
                 command.ExecuteNonQuery();
+                
+                if ((Entity as IEntity).State == EntityState.Added)
+                {
+                    Console.WriteLine("@NewID: " + param1.Value.ToString());
+                    (Entity as IEntity).Id = (int)param1.Value;
+                }
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // log details especificos
+                Console.WriteLine(ex.Message);
                 throw;
             }
 
