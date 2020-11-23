@@ -12,9 +12,11 @@ namespace AReport.DAL.Entity
     {
         protected abstract ObjectWriterBase<T> GetWriter();
         protected abstract ObjectReaderBase<T> GetReader();
+        protected abstract ObjectReaderBase<T> GetEntityByIdReader();
+       
 
 
-        // Read collection
+        // Leer collection, todos los registros de la tabla base se convierten en Entidades.
         public Collection<T> Collection
         {
             get
@@ -25,13 +27,29 @@ namespace AReport.DAL.Entity
             }
         }
 
+        // Leer entidad con filtro: Id 
+        public T GetEntity(int id)
+        {
+            ObjectReaderBase<T> reader = GetEntityByIdReader();
+            T entity = reader.ReadEntityById(id);
+            return entity;
+        }
+            
 
-        // Write collection
+        // Escribir collection, todos las Entidades se convierten en registros de la tabla base.
         public bool Write(Collection<T> collection)
         {
             ObjectWriterBase<T> writer = GetWriter();
             return writer.Write(collection);
         }
+
+        // Escribir entidad, se convierten en un registro de la tabla base. 
+        public bool Write(T entity)
+        {
+            ObjectWriterBase<T> writer = GetWriter();
+            return writer.Write(entity);
+        }
+
 
     }
 }

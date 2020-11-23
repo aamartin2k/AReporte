@@ -22,6 +22,7 @@ namespace AReport.DAL.Writer
         // Cambiar return a bool
         public void Execute()
         {
+            bool insertOperation;
 
             IDbCommand command = Connection.CreateCommand();
             command.Connection = this.Connection;
@@ -33,11 +34,13 @@ namespace AReport.DAL.Writer
                 command.Parameters.Add(param);
 
             IDataParameter param1 = null;
+            // Detectar Insert
+            insertOperation = (Entity as IEntity).State == EntityState.Added;
 
             try
             {
-                // Detectar Insert y Adicionar OUTPUT parameter
-                if ((Entity as IEntity).State == EntityState.Added)
+                // Adicionar OUTPUT parameter
+                if (insertOperation)
                 {
                     string text = " ; SET @NewID = SCOPE_IDENTITY() ; ";
                     command.CommandText = command.CommandText + text;
@@ -52,7 +55,8 @@ namespace AReport.DAL.Writer
                 
                 command.ExecuteNonQuery();
                 
-                if ((Entity as IEntity).State == EntityState.Added)
+                // Actualizar entity Id
+                if (insertOperation)
                 {
                     Console.WriteLine("@NewID: " + param1.Value.ToString());
                     (Entity as IEntity).Id = (int)param1.Value;

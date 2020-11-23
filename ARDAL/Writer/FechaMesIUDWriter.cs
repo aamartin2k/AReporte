@@ -80,7 +80,7 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.FechaId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;
@@ -94,7 +94,7 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("DELETE FROM [dbo].{0} WHERE [UserId] = {1}", TableName, ParamPKId);
+                return string.Format("DELETE FROM [dbo].{0} WHERE [FechaId] = {1}", TableName, ParamPKId);
             }
         }
 
@@ -104,7 +104,7 @@ namespace AReport.DAL.Writer
 
             IDataParameter param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.FechaId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;

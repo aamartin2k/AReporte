@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using AReport.DAL.Reader;
 using AReport.DAL.Writer;
+using System;
 
 namespace AReport.DAL.Entity
 {
@@ -14,6 +15,11 @@ namespace AReport.DAL.Entity
         protected override ObjectReaderBase<CausaIncidencia> GetReader()
         {
             return new CausaIncidenciaReader();
+        }
+
+        protected override ObjectReaderBase<CausaIncidencia> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
         }
     }
 }

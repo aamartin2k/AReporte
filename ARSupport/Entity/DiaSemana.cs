@@ -6,7 +6,11 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
-    // Tabla: AA_DiasSemana
+    /*
+     CREATE TABLE [dbo].[AA_DiasSemana](
+	    [DiaSemanaId] [int] IDENTITY(1,1) NOT NULL,
+	    [Description] [varchar](12) NOT NULL,
+    */
     [Serializable]
     public class DiaSemana : IEntity
     {

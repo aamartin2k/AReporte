@@ -1,52 +1,121 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
 using System.Collections.ObjectModel;
+using AReport.Support.Entity;
+using System.Data;
+using AReport.DAL.SQL;
+using AReport.Support.Interface;
 
 namespace AReport.DAL.Writer
 {
-    abstract class ObjectWriterBase<T>
+    public abstract class ObjectWriterBase<T>
     {
+        protected abstract EntityWriter<T> GetWriter(EntityState status);
 
-        protected abstract string CommandText { get; }
-        protected abstract CommandType CommandType { get; }
-        protected abstract Collection<IDataParameter> GetParameters(IDbCommand command);
        
 
-        public T Entity { get; set; }
-        public IDbConnection Connection { get; set; }
-        public IDbTransaction Transaction { get; set; }
-
-
-        // Cambiar return a bool
-        public void Execute()
+        public bool Write(Collection<T> collection)
         {
+            // entidades a ser eliminadas
+            Collection<T> deleteColl = new Collection<T>();
 
-            IDbCommand command = Connection.CreateCommand();
-            command.Connection = this.Connection;
-            command.Transaction = this.Transaction;
-            command.CommandText = this.CommandText;
-            command.CommandType = this.CommandType;
+            // crear conexion y comenzar transaccion   
+            IDbTransaction transaction;
+            IDbConnection connection = Connection.GetConnection();
 
-            foreach (IDataParameter param in this.GetParameters(command))
-                command.Parameters.Add(param);
+            connection.Open();
+            transaction = connection.BeginTransaction();
 
             try
             {
-                command.ExecuteNonQuery();
+
+                foreach (T entity in collection)
+                {
+                  
+                    EntityWriter<T> writer = GetWriter((entity as IEntity).State);
+
+                    if (writer != null)
+                    {
+                        writer.Entity = entity;
+                        writer.Connection = connection;
+                        writer.Transaction = transaction;
+                        writer.Execute();
+                    }
+
+                    // Detectar Delete y almacenar entidad en coleccion para eliminar
+                    if ((entity as IEntity).State == EntityState.Deleted)
+                    {
+                        deleteColl.Add(entity);
+                    }
+                }
+
+                transaction.Commit();
+
+                // Eliminar entidades
+                if (deleteColl.Count > 0)
+                {
+                    foreach (var item in deleteColl)
+                    {
+                        collection.Remove(item);
+                    }
+
+                    deleteColl.Clear();
+                }
+
+                return true;
             }
             catch (Exception)
             {
-                // log details especificos
-                throw;
+                transaction.Rollback();
+                //throw;
+                // log details
+                return false;
+            }
+            finally
+            {
+                connection.Close();
             }
 
         }
 
 
+        public bool Write(T entity)
+        {
+            // crear conexion y comenzar transaccion   
+            IDbTransaction transaction;
+            IDbConnection connection = Connection.GetConnection();
 
+            connection.Open();
+            transaction = connection.BeginTransaction();
 
+            try
+            {
+
+                EntityWriter<T> writer = GetWriter((entity as IEntity).State);
+
+                if (writer != null)
+                {
+                    writer.Entity = entity;
+                    writer.Connection = connection;
+                    writer.Transaction = transaction;
+                    writer.Execute();
+                }
+
+                transaction.Commit();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                //throw;
+                // log details
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
 
     }

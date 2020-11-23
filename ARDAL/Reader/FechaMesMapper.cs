@@ -20,7 +20,7 @@ namespace AReport.DAL.Reader
             {
                 FechaMes usr = new FechaMes();
 
-                usr.FechaId = (DBNull.Value == record["FechaId"]) ?
+                usr.Id = (DBNull.Value == record["FechaId"]) ?
                             0 : (int)record["FechaId"];
 
                 usr.MesId = (DBNull.Value == record["MesId"]) ?
@@ -38,9 +38,6 @@ namespace AReport.DAL.Reader
             {
                 throw;
 
-                // NOTE: 
-                // consider handling exeption here instead of re-throwing
-                // if graceful recovery can be accomplished
             }
         }
     }

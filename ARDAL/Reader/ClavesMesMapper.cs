@@ -10,7 +10,7 @@ namespace AReport.DAL.Reader
 	[Mes] [int] NOT NULL,
 	[Anno] [int] NOT NULL,
      */
-    class ClavesMesMapper : MapperBase<ClaveMes>
+    class ClaveMesMapper : MapperBase<ClaveMes>
     {
         protected override ClaveMes Map(IDataRecord record)
         {
@@ -18,7 +18,7 @@ namespace AReport.DAL.Reader
             {
                 ClaveMes obj = new ClaveMes();
 
-                obj.MesId = (DBNull.Value == record["MesId"]) ?
+                obj.Id = (DBNull.Value == record["MesId"]) ?
                             0 : (int)record["MesId"];
 
                 obj.Mes = (DBNull.Value == record["Mes"]) ?
@@ -33,10 +33,10 @@ namespace AReport.DAL.Reader
             {
                 throw;
 
-                // NOTE: 
-                // consider handling exeption here instead of re-throwing
-                // if graceful recovery can be accomplished
             }
         }
+
+       
+
     }
 }

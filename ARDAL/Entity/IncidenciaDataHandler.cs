@@ -1,10 +1,11 @@
 ﻿using AReport.Support.Entity;
 using AReport.DAL.Reader;
 using AReport.DAL.Writer;
+using System;
 
 namespace AReport.DAL.Entity
 {
-    class IncidenciaDataHandler : EntityDataHandler<Incidencia>
+    public class IncidenciaDataHandler : EntityDataHandler<Incidencia>
     {
         protected override ObjectWriterBase<Incidencia> GetWriter()
         {
@@ -14,6 +15,11 @@ namespace AReport.DAL.Entity
         protected override ObjectReaderBase<Incidencia> GetReader()
         {
             return new IncidenciaReader();
+        }
+
+        protected override ObjectReaderBase<Incidencia> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AReport.DAL.Reader;
+﻿using System;
+using AReport.DAL.Reader;
 using AReport.DAL.Writer;
 using AReport.Support.Entity;
 
@@ -15,6 +16,11 @@ namespace AReport.DAL.Entity
         protected override ObjectReaderBase<JefesDept> GetReader()
         {
             return new JefesDeptReader();
+        }
+
+        protected override ObjectReaderBase<JefesDept> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
         }
     }
 }

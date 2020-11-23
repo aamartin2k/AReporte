@@ -10,6 +10,7 @@ namespace AReport.DAL.Reader
     {
         protected abstract T Map(IDataRecord record);
 
+        
         public Collection<T> MapAll(IDataReader reader)
         {
             Collection<T> collection = new Collection<T>();
@@ -24,13 +25,31 @@ namespace AReport.DAL.Reader
                 {
                     throw;
 
-                    // NOTE: 
-                    // consider handling exeption here instead of re-throwing
-                    // if graceful recovery can be accomplished
                 }
             }
 
             return collection;
+        }
+
+
+        public T MapEntity(IDataReader reader)
+        {
+            T ent = default(T);
+
+            while (reader.Read())
+            {
+                try
+                {
+                    ent = Map(reader);
+                }
+                catch
+                {
+                    throw;
+
+                }
+            }
+
+            return ent;
         }
     }
 

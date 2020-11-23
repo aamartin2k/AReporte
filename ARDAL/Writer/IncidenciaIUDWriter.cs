@@ -17,7 +17,7 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2}, {3})", TableName, ParamCausaId, ParamObservacion);
+                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2})", TableName, ParamCausaId, ParamObservacion);
             }
         }
 
@@ -68,7 +68,7 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.IncidenciaId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;
@@ -92,7 +92,7 @@ namespace AReport.DAL.Writer
 
             IDataParameter param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.IncidenciaId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;

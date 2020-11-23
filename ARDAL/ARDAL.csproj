@@ -39,6 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BOD\BOGenerator.cs" />
+    <Compile Include="BOD\ConjuntoDatos.cs" />
+    <Compile Include="BOD\Empleado.cs" />
+    <Compile Include="BOD\Registro.cs" />
     <Compile Include="Entity\AsistenciaDataHandler.cs" />
     <Compile Include="Entity\CausaIncidenciaDataHandler.cs" />
     <Compile Include="Entity\CheckinoutDataHandler.cs" />
@@ -108,7 +112,7 @@
     <Compile Include="Writer\JefesDeptIUDWriter.cs" />
     <Compile Include="Writer\JefesDeptTableData.cs" />
     <Compile Include="Writer\JefesDeptWriter.cs" />
-    <Compile Include="Writer\ObjectWriter.cs" />
+    <Compile Include="Writer\ObjectWriterBase.cs" />
     <Compile Include="Writer\EntityWriter.cs" />
     <Compile Include="Writer\RoleWriter.cs" />
     <Compile Include="Writer\RoleIUDWriter.cs" />
@@ -119,7 +123,6 @@
     <Compile Include="Writer\UsuarioIUDWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Diagrams\Descriptors - Reader.cd" />
     <None Include="Diagrams\Descriptors - Writer.cd" />
     <None Include="Diagrams\Writer.cd" />
     <None Include="Diagrams\EntityWriter.cd" />

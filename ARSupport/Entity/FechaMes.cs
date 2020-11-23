@@ -10,9 +10,9 @@ namespace AReport.Support.Entity
     /*
      CREATE TABLE [dbo].[AA_FechasMes](
 	    [FechaId] [int] IDENTITY(1,1) NOT NULL,
-	    [MesId] [int] NOT NULL,
+	    [MesId] [int] NOT NULL,             FK
 	    [Fecha] [date] NOT NULL,
-	    [DiaSemanaId] [int] NOT NULL,
+	    [DiaSemanaId] [int] NOT NULL,       FK
      */
 
     [Serializable]
@@ -24,8 +24,7 @@ namespace AReport.Support.Entity
         public EntityState State
         { get; set; }
 
-        public int FechaId
-        { get; set; }
+ 
         public int MesId
         { get; set; }
         public int DiaSemanaId

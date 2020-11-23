@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using AReport.DAL.Reader;
 using AReport.DAL.Writer;
+using System;
 
 namespace AReport.DAL.Entity
 {
@@ -16,5 +17,16 @@ namespace AReport.DAL.Entity
             return new ClaveMesReader();
         }
 
+        protected override ObjectReaderBase<ClaveMes> GetEntityByIdReader()
+        {
+            return new ClaveMesByIdReader();
+        }
+
+
+        // metodos no derivados
+        public ObjectReaderBase<ClaveMes> GetEntityMesAnnoReader()
+        {
+            return new ClaveMesByIdReader();
+        }
     }
 }

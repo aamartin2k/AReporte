@@ -7,6 +7,11 @@ namespace AReport.DAL.Entity
 {
     public class StatusDataHandler : EntityDataHandler<Status>
     {
+        protected override ObjectReaderBase<Status> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override ObjectReaderBase<Status> GetReader()
         {
             return new StatusReader();

@@ -67,7 +67,7 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.MesId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;
@@ -91,7 +91,7 @@ namespace AReport.DAL.Writer
 
             IDataParameter param1 = command.CreateParameter();
             param1.ParameterName = ParamPKId;
-            param1.Value = Entity.MesId;
+            param1.Value = Entity.Id;
             collection.Add(param1);
 
             return collection;

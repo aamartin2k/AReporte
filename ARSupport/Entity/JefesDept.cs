@@ -23,7 +23,6 @@ namespace AReport.Support.Entity
         { get; set; }
 
                
-
         public int DepartamentoId
         { get; set; }
 

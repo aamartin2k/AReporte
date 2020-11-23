@@ -8,6 +8,11 @@ namespace AReport.DAL.Entity
 {
     public class DepartamentoDataHandler : EntityDataHandler<Dept>
     {
+        protected override ObjectReaderBase<Dept> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override ObjectReaderBase<Dept> GetReader()
         {
             return new DepartamentoReader();

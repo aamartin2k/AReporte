@@ -7,6 +7,11 @@ namespace AReport.DAL.Entity
 {
     public class UserinfoDataHandler : EntityDataHandler<Userinfo>
     {
+        protected override ObjectReaderBase<Userinfo> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override ObjectReaderBase<Userinfo> GetReader()
         {
             return new UserinfoReader();

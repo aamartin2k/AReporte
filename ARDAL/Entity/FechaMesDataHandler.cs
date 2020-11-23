@@ -1,6 +1,7 @@
 ﻿using AReport.Support.Entity;
 using AReport.DAL.Reader;
 using AReport.DAL.Writer;
+using System;
 
 namespace AReport.DAL.Entity
 {
@@ -14,6 +15,11 @@ namespace AReport.DAL.Entity
         protected override ObjectReaderBase<FechaMes> GetReader()
         {
             return new FechaMesReader();
+        }
+
+        protected override ObjectReaderBase<FechaMes> GetEntityByIdReader()
+        {
+            throw new NotImplementedException();
         }
     }
 }

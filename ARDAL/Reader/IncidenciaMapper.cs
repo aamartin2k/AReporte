@@ -19,7 +19,7 @@ namespace AReport.DAL.Reader
             {
                 Incidencia incid = new Incidencia();
 
-                incid.IncidenciaId = (DBNull.Value == record["IncidenciaId"]) ?
+                incid.Id = (DBNull.Value == record["IncidenciaId"]) ?
                             0 : (int)record["IncidenciaId"];
 
                 incid.CausaId = (DBNull.Value == record["CausaId"]) ?
@@ -34,9 +34,6 @@ namespace AReport.DAL.Reader
             {
                 throw;
 
-                // NOTE: 
-                // consider handling exeption here instead of re-throwing
-                // if graceful recovery can be accomplished
             }
         }
     }

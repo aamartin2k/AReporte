@@ -37,9 +37,6 @@ namespace AReport.DAL.Reader
             {
                 throw;
 
-                // NOTE: 
-                // consider handling exeption here instead of re-throwing
-                // if graceful recovery can be accomplished
             }
         }
     }

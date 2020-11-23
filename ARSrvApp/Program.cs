@@ -13,7 +13,7 @@ namespace AReport.Srv
             CreateServer();
         }
 
-        static void CreateServer()
+        private static void CreateServer()
         {
             // Crear nuevo Zyan ComponentHost
             using (var host = new ZyanComponentHost(Constants.ZyanServerName, Constants.ZyanServerPort))

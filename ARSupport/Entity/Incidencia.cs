@@ -21,8 +21,8 @@ namespace AReport.Support.Entity
         { get; set; }
 
 
-        public int IncidenciaId
-        { get; set; }
+        //public int IncidenciaId
+        //{ get; set; }
 
         public int CausaId
         { get; set; }
