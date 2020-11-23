@@ -137,11 +137,7 @@ namespace AReport.DAL.BOD
 
         }
 
-
-        public void RetUserCheckinoutId(string userId)
-        {
-        }
-
+        // Retorna coleccion de Checkinout por userId y Fecha
         public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, DateTime fecha)
         {
             CheckinoutDataHandler cdh = new CheckinoutDataHandler();
@@ -153,6 +149,56 @@ namespace AReport.DAL.BOD
             return coll;
         }
 
+        public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, string fecha)
+        {
+            CheckinoutDataHandler cdh = new CheckinoutDataHandler();
+
+            ObjectReaderBase<Checkinout> reader = cdh.GetEntityByUserDateReader();
+
+            Collection<Checkinout> coll = reader.ReadEntityBy2Params(userId, fecha);
+
+            return coll;
+        }
+
+        // Retorna Id de registro Checkinout por userId, Fecha y Tipo de Registro
+        public int RetUserCheckinoutIdByIdDateType(string userId, DateTime fecha, int type)
+        {  // fecha.ToString(DateFormat)
+            return RetUserCheckinoutIdByIdDateType(userId, fecha.ToString(Constants.DateFormat), type);
+        }
+        public int RetUserCheckinoutIdByIdDateType(string userId, string fecha, int type)
+        {
+            
+            // obtener coleccion
+            Collection<Checkinout> registros = RetUserCheckinoutByUserDate(userId, fecha);
+
+            // buscar por tipo
+            if ((registros != null) && (registros.Count > 0))
+            {
+                var reg = registros.Where( r => r.CheckType == type).First();
+                if (reg != null)
+                {
+                    return reg.Id;
+                }
+            }
+
+            // No se encuentran registros
+            return 0;
+        }
+
+        public DateTime RetUserCheckinoutTime(int id)
+        {
+            ObjectReaderBase<Checkinout> reader = new CheckinoutByIdReader();
+
+            var ent = reader.ReadEntityById(id);
+
+            if (ent != null)
+            {
+                return ent.CheckTime;
+            }
+
+            return DateTime.MaxValue;
+            
+        }
 
     }
 }

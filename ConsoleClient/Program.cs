@@ -28,6 +28,7 @@ namespace ConsoleClient
             // Pruebas BOD
             Test_BOGenerator();
 
+
             // Pruebas a Servidor
             //ConnectSync();
 
@@ -41,7 +42,7 @@ namespace ConsoleClient
         {
             // print information
             Console.WriteLine(string.Format("Conectando con Zyan Component {0} en localhost, puerto {1}, oprima cualquier tecla para terminar.", Constants.ZyanServerName, Constants.ZyanServerPort));
-            
+
             // connect to the Zyan ComponentHost and create a new Proxy for the service
             var connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
 
@@ -75,7 +76,7 @@ namespace ConsoleClient
 
                 // Leer User Role
                 var URquery = new UserRoleQuery("Tata");
-                
+
                 var result = proxy.Handle(URquery);
                 Console.WriteLine(string.Format("Login Aceptado. UserID: {0}  Rol: {1}", result.UserID, result.UserRole));
 
@@ -83,10 +84,10 @@ namespace ConsoleClient
             }
             else
             {
-                Console.WriteLine(string.Format("Login Denegado. Mensaje: {0}", (status as Failure).Errormessage ));
+                Console.WriteLine(string.Format("Login Denegado. Mensaje: {0}", (status as Failure).Errormessage));
                 return false;
             }
-            
+
         }
 
         static void ReadDataAction(IMessageHandling proxy)
@@ -105,9 +106,9 @@ namespace ConsoleClient
             }
             else
                 Console.WriteLine("No hay registros en Departamentos.");
-           // leyendo claves de mes
+            // leyendo claves de mes
 
-           ClaveMesQuery kmQry = new ClaveMesQuery();
+            ClaveMesQuery kmQry = new ClaveMesQuery();
             ClaveMesQueryResult kmRst = proxy.Handle(kmQry);
 
             if (kmRst.ClavesMes != null)
@@ -126,14 +127,66 @@ namespace ConsoleClient
         #endregion
 
         #region Test DAL
+
         static void Test_BOGenerator()
         {
+            Test_UserCheckinoutByUserDate();
+
+            Test_RetUserCheckinoutIdByIdDateType();
+        }
+
+        static void Test_RetUserCheckinoutIdByIdDateType()
+        {
+            string uid = "91112422684";
+            string fecha = "2019-06-26";
+            int type = 0;
+            int ret;
+
+            BOGenerator bog = new BOGenerator();
+
+            ret = bog.RetUserCheckinoutIdByIdDateType(uid, fecha, type);
+            if (ret != 0)
+            {
+                Console.WriteLine(string.Format("Encontrado Id: {0}, Tipo: {1}", ret, type));
+                Console.WriteLine(string.Format("  Fecha Hora registrada: {0}", bog.RetUserCheckinoutTime(ret)));
+            }
+            else
+                Console.WriteLine("No encontrado.");
+
+            type = 1;
+            ret = bog.RetUserCheckinoutIdByIdDateType(uid, fecha, type);
+            if (ret != 0)
+            {
+                Console.WriteLine(string.Format("Encontrado Id: {0}, Tipo: {1}", ret, type));
+                Console.WriteLine(string.Format("  Fecha Hora registrada: {0}", bog.RetUserCheckinoutTime(ret)));
+
+            }
+            else
+                Console.WriteLine("No encontrado.");
+        }
+
+        static void Test_UserCheckinoutByUserDate()
+        {
+             // probando 2 overloads, string, date y string, string
             BOGenerator bog = new BOGenerator();
 
             string uid = "11";
-            DateTime fecha = DateTime.Parse("2005-01-03");
+            DateTime fecha = DateTime.Parse("2005-01-01");
 
-            Collection<Checkinout> marks = bog.RetUserCheckinoutByUserDate(uid, fecha);
+            Collection<Checkinout> marks = bog.RetUserCheckinoutByUserDate(uid, "2005-01-01");
+
+            if ((marks != null) && (marks.Count != 0))
+            {
+                foreach (var item in marks)
+                {
+                    Console.WriteLine(string.Format("Id: {0}\tUser Id: {1}\t Fecha: {2}\tTipo: {3}", item.Id, item.UserId, item.CheckTime, item.CheckType));
+                }
+            }
+
+            Console.WriteLine();
+            uid = "91112422684";
+            fecha = DateTime.Parse("2019-06-26");
+            marks = bog.RetUserCheckinoutByUserDate(uid, fecha);
 
             if ((marks != null) && (marks.Count != 0))
             {

@@ -24,8 +24,8 @@ namespace AReport.Support.Entity
         { get; set; }
 
 
-        public int LogId
-        { get; set; }
+        //public int LogId
+        //{ get; set; }
 
         public string UserId
         { get; set; }

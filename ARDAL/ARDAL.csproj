@@ -43,6 +43,7 @@
     <Compile Include="BOD\ConjuntoDatos.cs" />
     <Compile Include="BOD\Empleado.cs" />
     <Compile Include="BOD\Registro.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Entity\AsistenciaDataHandler.cs" />
     <Compile Include="Entity\CausaIncidenciaDataHandler.cs" />
     <Compile Include="Entity\CheckinoutDataHandler.cs" />

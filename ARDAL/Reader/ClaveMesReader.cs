@@ -40,15 +40,15 @@ namespace AReport.DAL.Reader
             {
                 // return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]";
 
-                return base.CommandText + " WHERE [MesId] = " + IdParam ;
+                return base.CommandText + " WHERE [MesId] = " + Constants.IdParam;
             }
         }
     }
 
     class ClaveMesByMesAnnoReader : ClaveMesReader
     {
-        private const string FilterOneParam = "@Key01Param";
-        private const string FilterTwoParam = "@Key02Param";
+        //private const string FilterOneParam = "@Key01Param";
+        //private const string FilterTwoParam = "@Key02Param";
 
         protected override string CommandText
         {
@@ -56,7 +56,7 @@ namespace AReport.DAL.Reader
             {
                 // "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes] WHERE [MesId] = "@Param1 AND Anno = Param2";
 
-                return base.CommandText + string.Format(" WHERE [MesId] ={0} AND [Anno] = {1}", FilterOneParam, FilterTwoParam);
+                return base.CommandText + string.Format(" WHERE [MesId] ={0} AND [Anno] = {1}", Constants.FilterOneParam, Constants.FilterTwoParam);
             }
         }
 
@@ -76,13 +76,13 @@ namespace AReport.DAL.Reader
 
                 // Creando Parametro para filtrar por Mes y Anno
                 IDataParameter param1 = command.CreateParameter();
-                param1.ParameterName = FilterOneParam;
+                param1.ParameterName = Constants.FilterOneParam;
                 param1.DbType = DbType.Int32;
                 param1.Value = mes;
                 command.Parameters.Add(param1);
 
                 param1 = command.CreateParameter();
-                param1.ParameterName = FilterTwoParam;
+                param1.ParameterName = Constants.FilterTwoParam;
                 param1.DbType = DbType.Int32;
                 param1.Value = anno;
 

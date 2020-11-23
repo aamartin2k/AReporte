@@ -44,28 +44,33 @@ namespace AReport.DAL.Reader
             get
             {
                 // return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]";
-                return base.CommandText + " WHERE [Logid] = " + IdParam;
+                return base.CommandText + " WHERE [Logid] = " + Constants.IdParam;
             }
         }
     }
 
     class CheckinoutByUserDateReader : CheckinoutReader
     {
-        private const string FilterOneParam = "@Key01Param";
-        private const string FilterTwoParam = "@Key02Param";
+        //private const string FilterOneParam = "@Key01Param";
+        //private const string FilterTwoParam = "@Key02Param";
 
         protected override string CommandText
         {
             get
             {
                 // return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]";
-                return base.CommandText + string.Format(" WHERE [Userid]={0} AND CAST([CheckTime] as DATE) = CAST('{1}' as DATE)", 
-                    FilterOneParam, FilterTwoParam);
+                return base.CommandText + string.Format(" WHERE [Userid]={0} AND CAST([CheckTime] as DATE) = CAST({1} as DATE)",
+                    Constants.FilterOneParam, Constants.FilterTwoParam);
             }
         }
 
-
         public override Collection<Checkinout> ReadEntityBy2Params(string userId, DateTime fecha)
+        {
+            // fecha.ToString(DateFormat); 
+            return ReadEntityBy2Params(userId, fecha.ToString(Constants.DateFormat));
+        }
+
+        public override Collection<Checkinout> ReadEntityBy2Params(string userId, string fecha)
         {
             Collection<Checkinout> collection = new Collection<Checkinout>();
 
@@ -81,16 +86,16 @@ namespace AReport.DAL.Reader
 
                 // Creando Parametro para filtrar por userId y fecha
                 IDataParameter param1 = command.CreateParameter();
-                param1.ParameterName = FilterOneParam;
+                param1.ParameterName = Constants.FilterOneParam;
                 param1.DbType = DbType.String;
                 param1.Value = userId;
                 command.Parameters.Add(param1);
 
                 param1 = command.CreateParameter();
-                param1.ParameterName = FilterTwoParam;
+                param1.ParameterName = Constants.FilterTwoParam;
                 param1.DbType = DbType.String;
-                param1.Value = "2005-JAN-03";
-
+                param1.Value = fecha; 
+                //Console.WriteLine("Fecha: " + fecha.ToString("yyyyMMdd"));
 
                 command.Parameters.Add(param1);
 
@@ -120,7 +125,7 @@ namespace AReport.DAL.Reader
                 catch
                 {
                     throw;
-
+                
                 }
                 finally
                 {

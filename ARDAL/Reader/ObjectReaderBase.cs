@@ -7,9 +7,10 @@ namespace AReport.DAL.Reader
 {
     public abstract class ObjectReaderBase<T> 
     {
-        protected const string IdParam = "@IdParam";
-        
-  
+        //protected const string IdParam = "@IdParam";
+        //protected internal const string DateFormat = "yyyyMMdd";
+
+
         protected abstract string CommandText { get; }
         
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command);
@@ -101,7 +102,7 @@ namespace AReport.DAL.Reader
 
                 // Creando Parametro para filtrar por Id
                 IDataParameter param1 = command.CreateParameter();
-                param1.ParameterName = IdParam;
+                param1.ParameterName = Constants.IdParam;
                 param1.DbType = DbType.Int32;
                 param1.Value = Id;
                 command.Parameters.Add(param1);
@@ -147,6 +148,8 @@ namespace AReport.DAL.Reader
         public virtual Collection<T> ReadEntityBy2Params(string param1, DateTime param2)
         { return null; }
 
+        public virtual Collection<T> ReadEntityBy2Params(string param1, string param2)
+        { return null; }
 
     }
     

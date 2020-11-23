@@ -22,7 +22,7 @@ namespace AReport.DAL.Reader
                 Checkinout ent = new Checkinout();
 
 
-                ent.LogId = (DBNull.Value == record["Logid"]) ?
+                ent.Id = (DBNull.Value == record["Logid"]) ?
                             0 : (int)record["Logid"];
 
                 ent.UserId = (DBNull.Value == record["Userid"]) ?
