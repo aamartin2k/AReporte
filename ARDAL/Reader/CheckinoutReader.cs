@@ -17,7 +17,6 @@ namespace AReport.DAL.Reader
     class CheckinoutReader : ObjectReaderBase<Checkinout>
     {
 
-
         protected override string CommandText
         {
             get { return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]"; }
@@ -35,17 +34,45 @@ namespace AReport.DAL.Reader
             return collection;
         }
 
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string param1, int param2)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int param1, int param2)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    class CheckinoutByIdReader : CheckinoutReader
+    class CheckinoutByIdReader : CheckinoutReader 
     {
         protected override string CommandText
         {
             get
             {
-                // return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout]";
+                //return "SELECT [Logid], [Userid], [CheckTime], [CheckType] FROM dbo.[Checkinout] WHERE [Logid] = " + Constants.IdParam;
                 return base.CommandText + " WHERE [Logid] = " + Constants.IdParam;
             }
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            // Creando Parametro para filtrar por Id
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+
+            IDataParameter param1 = command.CreateParameter();
+            param1.ParameterName = Constants.IdParam;
+            param1.DbType = DbType.Int32;
+            param1.Value = id;
+            command.Parameters.Add(param1);
+
+            return collection;
         }
     }
 
@@ -64,13 +91,13 @@ namespace AReport.DAL.Reader
             }
         }
 
-        public override Collection<Checkinout> ReadEntityBy2Params(string userId, DateTime fecha)
+        public override Collection<Checkinout> ReadCollectionBy2Params(string userId, DateTime fecha)
         {
             // fecha.ToString(DateFormat); 
-            return ReadEntityBy2Params(userId, fecha.ToString(Constants.DateFormat));
+            return ReadCollectionBy2Params(userId, fecha.ToString(Constants.DateFormat));
         }
 
-        public override Collection<Checkinout> ReadEntityBy2Params(string userId, string fecha)
+        public override Collection<Checkinout> ReadCollectionBy2Params(string userId, string fecha)
         {
             Collection<Checkinout> collection = new Collection<Checkinout>();
 

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using AReport.Support.Entity;
+using System;
 
 namespace AReport.DAL.Reader
 {
@@ -30,6 +31,20 @@ namespace AReport.DAL.Reader
         {
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
+        }
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string param1, int param2)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int param1, int param2)
+        {
+            throw new NotImplementedException();
         }
     }
 }

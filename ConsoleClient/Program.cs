@@ -27,8 +27,9 @@ namespace ConsoleClient
 
             // Pruebas BOD
             Test_BOGenerator();
-
-
+            
+            
+   
             // Pruebas a Servidor
             //ConnectSync();
 
@@ -130,9 +131,114 @@ namespace ConsoleClient
 
         static void Test_BOGenerator()
         {
-            Test_UserCheckinoutByUserDate();
 
-            Test_RetUserCheckinoutIdByIdDateType();
+            //Test_ClavesMes();
+            //Test_FechaMes();
+            //Test_Asistencia();
+            //Test_Incidencia();
+            //Test_Asistencia();
+
+            //Test_AsistenciaReadEnt();
+            //Test_CrearRegistroAsistenciaMes();
+            Test_LeerRegistroAsistenciaMes();
+
+        }
+        static void Test_LeerRegistroAsistenciaMes()
+        {
+            Collection<Asistencia> asist;
+
+            // leer Asistencia
+            Console.WriteLine("Lectura Inicial Asistencia");
+            asist = ReadAsistencia();
+            PrintOutAsistencia(asist);
+
+
+            //ConsultaRegistroAsistenciaMes
+            Console.WriteLine("Consulta Asistencia");
+
+            // Leer listado fechas
+            Collection<FechaMes> fechas;
+            Console.WriteLine("Lectura FechaMes");
+            fechas = ReadFechaMes();
+           
+            // filtrar las correspondientes al mes recien creado
+            Collection<FechaMes> fechasDelMes = new Collection<FechaMes>(fechas.Where(f => f.MesId == 10).ToArray());
+            Console.WriteLine("Lectura Filtrada");
+            
+            // Crear listado id usuario  "11" 
+            Collection<string> usuarios = new Collection<string>();
+            usuarios.Add("11");
+
+            BOGenerator bog = new BOGenerator();
+
+            asist = bog.ConsultaRegistroAsistenciaMes(usuarios, fechasDelMes);
+
+            foreach (Asistencia p in asist)
+                Console.WriteLine(string.Format("Id: {0}\tUserId: {1}\tFecha: {2}\tDia: {3}\tChekInId: {4}\tChekOutId: {5}\tInTime: {6}\tOutTime: {7}"
+                    , p.Id, p.UserId, p.Fecha, p.DiaSemana, p.ChekInId, p.ChekOutId, p.ChekinTime, p.ChekoutTime));
+        }
+
+
+        static void Test_CrearRegistroAsistenciaMes()
+        {
+            Collection<Asistencia> asist;
+
+            // leer Asistencia
+            Console.WriteLine("Lectura Inicial Asistencia");
+            asist = ReadAsistencia();
+            PrintOutAsistencia(asist);
+
+            // Crear entrada claves mes   2015 - 1
+            //Collection<ClaveMes> claves = new Collection<ClaveMes>();
+
+            //var inc = new ClaveMes();
+            //inc.State = EntityState.Added;
+            //inc.Mes = 1;
+            //inc.Anno = 2015;
+            //claves.Add(inc);
+
+            //Console.WriteLine("ClaveMes Id: " + inc.Id);
+
+            //WriteClaveMes(claves);
+
+            //Console.WriteLine("ClaveMes Escrito a DB Id: " + inc.Id);
+
+            // Crear listado fechas mes
+            BOGenerator bog = new BOGenerator();
+            //bool ret = bog.CrearFechasLaborablesMes(10);
+
+            //if (ret)
+            //    Console.WriteLine("Fechas Laborables Mes Creado con exito!");
+            //else
+            //    Console.WriteLine("Error!");
+
+            // Leer listado fechas
+            Collection<FechaMes> fechas;
+            Console.WriteLine("Lectura Inicial");
+            fechas = ReadFechaMes();
+            PrintOutFechaMes(fechas);
+
+            // filtrar las correspondientes al mes recien creado
+            Collection<FechaMes> fechasDelMes = new Collection<FechaMes>( fechas.Where(f => f.MesId == 10).ToArray() ) ;
+            Console.WriteLine("Lectura Filtrada");
+            PrintOutFechaMes(fechasDelMes);
+
+            // Crear listado id usuario  "11" 
+            Collection<string> usuarios = new Collection<string>();
+            usuarios.Add("11");
+           
+
+            // Generar registro
+            bool ret = bog.CrearRegistroAsistenciaMes(usuarios, fechasDelMes);
+            if (ret)
+                Console.WriteLine("Registro Asistencia MesCreado con exito!");
+            else
+                Console.WriteLine("Error!");
+
+            // leer Asistencia
+            Console.WriteLine("Lectura Final Asistencia");
+            asist = ReadAsistencia();
+            PrintOutAsistencia(asist);
         }
 
         static void Test_RetUserCheckinoutIdByIdDateType()
@@ -158,7 +264,7 @@ namespace ConsoleClient
             if (ret != 0)
             {
                 Console.WriteLine(string.Format("Encontrado Id: {0}, Tipo: {1}", ret, type));
-                Console.WriteLine(string.Format("  Fecha Hora registrada: {0}", bog.RetUserCheckinoutTime(ret)));
+                Console.WriteLine(string.Format("  Fecha Hora registrada: {0}", bog.RetUserCheckinoutTimeStr(ret)));
 
             }
             else
@@ -312,6 +418,17 @@ namespace ConsoleClient
         }
 
         #region Test Checkinout
+        static void Test_Checkinout_Entity()
+        {
+           // GetEntityByIdReader
+            CheckinoutDataHandler dh = new CheckinoutDataHandler();
+           
+            Checkinout ent = dh.GetEntity(40);
+
+            Console.WriteLine(string.Format("Entity Id: {0}\t User ID: {1}\t CheckTime: {2}\t CheckType: {3}",
+                                                   ent.Id, ent.UserId, ent.CheckTime, ent.CheckType));
+        }
+
         static void Test_Checkinout()
         {
             Collection<Checkinout> people;
@@ -481,7 +598,7 @@ namespace ConsoleClient
             //Test_FechaMes();
 
 
-            Test_Asistencia();
+            //Test_Asistencia();
             //  Incorporar FK para Incidencia. Implementar y probar sin relacion y con relacion.
             // probar escritura con tabla relacionada.
 
@@ -497,6 +614,22 @@ namespace ConsoleClient
 
         #region Test Asistencia
 
+        static void Test_AsistenciaReadEnt()
+        {
+            Collection<Asistencia> people;
+
+            // leer Asistencia
+            Console.WriteLine("Lectura Inicial");
+            people = ReadAsistencia();
+            PrintOutAsistencia(people);
+
+            // leer Entidad Asistencia por Id
+            Console.WriteLine("Lectura Entidad Asistencia por Id");
+            ReadEntidadAsistencia(people);
+
+            Console.WriteLine("Lectura Entidad Asistencia por Usuario y Fecha");
+            ReadEntidadAsistenciaUserFecha(people);
+        }
 
         static void Test_Asistencia()
         {
@@ -518,7 +651,7 @@ namespace ConsoleClient
 
             // escribir Asistencias
             WriteAsistencia(people);
-           
+
             // leer Asistencias
             Console.WriteLine("Lectura Asistencias nuevos");
             people = ReadAsistencia();
@@ -530,9 +663,9 @@ namespace ConsoleClient
             PrintOutAsistencia(people);
 
             // eliminar Asistencia
-            Console.WriteLine("Eliminar Asistencias");
-            DeleteAsistencia(people);
-            PrintOutAsistencia(people);
+            //Console.WriteLine("Eliminar Asistencias");
+            //DeleteAsistencia(people);
+            //PrintOutAsistencia(people);
 
             Console.WriteLine();
         }
@@ -540,8 +673,8 @@ namespace ConsoleClient
         static void PrintOutAsistencia(Collection<Asistencia> people)
         {
             foreach (Asistencia p in people)
-                Console.WriteLine(string.Format("Entity Id: {0}\t Fecha Id: {1}\tUser Id: {2}\tChekIn Id: {3}\tChekOut Id: {4}\tCausa Id: {5}\tObservacion: {6}"
-                    , p.Id, p.FechaId, p.UserId, p.ChekInId, p.ChekOutId, p.CausaId, p.Observacion));
+                Console.WriteLine(string.Format("Entity Id: {0}\t Fecha Id: {1}\tUser Id: {2}\tChekIn Id: {3}\tChekOut Id: {4}\tIncidencia Id: {5}"
+                    , p.Id, p.FechaId, p.UserId, p.ChekInId, p.ChekOutId, p.IncidenciaId));
         }
 
         static Collection<Asistencia> ReadAsistencia()
@@ -553,6 +686,35 @@ namespace ConsoleClient
 
             return people;
         }
+
+        static void ReadEntidadAsistencia(Collection<Asistencia> people)
+        {
+            AsistenciaDataHandler reader = new AsistenciaDataHandler();
+            Asistencia p = reader.GetEntity(people[0].Id);
+
+            Console.WriteLine(string.Format("Entity Id: {0}\t Fecha Id: {1}\tUser Id: {2}\tChekIn Id: {3}\tChekOut Id: {4}\tCausa Id: {5}"
+                    , p.Id, p.FechaId, p.UserId, p.ChekInId, p.ChekOutId, p.IncidenciaId ));
+        }
+
+        static void ReadEntidadAsistenciaUserFecha(Collection<Asistencia> people)
+        { 
+
+            Asistencia atd = people[0];
+
+            BOGenerator bog = new BOGenerator();
+            Asistencia p = bog.RetAsistenciaUsuarioFecha(atd.UserId, atd.FechaId);
+
+            Console.WriteLine(string.Format("Entity Id: {0}\t Fecha Id: {1}\tUser Id: {2}\tChekIn Id: {3}\tChekOut Id: {4}\tCausa Id: {5}"
+                    , p.Id, p.FechaId, p.UserId, p.ChekInId, p.ChekOutId, p.IncidenciaId ));
+
+            atd = people[1];
+            p = bog.RetAsistenciaUsuarioFecha(atd.UserId, atd.FechaId);
+
+            Console.WriteLine(string.Format("Entity Id: {0}\t Fecha Id: {1}\tUser Id: {2}\tChekIn Id: {3}\tChekOut Id: {4}\tCausa Id: {5}"
+                    , p.Id, p.FechaId, p.UserId, p.ChekInId, p.ChekOutId, p.IncidenciaId ));
+
+        }
+
 
         static void WriteAsistencia(Collection<Asistencia> people)
         {
@@ -571,32 +733,32 @@ namespace ConsoleClient
             // 62020815065
             var usr = new Asistencia();
             usr.State = EntityState.Added;
-            usr.FechaId = 1;
+            usr.FechaId = 5;
             usr.UserId = UsrId01;
             usr.ChekInId = 200;
             usr.ChekOutId = 201;
-            usr.CausaId = 1;
-            usr.Observacion = "Asistencia Observacion 1";
+            usr.IncidenciaId = 10;
+           
             people.Add(usr);
 
             usr = new Asistencia();
             usr.State = EntityState.Added;
-            usr.FechaId = 2;
+            usr.FechaId = 6;
             usr.UserId = UsrId02;
             usr.ChekInId = 180;
             usr.ChekOutId = 181;
-            usr.CausaId = 2;
-            usr.Observacion = "Asistencia Observacion 2";
+            usr.IncidenciaId = 11;
+            
             people.Add(usr);
 
             usr = new Asistencia();
             usr.State = EntityState.Added;
-            usr.FechaId = 3;
+            usr.FechaId = 7;
             usr.UserId = UsrId03;
             usr.ChekInId = 400;
             usr.ChekOutId = 401;
-            usr.CausaId = 3;
-            usr.Observacion = "Asistencia Observacion 3";
+            usr.IncidenciaId = 12;
+            
             people.Add(usr);
 
         }
@@ -615,12 +777,12 @@ namespace ConsoleClient
         {
             people[1].ChekInId = 50;
             people[1].ChekOutId = 55;
-            people[1].Observacion = "No Observacion";
+           
             people[1].State = EntityState.Modified;
 
             people[2].ChekInId = 80;
             people[2].ChekOutId = 85;
-            people[2].Observacion = "New Observacion";
+            
             people[2].State = EntityState.Modified;
 
             WriteAsistencia(people);
@@ -644,19 +806,24 @@ namespace ConsoleClient
             if (people.Count > 0)
                 DeleteClaveMes(people);
 
-            // crear 3 usuarios nuevos
+            // crear 3 clave nuevos
             // como efecto secundario en coleccion
             Console.WriteLine("Crear 3 ClaveMes nuevos");
             CreateClaveMes(people);
 
-            // escribir usuarios
+            // escribir clave
             WriteClaveMes(people);
 
-            // leer usuarios
+            // leer clave
             Console.WriteLine("Lectura ClavesMes nuevos");
             people = ReadClaveMes();
             PrintOutClavesMes(people);
             return;
+
+            // leer Entidad clave por Id
+            Console.WriteLine("Lectura Entidad ClaveMes por Id");
+            ReadEntidadClaveMes(people);
+
             // actualizar usuario
             Console.WriteLine("Actualizar ClavesMes");
             UpdateClaveMes(people);
@@ -670,6 +837,16 @@ namespace ConsoleClient
             PrintOutClavesMes(people);
 
             Console.WriteLine();
+        }
+
+        // ReadEntidadClaveMes
+        static void ReadEntidadClaveMes(Collection<ClaveMes> people)
+        {
+            ClaveMesDataHandler reader = new ClaveMesDataHandler();
+            ClaveMes p = reader.GetEntity(people[0].Id)  ;
+
+            Console.WriteLine(string.Format("Entity Id: {0}\t Mes Id: {1}\tAño: {2}",
+                                                  p.Id, p.Mes, p.Anno));
         }
 
         static void PrintOutClavesMes(Collection<ClaveMes> people)
@@ -1192,28 +1369,28 @@ namespace ConsoleClient
         {
             var inc = new FechaMes();
             inc.State = EntityState.Added;
-            inc.MesId = 1;
+            inc.MesId = 7;
             inc.Fecha = DateTime.Now;
             inc.DiaSemanaId = 1;
             people.Add(inc);
 
             inc = new FechaMes();
             inc.State = EntityState.Added;
-            inc.MesId = 2;
+            inc.MesId = 7;
             inc.Fecha = DateTime.Now;
             inc.DiaSemanaId = 3;
             people.Add(inc);
 
             inc = new FechaMes();
             inc.State = EntityState.Added;
-            inc.MesId = 2;
+            inc.MesId = 8;
             inc.Fecha = DateTime.Now;
             inc.DiaSemanaId = 2;
             people.Add(inc);
 
             inc = new FechaMes();
             inc.State = EntityState.Added;
-            inc.MesId = 3;
+            inc.MesId = 9;
             inc.Fecha = DateTime.Now;
             inc.DiaSemanaId = 5;
             people.Add(inc);
@@ -1286,9 +1463,9 @@ namespace ConsoleClient
             PrintOutIncidencia(people);
 
             // eliminar usuario
-            Console.WriteLine("Eliminar Incidencia");
-            DeleteIncidencia(people);
-            PrintOutIncidencia(people);
+            //Console.WriteLine("Eliminar Incidencia");
+            //DeleteIncidencia(people);
+            //PrintOutIncidencia(people);
 
             Console.WriteLine();
         }

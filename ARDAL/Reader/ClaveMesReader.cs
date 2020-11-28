@@ -11,7 +11,7 @@ namespace AReport.DAL.Reader
 	[Mes] [int] NOT NULL,
 	[Anno] [int] NOT NULL,
      */
-    class ClaveMesReader : ObjectReaderBase<ClaveMes> 
+    class ClaveMesReader : ObjectReaderBase<ClaveMes>  
     {
 
         protected override string CommandText
@@ -30,6 +30,21 @@ namespace AReport.DAL.Reader
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
         }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string param1, int param2)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int param1, int param2)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class ClaveMesByIdReader : ClaveMesReader
@@ -39,17 +54,28 @@ namespace AReport.DAL.Reader
             get
             {
                 // return "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes]";
-
                 return base.CommandText + " WHERE [MesId] = " + Constants.IdParam;
             }
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            // Creando Parametro para filtrar por Id
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+
+            IDataParameter param1 = command.CreateParameter();
+            param1.ParameterName = Constants.IdParam;
+            param1.DbType = DbType.Int32;
+            param1.Value = id;
+            command.Parameters.Add(param1);
+
+            return collection;
         }
     }
 
     class ClaveMesByMesAnnoReader : ClaveMesReader
     {
-        //private const string FilterOneParam = "@Key01Param";
-        //private const string FilterTwoParam = "@Key02Param";
-
+        
         protected override string CommandText
         {
             get

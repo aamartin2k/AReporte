@@ -6,15 +6,17 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
+    
     /*
-     CREATE TABLE [dbo].[AA_Asistencias](
-	    [Id] [int] IDENTITY(1,1) NOT NULL,
-	    [FechaId] [int] NOT NULL,
-	    [UserId] [varchar](20) NOT NULL,
-	    [ChekInId] [int] NULL,
-	    [ChekOutId] [int] NULL,
-	    [CausaId] [int] NULL,
-	    [Observacion] [varchar](80) NULL,
+    CREATE TABLE [dbo].[AA_Asistencias](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FechaId] [int] NOT NULL,
+	[UserId] [varchar](20) NOT NULL,
+	[ChekInId] [int] NULL,
+	[ChekOutId] [int] NULL,
+	[IncidenciaId] [int] NULL,
+	[Observacion] [varchar](80) NULL,
+    
      */
 
     [Serializable]
@@ -36,14 +38,16 @@ namespace AReport.Support.Entity
         { get; set; }
         public int ChekOutId
         { get; set; }
-        public int CausaId
+        public int IncidenciaId
         { get; set; }
-        public string Observacion
-        { get; set; }
+        //public string Observacion
+        //{ get; set; }
 
 
         // Posibles necesarias para el reporte
         public string Fecha
+        { get; set; }
+        public string DiaSemana
         { get; set; }
         public string ChekinTime
         { get; set; }

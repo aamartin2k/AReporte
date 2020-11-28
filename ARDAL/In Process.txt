@@ -26,3 +26,63 @@ AA_Usuarios					*		*			*		*		*		*		*
 
  Analizar Implementar Writer INSERT con PArametro output :  SET @NewID = SCOPE_IDENTITY() 
    OK
+
+Implementacion de Lectura de Entidad por Id basado en metodo generico en ObjectReaderBase
+						DataHandlr		Reader	Test
+Checkinout				*				*		*			
+Dept						
+Status  D					
+Userinfo					
+
+De aplicación lectura y escritura:
+						
+AA_Asistencias			*				*		*											
+AA_CausaIncidencia D		
+AA_ClavesMes			*				*		*			
+AA_Configuracion
+AA_DiasSemana D				
+AA_FechasMes				
+AA_Incidencias					
+AA_JefesDept				
+AA_Roles D					
+AA_Usuarios		
+
+Implementacion de Lectura de Entidad por 2 parametros basado en metodo generico en ObjectReaderBase
+						Signature		DataHandlr		Reader	Test
+Checkinout					
+Dept						
+Status  D					
+Userinfo					
+
+De aplicación lectura y escritura:
+						
+AA_Asistencias														
+AA_CausaIncidencia D		
+AA_ClavesMes			(int, int)						
+AA_Configuracion
+AA_DiasSemana D				
+AA_FechasMes				
+AA_Incidencias					
+AA_JefesDept				
+AA_Roles D					
+AA_Usuarios		
+
+Implementacion de Lectura de Coleccion por 2 parametros basado en metodo generico en ObjectReaderBase
+						Signature				DataHandlr		Reader	Test
+Checkinout		  string, DateTime		
+Dept						
+Status  D					
+Userinfo					
+
+De aplicación lectura y escritura:
+						
+AA_Asistencias														
+AA_CausaIncidencia D		
+AA_ClavesMes									
+AA_Configuracion
+AA_DiasSemana D				
+AA_FechasMes				
+AA_Incidencias					
+AA_JefesDept				
+AA_Roles D					
+AA_Usuarios		

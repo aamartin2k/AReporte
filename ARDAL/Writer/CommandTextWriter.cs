@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Data;
 
 namespace AReport.DAL.Writer
@@ -12,6 +13,11 @@ namespace AReport.DAL.Writer
         protected override CommandType CommandType
         {
             get { return CommandType.Text; }
+        }
+
+        static protected object NullIfZeroInt(int value)
+        {
+            return value == 0 ? (object)DBNull.Value : value;
         }
     }
 }

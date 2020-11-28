@@ -9,7 +9,7 @@ namespace AReport.DAL.Writer
 	    [UserId] [varchar](20) NOT NULL,
 	    [ChekInId] [int] NULL,
 	    [ChekOutId] [int] NULL,
-	    [CausaId] [int] NULL,
+	    [IncidenciaId] [int] NULL,
 	    [Observacion] [varchar](80) NULL,
      */
 
@@ -30,8 +30,8 @@ namespace AReport.DAL.Writer
 
         protected string ParamChekOutId
         { get { return "@ChekOutIdParam"; } }
-        protected string ParamCausaId
-        { get { return "@CausaIdParam"; } }
+        protected string ParamIncidenciaId
+        { get { return "@IncidenciaIdParam"; } }
         protected string ParamObservacion
         { get { return "@ObservacionParam"; } }
     }

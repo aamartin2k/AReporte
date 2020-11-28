@@ -22,7 +22,7 @@ namespace AReport.DAL.Entity
             get
             {
                 ObjectReaderBase<T> reader = GetReader();
-                Collection<T> collection = reader.Read();
+                Collection<T> collection = reader.ReadCollection();
                 return collection;
             }
         }

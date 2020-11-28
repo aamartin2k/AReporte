@@ -12,7 +12,8 @@ namespace AReport.DAL.BOD
 {
     public class BOGenerator
     {
-        // temporalmente todos los metodos son publicos
+        // Temporalmente todos los metodos son publicos. Se analizará opcion de convertir a static.
+
         // Gestion Claves Mes
         /// <summary>
         /// Crea una nueva entidad ClaveMes y su entrada en la tabla AA_ClavesMes.
@@ -144,18 +145,19 @@ namespace AReport.DAL.BOD
 
             ObjectReaderBase<Checkinout> reader = cdh.GetEntityByUserDateReader();
 
-            Collection<Checkinout> coll = reader.ReadEntityBy2Params(userId, fecha);
+            Collection<Checkinout> coll = reader.ReadCollectionBy2Params(userId, fecha);
 
             return coll;
         }
 
+        // Retorna coleccion de Checkinout por userId y Fecha. Overload string, string.
         public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, string fecha)
         {
             CheckinoutDataHandler cdh = new CheckinoutDataHandler();
 
             ObjectReaderBase<Checkinout> reader = cdh.GetEntityByUserDateReader();
 
-            Collection<Checkinout> coll = reader.ReadEntityBy2Params(userId, fecha);
+            Collection<Checkinout> coll = reader.ReadCollectionBy2Params(userId, fecha);
 
             return coll;
         }
@@ -165,6 +167,7 @@ namespace AReport.DAL.BOD
         {  // fecha.ToString(DateFormat)
             return RetUserCheckinoutIdByIdDateType(userId, fecha.ToString(Constants.DateFormat), type);
         }
+        // Retorna Id de registro Checkinout por userId, Fecha y Tipo de Registro. Overload string, string, int.
         public int RetUserCheckinoutIdByIdDateType(string userId, string fecha, int type)
         {
             
@@ -174,7 +177,7 @@ namespace AReport.DAL.BOD
             // buscar por tipo
             if ((registros != null) && (registros.Count > 0))
             {
-                var reg = registros.Where( r => r.CheckType == type).First();
+                var reg = registros.Where(r => r.CheckType == type).FirstOrDefault();
                 if (reg != null)
                 {
                     return reg.Id;
@@ -185,6 +188,7 @@ namespace AReport.DAL.BOD
             return 0;
         }
 
+        // Retorna hora del registro de Checkinout para usuario y fecha.
         public DateTime RetUserCheckinoutTime(int id)
         {
             ObjectReaderBase<Checkinout> reader = new CheckinoutByIdReader();
@@ -197,8 +201,124 @@ namespace AReport.DAL.BOD
             }
 
             return DateTime.MaxValue;
-            
         }
 
+        // Retorna hora del registro de Checkinout para usuario y fecha. Retorna string formateada.
+        public string RetUserCheckinoutTimeStr(int id)
+        {
+            DateTime retDate = RetUserCheckinoutTime(id);
+            //TODO Aplicar cadena de formato especifico a la hora, de ser necesario
+            return retDate == DateTime.MaxValue ? string.Empty : retDate.ToShortTimeString();
+        }
+
+        
+        // Retorna Asistencia para un usuario y una fechaId
+        public Asistencia RetAsistenciaUsuarioFecha(string UserId, int FechaId)
+        {
+            ObjectReaderBase<Asistencia> reader = new AsistenciaByUseridFechaIdReader();
+
+            var ent = reader.ReadEntityByStringKeyAndIntKey(UserId, FechaId);
+
+            return ent;
+        }
+
+        // Crea conjunto de Asistencia para un grupo de usuarios y un grupo de fechas del mes
+        public bool CrearRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
+        {
+        
+            Asistencia xEnt;
+            Collection<Asistencia> nuevaCol = new Collection<Asistencia>();
+
+            // ciclo Fechas
+            foreach (var fechaM in fechas)
+            {
+                // ciclo usuarios
+                foreach (var usrId in usuarios)
+                {
+                    xEnt = new Asistencia();
+                    xEnt.State = EntityState.Added;
+                    xEnt.FechaId = fechaM.Id;
+                    xEnt.UserId = usrId;
+                    //  No hay definicion de tipo, se usa hardcoded 0=IN, 1=OUT ****
+                    xEnt.ChekInId = RetUserCheckinoutIdByIdDateType(usrId, fechaM.Fecha, 0);
+                    xEnt.ChekOutId = RetUserCheckinoutIdByIdDateType(usrId, fechaM.Fecha, 1);
+
+                    nuevaCol.Add(xEnt);
+                }
+            }
+            // Pasar coleccion a DB
+            AsistenciaDataHandler handler = new AsistenciaDataHandler();
+
+            return handler.Write(nuevaCol);
+
+        }
+
+        // Retorna cadena descriptiva de DiaSEmana para un id
+        public string RetDescDiaSemana(int FechaId)
+        {
+            ObjectReaderBase<DiaSemana> reader = new DiaSemanaByIdReader();
+
+            var ent = reader.ReadEntityById(FechaId);
+
+            return ent.Description;
+        }
+
+
+        // Lee y retorna conjunto de Asistencia para un grupo de usuarios y un grupo de fechas del mes
+        //ConsultaRegistroAsistenciaMes
+        public Collection<Asistencia> ConsultaRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
+        {
+            Asistencia xAssist;
+            Collection<Asistencia> nuevaCol = new Collection<Asistencia>();
+
+            // ciclo Fechas
+            foreach (var fechaM in fechas)
+            {
+                // ciclo usuarios
+                foreach (var usrId in usuarios)
+                {
+                    xAssist = RetAsistenciaUsuarioFecha(usrId, fechaM.Id);
+                    xAssist.State = EntityState.Modified;
+                   
+                    // Se lee de nuevo id de checkIn para actualizar valores que se registraron
+                    // despues de la creacion
+                    //  No hay definicion de tipo, se usa hardcoded 0=IN, 1=OUT ****
+                    if (xAssist.ChekInId == 0)
+                        xAssist.ChekInId = RetUserCheckinoutIdByIdDateType(usrId, fechaM.Fecha, 0);
+
+                    if (xAssist.ChekOutId == 0)
+                        xAssist.ChekOutId = RetUserCheckinoutIdByIdDateType(usrId, fechaM.Fecha, 1);
+
+                    // Se leen valores descriptivos de tablas relacionadas para reporte
+                    // Fecha, DiaSemana, ChekinTime, ChekoutTime
+                    //TODO Aplicar cadena de formato especifico a la fecha, de ser necesario
+                    xAssist.Fecha = fechaM.Fecha.ToShortDateString();
+                    xAssist.DiaSemana = RetDescDiaSemana(fechaM.DiaSemanaId);
+                    if (xAssist.ChekInId != 0)
+                        xAssist.ChekinTime = RetUserCheckinoutTimeStr(xAssist.ChekInId);
+
+                    if (xAssist.ChekOutId != 0)
+                        xAssist.ChekoutTime = RetUserCheckinoutTimeStr(xAssist.ChekOutId);
+
+                    nuevaCol.Add(xAssist);
+                }
+            }
+
+            return nuevaCol;
+
+        }
+
+
+        //ActualizarRegistroAsistenciaMes
+        public bool ActualizarRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
+        {
+            Collection<Asistencia> nuevaCol = ConsultaRegistroAsistenciaMes(usuarios, fechas);
+
+            // Pasar coleccion a DB
+            AsistenciaDataHandler handler = new AsistenciaDataHandler();
+
+            return handler.Write(nuevaCol);
+
+        }
     }
 }

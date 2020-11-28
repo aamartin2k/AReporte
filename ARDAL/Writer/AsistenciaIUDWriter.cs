@@ -1,4 +1,5 @@
 ﻿using AReport.Support.Entity;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -11,7 +12,7 @@ namespace AReport.DAL.Writer
 	    [UserId] [varchar](20) NOT NULL,
 	    [ChekInId] [int] NULL,
 	    [ChekOutId] [int] NULL,
-	    [CausaId] [int] NULL,
+	    [IncidenciaId] [int] NULL,
 	    [Observacion] [varchar](80) NULL,
      */
 
@@ -21,8 +22,8 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2}, {3}, {4}, {5}, {6})", 
-                    TableName, ParamFechaId, ParamUserid, ParamChekInId, ParamChekOutId, ParamCausaId, ParamObservacion);
+                return string.Format("INSERT INTO [dbo].{0} VALUES ({1}, {2}, {3}, {4}, {5})", 
+                    TableName, ParamFechaId, ParamUserid, ParamChekInId, ParamChekOutId, ParamIncidenciaId);
             }
         }
 
@@ -42,23 +43,26 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekInId;
-            param1.Value = Entity.ChekInId;
+            //param1.Value = Entity.ChekInId;
+            param1.Value = NullIfZeroInt(Entity.ChekInId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekOutId;
-            param1.Value = Entity.ChekOutId;
+            //param1.Value = Entity.ChekOutId;
+            param1.Value = NullIfZeroInt(Entity.ChekOutId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = ParamCausaId;
-            param1.Value = Entity.CausaId;
+            param1.ParameterName = ParamIncidenciaId;
+            //param1.Value = Entity.IncidenciaId == 0 ? (object)DBNull.Value : Entity.IncidenciaId ;
+            param1.Value = NullIfZeroInt(Entity.IncidenciaId);
             collection.Add(param1);
 
-            param1 = command.CreateParameter();
-            param1.ParameterName = ParamObservacion;
-            param1.Value = Entity.Observacion;
-            collection.Add(param1);
+            //param1 = command.CreateParameter();
+            //param1.ParameterName = ParamObservacion;
+            //param1.Value = Entity.Observacion;
+            //collection.Add(param1);
 
             return collection;
         }
@@ -71,8 +75,8 @@ namespace AReport.DAL.Writer
         {
             get
             {
-                return string.Format("UPDATE [dbo].{0} SET [FechaId]={1}, [Userid]={2}, [ChekInId]={3}, [ChekOutId]={4}, [CausaId]={5}, [Observacion]={6} WHERE [Id] = {7}",
-                                      TableName, ParamFechaId, ParamUserid, ParamChekInId, ParamChekOutId, ParamCausaId, ParamObservacion, ParamPKId);
+                return string.Format("UPDATE [dbo].{0} SET [FechaId]={1}, [Userid]={2}, [ChekInId]={3}, [ChekOutId]={4}, [IncidenciaId]={5} WHERE [Id] = {6}",
+                                      TableName, ParamFechaId, ParamUserid, ParamChekInId, ParamChekOutId, ParamIncidenciaId, ParamPKId);
             }
         }
 
@@ -101,13 +105,8 @@ namespace AReport.DAL.Writer
             collection.Add(param1);
 
             param1 = command.CreateParameter();
-            param1.ParameterName = ParamCausaId;
-            param1.Value = Entity.CausaId;
-            collection.Add(param1);
-
-            param1 = command.CreateParameter();
-            param1.ParameterName = ParamObservacion;
-            param1.Value = Entity.Observacion;
+            param1.ParameterName = ParamIncidenciaId;
+            param1.Value = Entity.IncidenciaId;
             collection.Add(param1);
 
             param1 = command.CreateParameter();
