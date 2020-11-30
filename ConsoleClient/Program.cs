@@ -26,12 +26,11 @@ namespace ConsoleClient
             //Test_Tablas_Escritura();
 
             // Pruebas BOD
-            Test_BOGenerator();
+            //Test_BOGenerator();
             
-            
-   
+           
             // Pruebas a Servidor
-            //ConnectSync();
+            ConnectSync();
 
             Console.ReadKey();
 
@@ -122,6 +121,18 @@ namespace ConsoleClient
             else
                 Console.WriteLine("No hay registros en ClavesMes.");
 
+            //  Leyendo asistencia para un departamento y mes
+            AsistenciaQuery asQry = new AsistenciaQuery(10, 2020, 2);
+            AsistenciaQueryResult asRst = proxy.Handle(asQry);
+
+            if (asRst.Asistencias != null)
+            {
+                foreach (Asistencia p in asRst.Asistencias)
+                    Console.WriteLine(string.Format("Id: {0}\tUserId: {1}\tFecha: {2}\tDia: {3}\tChekInId: {4}\tChekOutId: {5}\tInTime: {6}\tOutTime: {7}"
+                        , p.Id, p.UserId, p.Fecha, p.DiaSemana, p.ChekInId, p.ChekOutId, p.ChekinTime, p.ChekoutTime));
+            }
+            else
+                Console.WriteLine("No hay registros en Asistencias.");
         }
 
 
@@ -134,25 +145,18 @@ namespace ConsoleClient
 
             //Test_ClavesMes();
             //Test_FechaMes();
-            //Test_Asistencia();
             //Test_Incidencia();
             //Test_Asistencia();
 
             //Test_AsistenciaReadEnt();
             //Test_CrearRegistroAsistenciaMes();
+            //Test_LeerRegistroAsistenciaMes();
+            //Test_ListaIdUsuariosQueMarcan();
             Test_LeerRegistroAsistenciaMes();
-
         }
         static void Test_LeerRegistroAsistenciaMes()
         {
-            Collection<Asistencia> asist;
-
-            // leer Asistencia
-            Console.WriteLine("Lectura Inicial Asistencia");
-            asist = ReadAsistencia();
-            PrintOutAsistencia(asist);
-
-
+           
             //ConsultaRegistroAsistenciaMes
             Console.WriteLine("Consulta Asistencia");
 
@@ -160,18 +164,13 @@ namespace ConsoleClient
             Collection<FechaMes> fechas;
             Console.WriteLine("Lectura FechaMes");
             fechas = ReadFechaMes();
-           
-            // filtrar las correspondientes al mes recien creado
-            Collection<FechaMes> fechasDelMes = new Collection<FechaMes>(fechas.Where(f => f.MesId == 10).ToArray());
-            Console.WriteLine("Lectura Filtrada");
-            
-            // Crear listado id usuario  "11" 
-            Collection<string> usuarios = new Collection<string>();
-            usuarios.Add("11");
 
             BOGenerator bog = new BOGenerator();
+            // Crear listado id usuarios 
+            Collection<string> usuarios = bog.RetListaIdUsuariosQueMarcan();
 
-            asist = bog.ConsultaRegistroAsistenciaMes(usuarios, fechasDelMes);
+            Collection<Asistencia> asist;
+            asist = bog.RetRegistroAsistenciaMes(usuarios, fechas);
 
             foreach (Asistencia p in asist)
                 Console.WriteLine(string.Format("Id: {0}\tUserId: {1}\tFecha: {2}\tDia: {3}\tChekInId: {4}\tChekOutId: {5}\tInTime: {6}\tOutTime: {7}"
@@ -183,60 +182,59 @@ namespace ConsoleClient
         {
             Collection<Asistencia> asist;
 
+            BOGenerator bog = new BOGenerator();
+
             // leer Asistencia
             Console.WriteLine("Lectura Inicial Asistencia");
             asist = ReadAsistencia();
             PrintOutAsistencia(asist);
 
-            // Crear entrada claves mes   2015 - 1
-            //Collection<ClaveMes> claves = new Collection<ClaveMes>();
+            // Crear entrada claves meses   2020 - 10, 9, 8 Y 7 
+            Collection<ClaveMes> claves = new Collection<ClaveMes>();
 
-            //var inc = new ClaveMes();
-            //inc.State = EntityState.Added;
-            //inc.Mes = 1;
-            //inc.Anno = 2015;
-            //claves.Add(inc);
+            var kMes = bog.CrearNuevaClaveMes(7, 2020);
+            claves.Add(kMes);
 
-            //Console.WriteLine("ClaveMes Id: " + inc.Id);
+            kMes = bog.CrearNuevaClaveMes(8, 2020);
+            claves.Add(kMes);
 
-            //WriteClaveMes(claves);
+            kMes = bog.CrearNuevaClaveMes(9, 2020);
+            claves.Add(kMes);
 
-            //Console.WriteLine("ClaveMes Escrito a DB Id: " + inc.Id);
+            kMes = bog.CrearNuevaClaveMes(10, 2020);
+            claves.Add(kMes);
 
-            // Crear listado fechas mes
-            BOGenerator bog = new BOGenerator();
-            //bool ret = bog.CrearFechasLaborablesMes(10);
+            bool ret;
+            // Crear listado fechas meses
+            foreach (var km in claves)
+            {
 
-            //if (ret)
-            //    Console.WriteLine("Fechas Laborables Mes Creado con exito!");
-            //else
-            //    Console.WriteLine("Error!");
+                ret = bog.CrearFechasLaborablesMes(km.Id);
 
+                if (ret)
+                    Console.WriteLine("Fechas Laborables creadas con exito para: " + km.Texto );
+                else
+                    Console.WriteLine("Error!");
+            }
             // Leer listado fechas
             Collection<FechaMes> fechas;
             Console.WriteLine("Lectura Inicial");
             fechas = ReadFechaMes();
             PrintOutFechaMes(fechas);
 
-            // filtrar las correspondientes al mes recien creado
-            Collection<FechaMes> fechasDelMes = new Collection<FechaMes>( fechas.Where(f => f.MesId == 10).ToArray() ) ;
-            Console.WriteLine("Lectura Filtrada");
-            PrintOutFechaMes(fechasDelMes);
-
-            // Crear listado id usuario  "11" 
-            Collection<string> usuarios = new Collection<string>();
-            usuarios.Add("11");
+            
+            // Crear listado id usuarios 
+            Collection<string> usuarios = bog.RetListaIdUsuariosQueMarcan();
            
-
             // Generar registro
-            bool ret = bog.CrearRegistroAsistenciaMes(usuarios, fechasDelMes);
+             ret = bog.CrearRegistroAsistenciaMes(usuarios, fechas);
             if (ret)
-                Console.WriteLine("Registro Asistencia MesCreado con exito!");
+                Console.WriteLine("Registro Asistencia Mes Creado con exito!");
             else
                 Console.WriteLine("Error!");
 
             // leer Asistencia
-            Console.WriteLine("Lectura Final Asistencia");
+            Console.WriteLine("Lectura Final Asistencias");
             asist = ReadAsistencia();
             PrintOutAsistencia(asist);
         }
@@ -308,11 +306,35 @@ namespace ConsoleClient
         {
             BOGenerator bog = new BOGenerator();
 
-            Collection<Userinfo> users = bog.RetListaIdUsuariosQueMarcan();
+            Collection<Userinfo> users = bog.RetListaUsuariosQueMarcan();
+
+            Console.WriteLine("Imprimiendo todos los usuarios que registran asistencia.");
             foreach (var item in users)
             {
                 Console.WriteLine(string.Format("Id: {0}\tUser Id: {1}\tNombre: {2}\t Dept Id: {3}", item.Id, item.Userid, item.Nombre, item.DepartamentoId));
             }
+
+            Console.WriteLine("Imprimiendo usuarios por Departamento.");
+
+            int deptID = 2;
+            Console.WriteLine(" Usuarios en Departamento " + deptID.ToString() );
+            Collection<string> usersId = bog.RetListaIdUsuariosByDepart(deptID);
+
+            foreach (var id in usersId)
+            {
+                Console.WriteLine(string.Format("  User Id: {0}\tNombre: {1}", id, users.Where(u => u.Userid == id).First().Nombre   ));
+            }
+
+            deptID = 6;
+            Console.WriteLine(" Usuarios en Departamento " + deptID.ToString());
+            usersId = bog.RetListaIdUsuariosByDepart(deptID);
+
+            foreach (var id in usersId)
+            {
+                Console.WriteLine(string.Format("  User Id: {0}\tNombre: {1}", id, users.Where(u => u.Userid == id).First().Nombre));
+            }
+
+
         }
 
 
@@ -324,7 +346,7 @@ namespace ConsoleClient
             ClaveMes ent;
             ent = bog.LeerClaveMes(1);
 
-            Collection<FechaMes> fechas = bog.ListaIdFechasLaborablesMes(ent.Id);
+            Collection<FechaMes> fechas = bog.ListaFechasLaborablesMes(ent.Id);
 
             foreach (var item in fechas)
             {

@@ -13,14 +13,18 @@ namespace AReport.Srv.Query
     {
         private AsistenciaQueryData _data;
 
-        // para inyectar dependencias DepartamentQueryData
+        // para inyectar dependencias AsistenciaQueryData
         public AsistenciaQueryHandler(AsistenciaQueryData data)
         { _data = data; }
 
 
         public AsistenciaQueryResult Handle(AsistenciaQuery query)
         {
-            return new AsistenciaQueryResult(new Collection<Asistencia>());
+            //return new AsistenciaQueryResult(new Collection<Asistencia>());
+
+            Collection<Asistencia> result = _data.ConsultaRegistroAsistenciaMes(query.Mes, query.Anno, query.Departamento)  ;
+
+            return new AsistenciaQueryResult(result);
         }
 
     }

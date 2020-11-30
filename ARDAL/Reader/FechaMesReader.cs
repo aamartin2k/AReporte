@@ -47,4 +47,6 @@ namespace AReport.DAL.Reader
             throw new NotImplementedException();
         }
     }
+
+    
 }

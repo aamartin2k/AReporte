@@ -47,4 +47,31 @@ namespace AReport.DAL.Reader
             throw new NotImplementedException();
         }
     }
+
+    class IncidenciaByIdReader : IncidenciaReader
+    {
+        protected override string CommandText
+        {
+            get
+            {
+                //return "SELECT [IncidenciaId], [CausaId], [Observacion] FROM dbo.[AA_Incidencias]"; }
+                return base.CommandText + " WHERE [IncidenciaId] = " + Constants.IdParam;
+            }
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            // Creando Parametro para filtrar por Id
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+
+            IDataParameter param1 = command.CreateParameter();
+            param1.ParameterName = Constants.IdParam;
+            param1.DbType = DbType.Int32;
+            param1.Value = id;
+            command.Parameters.Add(param1);
+
+            return collection;
+        }
+    }
+
 }

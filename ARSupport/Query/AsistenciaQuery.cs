@@ -14,6 +14,14 @@ namespace AReport.Support.Query
         public int Anno { get; }
 
         public int Departamento { get; }
+
+
+        public AsistenciaQuery(int mes, int anno, int depart)
+        {
+            Mes = mes;
+            Anno = anno;
+            Departamento = depart;
+        }
     }
 
   

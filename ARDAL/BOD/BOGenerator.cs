@@ -13,8 +13,10 @@ namespace AReport.DAL.BOD
     public class BOGenerator
     {
         // Temporalmente todos los metodos son publicos. Se analizará opcion de convertir a static.
+        // Inicialmente no se implementa ningun cache, todos los resultados son consultados de las tablas
+        // cada vez que se requieran. 
 
-        // Gestion Claves Mes
+        #region  Gestion Claves Mes
         /// <summary>
         /// Crea una nueva entidad ClaveMes y su entrada en la tabla AA_ClavesMes.
         /// </summary>
@@ -49,14 +51,24 @@ namespace AReport.DAL.BOD
             }
         }
 
+        /// <summary>
+        /// Retorna entidad por su número Id.
+        /// </summary>
+        /// <param name="id">Entero Id de entidad</param>
+        /// <returns>Entidad ClaveMes correspondiente</returns>
         public ClaveMes LeerClaveMes(int id)
         {
-            ClaveMesDataHandler dh = new ClaveMesDataHandler();
-
-            ClaveMes ent = dh.GetEntity(id);
+            ClaveMesByIdReader dh = new ClaveMesByIdReader();
+            ClaveMes ent = dh.ReadEntityById(id);
             return ent;
         }
 
+        /// <summary>
+        /// Retorna entidad por su mes y año.
+        /// </summary>
+        /// <param name="mes">Mes a buscar</param>
+        /// <param name="anno">Año a buscar.</param>
+        /// <returns></returns>
         public ClaveMes LeerClaveMes(int mes, int anno)
         {
             ClaveMesByMesAnnoReader dh = new ClaveMesByMesAnnoReader();
@@ -64,11 +76,18 @@ namespace AReport.DAL.BOD
             ClaveMes ent = dh.ReadEntityBy2Params(mes, anno);
             return ent;
         }
+        #endregion
 
+        #region Gestion Fechas Laborables
 
-        // Gestion Fechas Laborables
         // Crear Fechas laborales
         //TODO  DE forma implicita se ignoran sabados y domingos. Se puede implementar con argumentos.
+       
+        /// <summary>
+        /// Crea registro de todas las fechas necesarias para un mes y un año particular.
+        /// </summary>
+        /// <param name="mesId">Número Id de entidad ClaveMes.</param>
+        /// <returns></returns>
         public bool CrearFechasLaborablesMes(int mesId)
         {
             // obtener Entiad correspondiente a esa Id.
@@ -107,17 +126,30 @@ namespace AReport.DAL.BOD
             return dh.Write(newCol);
         }
 
-        public Collection<FechaMes> ListaIdFechasLaborablesMes(int mesId)
+        /// <summary>
+        /// Retorna registro de todas las fechas necesarias para un mes y un año particular.
+        /// </summary>
+        /// <param name="mesId"></param>
+        /// <returns>Coleccion de entidades FechaMes requeridas. </returns>
+        public Collection<FechaMes> ListaFechasLaborablesMes(int mesId)
         {
-            FechaMesDataHandler dh = new FechaMesDataHandler();
-            Collection<FechaMes> coll = dh.Collection;
+           
+            FechaMesReader fmReader = new FechaMesReader();
+            Collection<FechaMes> coll = fmReader.ReadCollection();
 
             IEnumerable<FechaMes> fechas = coll.Where(f => f.MesId == mesId);
 
             return new Collection<FechaMes>(fechas.ToArray());
         }
 
-        public Collection<Userinfo> RetListaIdUsuariosQueMarcan()
+        #endregion
+
+        #region Gestion Usuarios
+        /// <summary>
+        /// Retorna lista de todos los usuarios que registran asistencia. 
+        /// </summary>
+        /// <returns>Collection<Userinfo> con usuarios. </returns>
+        public Collection<Userinfo> RetListaUsuariosQueMarcan()
         {
             JefesDeptDataHandler jdh = new JefesDeptDataHandler();
             Collection<JefesDept> jefesDept = jdh.Collection;
@@ -138,6 +170,37 @@ namespace AReport.DAL.BOD
 
         }
 
+        public Collection<string> RetListaIdUsuariosQueMarcan()
+        {
+            Collection<Userinfo> empleados = RetListaUsuariosQueMarcan();
+            var emplId = empleados.Select(e => e.Userid);
+
+            return new Collection<string>(emplId.ToArray());
+
+        }
+
+        public Collection<Userinfo> RetListaUsuariosByDepart(int deptId)
+        {
+            // todos los usuarios que marcan
+            Collection<Userinfo> empleados = RetListaUsuariosQueMarcan();
+
+            IEnumerable<Userinfo> emplDept = empleados.Where(f => f.DepartamentoId == deptId);
+
+            return new Collection<Userinfo>(emplDept.ToArray());
+        }
+
+        public Collection<string> RetListaIdUsuariosByDepart(int deptId)
+        {
+            // todos los usuarios que marcan
+            Collection<Userinfo> empleados = RetListaUsuariosByDepart(deptId);
+            var emplId = empleados.Select(e => e.Userid  );
+
+            return new Collection<string>(emplId.ToArray());
+        }
+
+        #endregion
+
+        #region Gestion Checkinout
         // Retorna coleccion de Checkinout por userId y Fecha
         public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, DateTime fecha)
         {
@@ -210,8 +273,9 @@ namespace AReport.DAL.BOD
             //TODO Aplicar cadena de formato especifico a la hora, de ser necesario
             return retDate == DateTime.MaxValue ? string.Empty : retDate.ToShortTimeString();
         }
+        #endregion
 
-        
+        #region Gestion Asistencia
         // Retorna Asistencia para un usuario y una fechaId
         public Asistencia RetAsistenciaUsuarioFecha(string UserId, int FechaId)
         {
@@ -223,6 +287,8 @@ namespace AReport.DAL.BOD
         }
 
         // Crea conjunto de Asistencia para un grupo de usuarios y un grupo de fechas del mes
+        // Actualiza propiedades de la entidad asistencia que se corresponden con campos en la base de datos
+
         public bool CrearRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
         {
         
@@ -263,10 +329,10 @@ namespace AReport.DAL.BOD
             return ent.Description;
         }
 
-
         // Lee y retorna conjunto de Asistencia para un grupo de usuarios y un grupo de fechas del mes
-        //ConsultaRegistroAsistenciaMes
-        public Collection<Asistencia> ConsultaRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
+        // Actualiza propiedades de la entidad asistencia que se corresponden con campos en la base de datos
+        // y además, las propiedades que se usan en el reporte en GUI.
+        public Collection<Asistencia> RetRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
         {
             Asistencia xAssist;
             Collection<Asistencia> nuevaCol = new Collection<Asistencia>();
@@ -294,11 +360,25 @@ namespace AReport.DAL.BOD
                     //TODO Aplicar cadena de formato especifico a la fecha, de ser necesario
                     xAssist.Fecha = fechaM.Fecha.ToShortDateString();
                     xAssist.DiaSemana = RetDescDiaSemana(fechaM.DiaSemanaId);
+                    //  Leyendo Tiempos de entrada/salida si hay claves != 0
                     if (xAssist.ChekInId != 0)
                         xAssist.ChekinTime = RetUserCheckinoutTimeStr(xAssist.ChekInId);
 
                     if (xAssist.ChekOutId != 0)
                         xAssist.ChekoutTime = RetUserCheckinoutTimeStr(xAssist.ChekOutId);
+
+                    //  Leyendo propiedades de Incidencia relacionada si hay clave != 0
+                    if (xAssist.IncidenciaId != 0)
+                    {
+                        Incidencia inc = RetIncidenciaById(xAssist.IncidenciaId);
+                        if (inc != null)
+                        {
+                            xAssist.IncidenciaRef = inc;
+                            //TODO Valorar implementacion
+                            xAssist.CausaIncidenciaId = inc.CausaId;
+                            xAssist.IncidenciaObservacion = inc.Observacion;
+                        }
+                    }
 
                     nuevaCol.Add(xAssist);
                 }
@@ -308,11 +388,10 @@ namespace AReport.DAL.BOD
 
         }
 
-
         //ActualizarRegistroAsistenciaMes
         public bool ActualizarRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
         {
-            Collection<Asistencia> nuevaCol = ConsultaRegistroAsistenciaMes(usuarios, fechas);
+            Collection<Asistencia> nuevaCol = RetRegistroAsistenciaMes(usuarios, fechas);
 
             // Pasar coleccion a DB
             AsistenciaDataHandler handler = new AsistenciaDataHandler();
@@ -320,5 +399,69 @@ namespace AReport.DAL.BOD
             return handler.Write(nuevaCol);
 
         }
+
+        public Collection<Asistencia> ConsultaRegistroAsistenciaMes(int mes, int anno, int depart)
+        {
+            Collection<string> usersId = RetListaIdUsuariosByDepart(depart);
+
+            ClaveMes ent = LeerClaveMes(mes, anno);
+
+            bool ret;
+            Collection<FechaMes> fechas;
+
+            if (ent == null)
+            {
+                // no existe, crear clave, fechas y registro
+                ent = CrearNuevaClaveMes(mes, anno);
+
+                ret = CrearFechasLaborablesMes(ent.Id);
+
+                if (ret)
+                {
+                    // obtener coleccion de fechas
+                    fechas = ListaFechasLaborablesMes(ent.Id);
+                    ret = CrearRegistroAsistenciaMes(usersId, fechas);
+
+                    if (!ret)
+                    {
+                        // log, notify
+                        throw new Exception("Error CrearRegistroAsistenciaMes");
+                    }
+                }
+                else
+                {
+                    // log, notify
+                    throw new Exception("Error CrearFechasLaborablesMes");
+                }
+            }
+
+            // existe, leer claveMes, fechas y registro
+            
+            ent = LeerClaveMes(mes, anno);
+
+            fechas = ListaFechasLaborablesMes(ent.Id);
+
+            Collection<Asistencia> asist = RetRegistroAsistenciaMes(usersId, fechas);
+
+            if (asist != null)
+            {
+                return asist;
+            }
+
+            throw new Exception("Error ConsultaRegistroAsistenciaMes");
+        }
+        #endregion
+
+        #region Gestion Incidencia
+
+        public Incidencia RetIncidenciaById(int id)
+        {
+            IncidenciaByIdReader rdr = new IncidenciaByIdReader();
+
+            Incidencia inc = rdr.ReadEntityById(id);
+            return inc;
+        }
+
+        #endregion
     }
 }

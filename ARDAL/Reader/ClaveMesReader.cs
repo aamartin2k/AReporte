@@ -82,7 +82,7 @@ namespace AReport.DAL.Reader
             {
                 // "SELECT [MesId], [Mes], [Anno] FROM dbo.[AA_ClavesMes] WHERE [MesId] = "@Param1 AND Anno = Param2";
 
-                return base.CommandText + string.Format(" WHERE [MesId] ={0} AND [Anno] = {1}", Constants.FilterOneParam, Constants.FilterTwoParam);
+                return base.CommandText + string.Format(" WHERE [Mes] ={0} AND [Anno] = {1}", Constants.FilterOneParam, Constants.FilterTwoParam);
             }
         }
 
