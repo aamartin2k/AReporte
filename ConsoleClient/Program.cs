@@ -32,7 +32,7 @@ namespace ConsoleClient
             // Pruebas a Servidor
             ConnectSync();
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
         }
 
@@ -44,7 +44,8 @@ namespace ConsoleClient
             Console.WriteLine(string.Format("Conectando con Zyan Component {0} en localhost, puerto {1}, oprima cualquier tecla para terminar.", Constants.ZyanServerName, Constants.ZyanServerPort));
 
             // connect to the Zyan ComponentHost and create a new Proxy for the service
-            var connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
+            //var connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
+            var connString = string.Format("tcp://app:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
 
             using (var connection = new ZyanConnection(connString))
             {
@@ -97,9 +98,9 @@ namespace ConsoleClient
             DepartamentQuery dptQry = new DepartamentQuery();
             DepartamentQueryResult rst = proxy.Handle(dptQry);
 
-            if (rst.Departamentos != null)
+            if (rst.Coleccion != null)
             {
-                foreach (var dpt in rst.Departamentos)
+                foreach (var dpt in rst.Coleccion)
                 {
                     Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.State));
                 }
@@ -111,9 +112,9 @@ namespace ConsoleClient
             ClaveMesQuery kmQry = new ClaveMesQuery();
             ClaveMesQueryResult kmRst = proxy.Handle(kmQry);
 
-            if (kmRst.ClavesMes != null)
+            if (kmRst.Coleccion != null)
             {
-                foreach (var keym in kmRst.ClavesMes)
+                foreach (var keym in kmRst.Coleccion)
                 {
                     Console.WriteLine(string.Format("Entity Id:: {0} \tMes: {1} \tAño: {2}", keym.Id, keym.Mes, keym.Anno));
                 }

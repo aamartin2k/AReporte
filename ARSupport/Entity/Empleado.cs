@@ -1,12 +1,12 @@
-﻿using AReport.Support.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace AReport.DAL.BOD
+namespace AReport.Support.Entity
 {
+    [Serializable]
     public class Empleado
     {
         public string Id { get; set; }
@@ -15,12 +15,6 @@ namespace AReport.DAL.BOD
         public string Code { get; set; }
         public string Departamento { get; set; }
 
-        public List<Registro> Registros { get; set; }
-
+        public Collection<Asistencia> Asistencias { get; set; }
     }
-
-   
-
-   
-
 }

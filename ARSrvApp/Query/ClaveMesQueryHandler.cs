@@ -10,7 +10,7 @@ namespace AReport.Srv.Query
     {
         private ClaveMesQueryData _data;
 
-        // para inyectar dependencias DepartamentQueryData
+        // para inyectar dependencias ClaveMesQueryData
         public ClaveMesQueryHandler(ClaveMesQueryData data)
         { _data = data; }
 

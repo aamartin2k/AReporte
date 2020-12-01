@@ -40,9 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BOD\BOGenerator.cs" />
-    <Compile Include="BOD\ConjuntoDatos.cs" />
-    <Compile Include="BOD\Empleado.cs" />
-    <Compile Include="BOD\Registro.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entity\AsistenciaDataHandler.cs" />
     <Compile Include="Entity\CausaIncidenciaDataHandler.cs" />

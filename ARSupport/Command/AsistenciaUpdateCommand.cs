@@ -9,25 +9,13 @@ using System.Text;
 namespace AReport.Support.Command
 {
     [Serializable]
-    public class AsistenciaUpdateCommand
+    public class AsistenciaUpdateCommand : EntityUpdateCommand<ConjuntoDatosAsistencia>
     {
-        public Collection<Asistencia> Asistencias
-        { get; }
-
-        public AsistenciaUpdateCommand(Collection<Asistencia> datos)
-        { Asistencias = datos; }
+        public AsistenciaUpdateCommand(ConjuntoDatosAsistencia datos) : base(datos)
+        {
+        }
     }
 
-    // Test IMplementar clase generica para
-    // <coleccion>UpdateCommand, <coleccion>UpdateCommandHandler y <coleccion>UpdateCommandData
-    [Serializable]
-    public class CollectionUpdateCommand<T> where T : IEntity
-    {
-        public Collection<T> Coleccion
-        { get; }
-
-        public CollectionUpdateCommand(Collection<T> datos)
-        { Coleccion = datos; }
-    }
+   
 
 }

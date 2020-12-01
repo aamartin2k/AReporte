@@ -13,12 +13,12 @@ namespace AReport.Support.Query
     }
 
     [Serializable]
-    public class ClaveMesQueryResult
+    public class ClaveMesQueryResult : CollectionQueryResult<ClaveMes>
     {
-        public Collection<ClaveMes> ClavesMes { get; }
-
-        public ClaveMesQueryResult(Collection<ClaveMes> claves)
-        { ClavesMes = claves; }
+       
+        public ClaveMesQueryResult(Collection<ClaveMes> datos) : base(datos)
+        {
+        }
     }
 
 }

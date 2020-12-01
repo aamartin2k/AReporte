@@ -3,6 +3,7 @@ using AReport.Srv.Command;
 using AReport.Srv.Data;
 using AReport.Srv.Query;
 using AReport.Support.Command;
+using AReport.Support.Entity;
 using AReport.Support.Interface;
 using AReport.Support.Query;
 using System;
@@ -33,6 +34,14 @@ namespace AReport.Srv
 
             return cmdHandler.Handle(command);
         }
+
+        public CommandStatus Handle(AsistenciaUpdateCommand command)
+        {
+            EntityUpdateCommandHandler<ConjuntoDatosAsistencia> cmdHandler  = new AsistenciaUpdateCommandHandler();
+            return cmdHandler.Handle(command);
+
+        }
+
 
         #endregion
         #region Query Handling

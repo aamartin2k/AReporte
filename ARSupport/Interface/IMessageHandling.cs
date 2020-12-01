@@ -12,7 +12,7 @@ namespace AReport.Support.Interface
         // Commands
         CommandStatus Handle(LoginCommand command);
 
-
+        CommandStatus Handle(AsistenciaUpdateCommand command);
 
         // Queries
         UserRoleQueryResult Handle(UserRoleQuery query);

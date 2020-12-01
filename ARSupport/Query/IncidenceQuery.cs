@@ -14,11 +14,10 @@ namespace AReport.Support.Query
 
 
     [Serializable]
-    public class IncidenceQueryResult
-    {     
-        public Collection<Incidencia> Incidencias { get; }
-
-        public IncidenceQueryResult(Collection<Incidencia> incidencias)
-        { Incidencias = incidencias; }
+    public class IncidenceQueryResult : CollectionQueryResult<Incidencia>
+    {
+        public IncidenceQueryResult(Collection<Incidencia> datos) : base(datos)
+        {
+        }
     }
 }

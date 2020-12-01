@@ -29,7 +29,6 @@ namespace AReport.Support.Entity
         { get; set; }
 
 
-
         public int FechaId
         { get; set; }
         public string UserId
@@ -40,11 +39,9 @@ namespace AReport.Support.Entity
         { get; set; }
         public int IncidenciaId
         { get; set; }
-        //public string Observacion
-        //{ get; set; }
+       
 
-
-        // Posibles necesarias para el reporte
+        // Propiedades necesarias para el reporte
         public string Fecha
         { get; set; }
         public string DiaSemana
