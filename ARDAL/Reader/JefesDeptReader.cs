@@ -30,6 +30,12 @@ namespace AReport.DAL.Reader
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
         }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string param1)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
         {
             throw new NotImplementedException();

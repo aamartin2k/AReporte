@@ -1,12 +1,8 @@
-﻿using AReport.Support.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace AReport.Support.Query
 {
-    // Query
+  
     [Serializable]
     public class UserRoleQuery
     {
@@ -15,19 +11,6 @@ namespace AReport.Support.Query
         public UserRoleQuery(string login)
         { Login = login; }
     }
-
-
-    // Query Result
-    [Serializable]
-    public class UserRoleQueryResult
-    {
-        public UserRoleEnum UserRole { get; }
-        public string UserID { get; }
-
-        public UserRoleQueryResult(UserRoleEnum role, string userID)
-        {
-            UserRole = role;
-            UserID = userID;
-        }
-    }
+    
+   
 }

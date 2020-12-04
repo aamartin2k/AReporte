@@ -1,4 +1,5 @@
-﻿using AReport.Srv.Data;
+﻿using AReport.DAL.Data;
+using AReport.Srv.Data;
 using AReport.Support.Entity;
 using AReport.Support.Query;
 using System;
@@ -11,10 +12,10 @@ namespace AReport.Srv.Query
 {
     internal class DepartamentQueryHandler
     {
-        private DepartamentQueryData _data;
+        private DepartamentoData _data;
 
         // para inyectar dependencias DepartamentQueryData
-        public DepartamentQueryHandler(DepartamentQueryData data)
+        public DepartamentQueryHandler(DepartamentoData data)
         { _data = data; }
 
 
@@ -22,7 +23,7 @@ namespace AReport.Srv.Query
         {
             // invocar metodo en _data para obtener datos
             // retornar
-            return new DepartamentQueryResult(_data.Departamentos );
+            return new DepartamentQueryResult(_data.QueryCollection() );
         }
              
 

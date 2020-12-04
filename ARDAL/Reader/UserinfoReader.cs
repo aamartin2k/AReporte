@@ -32,6 +32,11 @@ namespace AReport.DAL.Reader
             return collection;
         }
 
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string param1)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
         {
             throw new NotImplementedException();
@@ -47,4 +52,31 @@ namespace AReport.DAL.Reader
             throw new NotImplementedException();
         }
     }
+
+    class UserinfoReaderById : UserinfoReader
+    {
+        protected override string CommandText
+        {
+            get
+            {
+                //return "SELECT [Userid], [Name], [Deptid] FROM [dbo].[Userinfo]"
+                return base.CommandText + " WHERE [Userid] = " + Constants.IdParam;
+            }
+        }
+
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, string id)
+        {
+            // Creando Parametro para filtrar por Id
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+
+            IDataParameter param1 = command.CreateParameter();
+            param1.ParameterName = Constants.IdParam;
+            param1.DbType = DbType.String;
+            param1.Value = id;
+            command.Parameters.Add(param1);
+
+            return collection;
+        }
+    }
+
 }

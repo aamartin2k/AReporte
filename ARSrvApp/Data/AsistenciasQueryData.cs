@@ -1,4 +1,5 @@
-﻿using AReport.DAL.BOD;
+﻿
+using AReport.Srv.BOD;
 using AReport.Support.Entity;
 using System;
 using System.Collections.Generic;

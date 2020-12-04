@@ -20,6 +20,9 @@ namespace AReport.DAL.Reader
         // Lectura de Parametros con 1 argumento: Id
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command, int id);
 
+        // Lectura de Parametros con 1 argumento: String
+        protected abstract Collection<IDataParameter> GetParameters(IDbCommand command, string param1);
+
         // Lectura de Parametros con 2 argumento: int , int
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command, int param1, int param2);
 
@@ -46,6 +49,55 @@ namespace AReport.DAL.Reader
         /// <param name="Id">Entero que especifica la clave principal PK de la entidad.</param>
         /// <returns>Objeto del tipo Entidad definido en clase derivada.</returns>
         public T ReadEntityById(int Id)
+        {
+            T ent = default(T);
+
+            using (IDbConnection connection = GetConnection())
+            {
+                IDbCommand command = connection.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = this.CommandText;
+                command.CommandType = this.CommandType;
+
+                foreach (IDataParameter param in this.GetParameters(command, Id))
+                    command.Parameters.Add(param);
+
+                try
+                {
+                    connection.Open();
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        try
+                        {
+                            MapperBase<T> mapper = GetMapper();
+                            ent = mapper.MapEntity(reader);
+                            return ent;
+                        }
+                        catch
+                        {
+                            throw;
+
+                        }
+                        finally
+                        {
+                            reader.Close();
+                        }
+                    }
+                }
+                catch
+                {
+                    throw;
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public T ReadEntityById(string Id)
         {
             T ent = default(T);
 

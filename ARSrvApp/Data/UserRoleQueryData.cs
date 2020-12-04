@@ -4,6 +4,7 @@ using System.Linq;
 using AReport.DAL.Entity;
 using AReport.Support.Query;
 using AReport.Support.Common;
+using AReport.DAL.Data;
 
 namespace AReport.Srv.Data
 {
@@ -24,11 +25,16 @@ namespace AReport.Srv.Data
             // obtener role del usuario
             if (usuario != null)
             {
-                //UserRoleEnum roleId = usuario.RoleIdEnum;
-                //string userId = usuario.UserID;
-                //return new UserRoleQueryResult(roleId, userId);
+                UserRoleEnum roleId = usuario.RoleIdEnum;
+                string userId = usuario.UserId;
 
-                return new UserRoleQueryResult(usuario.RoleIdEnum, usuario.UserId);
+                UserinfoData udh = new UserinfoData();
+                var user = udh.QueryEntity(userId);
+
+                string userName = user.Nombre;
+
+                
+                return new UserRoleQueryResult(usuario.RoleIdEnum, usuario.UserId, userName);
             }
             return null;
         }

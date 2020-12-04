@@ -86,3 +86,22 @@ AA_Incidencias
 AA_JefesDept				
 AA_Roles D					
 AA_Usuarios		
+
+Implementacion de interfase publica de DAL:
+ Clases publicas de sufijo Data, que exponen lectura y escritura de colecciones y entidades
+ Se reeemplaza el contenido de la carpeta Entity
+
+ Clases Data de SrvApp consumen clases Data de DAL que implementan las interfases IData
+ AA_ClavesMes ClavesMes
+
+ eliminar: 
+ AReport.DAL.BOD.BOGenerator
+ ClaveMesDataHandler		ClaveMesQueryData	 CollectionQueryData
+ DepartamentoDataHandler	DepartamentQueryData
+ FechaMesDataHandler
+ JefesDeptDataHandler
+ UserinfoDataHandler
+ CheckinoutDataHandler
+ AsistenciaDataHandler
+ DiaSemanaDataHandler
+ IncidenciaDataHandler

@@ -6,10 +6,9 @@ using System.Text;
 
 namespace AReport.Srv.Data
 {
-    internal abstract class EntityUpdateCommandData<T> // where T : IEntity
+    internal abstract class EntityUpdateCommandData<T> 
     {
         public abstract bool Update(T entity);
 
-      
     }
 }

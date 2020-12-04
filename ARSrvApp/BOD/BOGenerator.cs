@@ -1,14 +1,12 @@
-﻿using AReport.DAL.Entity;
-using AReport.DAL.Reader;
-using AReport.DAL.Writer;
-using AReport.Support.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using AReport.Support.Entity;
+using AReport.DAL.Data;
+using System.Collections.ObjectModel;
+using AReport.DAL.Entity;
 
-namespace AReport.DAL.BOD
+namespace AReport.Srv.BOD
 {
     public class BOGenerator
     {
@@ -40,9 +38,9 @@ namespace AReport.DAL.BOD
                 Anno = anno
             };
 
-            ClaveMesDataHandler dh = new ClaveMesDataHandler();
+            ClaveMesData dh = new ClaveMesData();
 
-            if (dh.Write(newcm))
+            if (dh.WriteEntity(newcm))
                 return newcm;
             else
             {
@@ -58,8 +56,8 @@ namespace AReport.DAL.BOD
         /// <returns>Entidad ClaveMes correspondiente</returns>
         public ClaveMes LeerClaveMes(int id)
         {
-            ClaveMesByIdReader dh = new ClaveMesByIdReader();
-            ClaveMes ent = dh.ReadEntityById(id);
+            ClaveMesData dh = new ClaveMesData();
+            ClaveMes ent = dh.QueryEntity(id);
             return ent;
         }
 
@@ -71,9 +69,9 @@ namespace AReport.DAL.BOD
         /// <returns></returns>
         public ClaveMes LeerClaveMes(int mes, int anno)
         {
-            ClaveMesByMesAnnoReader dh = new ClaveMesByMesAnnoReader();
+            ClaveMesData dh = new ClaveMesData();
 
-            ClaveMes ent = dh.ReadEntityBy2Params(mes, anno);
+            ClaveMes ent = dh.QueryEntity(mes, anno);
             return ent;
         }
         #endregion
@@ -82,7 +80,7 @@ namespace AReport.DAL.BOD
 
         // Crear Fechas laborales
         //TODO  DE forma implicita se ignoran sabados y domingos. Se puede implementar con argumentos.
-       
+
         /// <summary>
         /// Crea registro de todas las fechas necesarias para un mes y un año particular.
         /// </summary>
@@ -122,8 +120,8 @@ namespace AReport.DAL.BOD
             }
 
             //  Pasar coleccion a Writer
-            FechaMesDataHandler dh = new FechaMesDataHandler();
-            return dh.Write(newCol);
+            FechaMesData dh = new FechaMesData();
+            return dh.WriteCollection(newCol);
         }
 
         /// <summary>
@@ -133,9 +131,9 @@ namespace AReport.DAL.BOD
         /// <returns>Coleccion de entidades FechaMes requeridas. </returns>
         public Collection<FechaMes> ListaFechasLaborablesMes(int mesId)
         {
-           
-            FechaMesReader fmReader = new FechaMesReader();
-            Collection<FechaMes> coll = fmReader.ReadCollection();
+
+            FechaMesData fmReader = new FechaMesData();
+            Collection<FechaMes> coll = fmReader.QueryCollection();
 
             IEnumerable<FechaMes> fechas = coll.Where(f => f.MesId == mesId);
 
@@ -151,11 +149,11 @@ namespace AReport.DAL.BOD
         /// <returns>Collection<Userinfo> con usuarios. </returns>
         public Collection<Userinfo> RetListaUsuariosQueMarcan()
         {
-            JefesDeptDataHandler jdh = new JefesDeptDataHandler();
-            Collection<JefesDept> jefesDept = jdh.Collection;
+            JefesDeptData jdh = new JefesDeptData();
+            Collection<JefesDept> jefesDept = jdh.QueryCollection();
 
-            UserinfoDataHandler udh = new UserinfoDataHandler();
-            Collection<Userinfo> empleados = udh.Collection;
+            UserinfoData udh = new UserinfoData();
+            Collection<Userinfo> empleados = udh.QueryCollection();
 
             Collection<Userinfo> emplJefes = new Collection<Userinfo>();
             Userinfo emplJefe;
@@ -193,7 +191,7 @@ namespace AReport.DAL.BOD
         {
             // todos los usuarios que marcan
             Collection<Userinfo> empleados = RetListaUsuariosByDepart(deptId);
-            var emplId = empleados.Select(e => e.Userid  );
+            var emplId = empleados.Select(e => e.Userid);
 
             return new Collection<string>(emplId.ToArray());
         }
@@ -204,36 +202,30 @@ namespace AReport.DAL.BOD
         // Retorna coleccion de Checkinout por userId y Fecha
         public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, DateTime fecha)
         {
-            CheckinoutDataHandler cdh = new CheckinoutDataHandler();
-
-            ObjectReaderBase<Checkinout> reader = cdh.GetEntityByUserDateReader();
-
-            Collection<Checkinout> coll = reader.ReadCollectionBy2Params(userId, fecha);
-
+            CheckinoutData reader = new CheckinoutData();
+            Collection<Checkinout> coll = reader.QueryCollection(userId, fecha);
+  
             return coll;
         }
 
         // Retorna coleccion de Checkinout por userId y Fecha. Overload string, string.
-        public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, string fecha)
-        {
-            CheckinoutDataHandler cdh = new CheckinoutDataHandler();
+        //public Collection<Checkinout> RetUserCheckinoutByUserDate(string userId, string fecha)
+        //{
+        //    CheckinoutData reader = new CheckinoutData();
+        //    Collection<Checkinout> coll = reader.QueryCollection(userId, fecha);
 
-            ObjectReaderBase<Checkinout> reader = cdh.GetEntityByUserDateReader();
-
-            Collection<Checkinout> coll = reader.ReadCollectionBy2Params(userId, fecha);
-
-            return coll;
-        }
+        //    return coll;
+        //}
 
         // Retorna Id de registro Checkinout por userId, Fecha y Tipo de Registro
-        public int RetUserCheckinoutIdByIdDateType(string userId, DateTime fecha, int type)
-        {  // fecha.ToString(DateFormat)
-            return RetUserCheckinoutIdByIdDateType(userId, fecha.ToString(Constants.DateFormat), type);
-        }
+        //public int RetUserCheckinoutIdByIdDateType(string userId, DateTime fecha, int type)
+        //{  // fecha.ToString(DateFormat)
+        //    return RetUserCheckinoutIdByIdDateType(userId, fecha.ToString(Constants.DateFormat), type);
+        //}
         // Retorna Id de registro Checkinout por userId, Fecha y Tipo de Registro. Overload string, string, int.
-        public int RetUserCheckinoutIdByIdDateType(string userId, string fecha, int type)
+        public int RetUserCheckinoutIdByIdDateType(string userId, DateTime fecha, int type)
         {
-            
+
             // obtener coleccion
             Collection<Checkinout> registros = RetUserCheckinoutByUserDate(userId, fecha);
 
@@ -254,9 +246,9 @@ namespace AReport.DAL.BOD
         // Retorna hora del registro de Checkinout para usuario y fecha.
         public DateTime RetUserCheckinoutTime(int id)
         {
-            ObjectReaderBase<Checkinout> reader = new CheckinoutByIdReader();
+            CheckinoutData reader = new CheckinoutData(); ;
 
-            var ent = reader.ReadEntityById(id);
+            var ent = reader.QueryEntity(id);
 
             if (ent != null)
             {
@@ -279,9 +271,9 @@ namespace AReport.DAL.BOD
         // Retorna Asistencia para un usuario y una fechaId
         public Asistencia RetAsistenciaUsuarioFecha(string UserId, int FechaId)
         {
-            ObjectReaderBase<Asistencia> reader = new AsistenciaByUseridFechaIdReader();
+            AsistenciaData reader = new AsistenciaData();
 
-            var ent = reader.ReadEntityByStringKeyAndIntKey(UserId, FechaId);
+            var ent = reader.QueryEntity(UserId, FechaId);
 
             return ent;
         }
@@ -291,7 +283,7 @@ namespace AReport.DAL.BOD
 
         public bool CrearRegistroAsistenciaMes(Collection<string> usuarios, Collection<FechaMes> fechas)
         {
-        
+
             Asistencia xEnt;
             Collection<Asistencia> nuevaCol = new Collection<Asistencia>();
 
@@ -313,18 +305,18 @@ namespace AReport.DAL.BOD
                 }
             }
             // Pasar coleccion a DB
-            AsistenciaDataHandler handler = new AsistenciaDataHandler();
+            AsistenciaData handler = new AsistenciaData();
 
-            return handler.Write(nuevaCol);
+            return handler.WriteCollection(nuevaCol);
 
         }
 
         // Retorna cadena descriptiva de DiaSEmana para un id
         public string RetDescDiaSemana(int FechaId)
         {
-            ObjectReaderBase<DiaSemana> reader = new DiaSemanaByIdReader();
+            DiaSemanaData reader = new DiaSemanaData();
 
-            var ent = reader.ReadEntityById(FechaId);
+            var ent = reader.QueryEntity(FechaId);
 
             return ent.Description;
         }
@@ -345,7 +337,7 @@ namespace AReport.DAL.BOD
                 {
                     xAssist = RetAsistenciaUsuarioFecha(usrId, fechaM.Id);
                     xAssist.State = EntityState.Modified;
-                   
+
                     // Se lee de nuevo id de checkIn para actualizar valores que se registraron
                     // despues de la creacion
                     //  No hay definicion de tipo, se usa hardcoded 0=IN, 1=OUT ****
@@ -394,9 +386,9 @@ namespace AReport.DAL.BOD
             Collection<Asistencia> nuevaCol = RetRegistroAsistenciaMes(usuarios, fechas);
 
             // Pasar coleccion a DB
-            AsistenciaDataHandler handler = new AsistenciaDataHandler();
+            AsistenciaData handler = new AsistenciaData();
 
-            return handler.Write(nuevaCol);
+            return handler.WriteCollection(nuevaCol);
 
         }
 
@@ -436,7 +428,7 @@ namespace AReport.DAL.BOD
             }
 
             // existe, leer claveMes, fechas y registro
-            
+
             ent = LeerClaveMes(mes, anno);
 
             fechas = ListaFechasLaborablesMes(ent.Id);
@@ -456,9 +448,9 @@ namespace AReport.DAL.BOD
 
         public Incidencia RetIncidenciaById(int id)
         {
-            IncidenciaByIdReader rdr = new IncidenciaByIdReader();
+            IncidenciaData rdr = new IncidenciaData();
 
-            Incidencia inc = rdr.ReadEntityById(id);
+            Incidencia inc = rdr.QueryEntity(id);
             return inc;
         }
 

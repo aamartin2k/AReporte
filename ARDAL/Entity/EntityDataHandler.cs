@@ -27,14 +27,21 @@ namespace AReport.DAL.Entity
             }
         }
 
-        // Leer entidad con filtro: Id 
+        // Leer entidad con filtro: int Id 
         public T GetEntity(int id)
         {
             ObjectReaderBase<T> reader = GetEntityByIdReader();
             T entity = reader.ReadEntityById(id);
             return entity;
         }
-            
+
+        // Leer entidad con filtro: string Id 
+        public T GetEntity(string id)
+        {
+            ObjectReaderBase<T> reader = GetEntityByIdReader();
+            T entity = reader.ReadEntityById(id);
+            return entity;
+        }
 
         // Escribir collection, todos las Entidades se convierten en registros de la tabla base.
         public bool Write(Collection<T> collection)

@@ -11,13 +11,11 @@ namespace AReport.Srv.Command
     internal abstract class EntityUpdateCommandHandler<T> 
     {
 
-        private EntityUpdateCommandData<T> _data;
-
         protected abstract EntityUpdateCommandData<T> GetData();
 
         public CommandStatus Handle(EntityUpdateCommand<T> command)
         {
-            _data = GetData();
+            EntityUpdateCommandData<T> _data = GetData();
             bool ret;
            
             try

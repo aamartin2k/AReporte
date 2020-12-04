@@ -10,7 +10,7 @@ using Zyan.Communication;
 using AReport.Support.Interface;
 using AReport.Support.Command;
 using AReport.Support.Query;
-using AReport.DAL.BOD;
+using AReport.DAL.Data;
 
 namespace ConsoleClient
 {
@@ -126,9 +126,9 @@ namespace ConsoleClient
             AsistenciaQuery asQry = new AsistenciaQuery(10, 2020, 2);
             AsistenciaQueryResult asRst = proxy.Handle(asQry);
 
-            if (asRst.Asistencias != null)
+            if (asRst.Coleccion != null)
             {
-                foreach (Asistencia p in asRst.Asistencias)
+                foreach (Asistencia p in asRst.Coleccion)
                     Console.WriteLine(string.Format("Id: {0}\tUserId: {1}\tFecha: {2}\tDia: {3}\tChekInId: {4}\tChekOutId: {5}\tInTime: {6}\tOutTime: {7}"
                         , p.Id, p.UserId, p.Fecha, p.DiaSemana, p.ChekInId, p.ChekOutId, p.ChekinTime, p.ChekoutTime));
             }
@@ -508,8 +508,8 @@ namespace ConsoleClient
 
         static Collection<Dept> Read_Dept()
         {
-            DepartamentoDataHandler reader = new DepartamentoDataHandler();
-            Collection<Dept> people = reader.Collection;
+            DepartamentoData reader = new DepartamentoData();
+            Collection<Dept> people = reader.QueryCollection();
 
             Console.WriteLine(string.Format("Leída Colección Departamento: {0} entidades", people.Count));
 

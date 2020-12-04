@@ -1,25 +1,34 @@
 ﻿using AReport.Srv.Data;
 using AReport.Support.Command;
 using AReport.Support.Interface;
-
+using System;
 
 namespace AReport.Srv.Command
 {
     // Test IMplementar clase generica para
     // <coleccion>UpdateCommand, <coleccion>UpdateCommandHandler y <coleccion>UpdateCommandData
-    internal class CollectionUpdateCommandHandler<T> where T : IEntity
+    internal abstract class CollectionUpdateCommandHandler<T> where T : IEntity
     {
+        protected abstract CollectionUpdateCommandData<T> GetData();
 
-        private CollectionUpdateCommandData<T> _data;
-
-        public CollectionUpdateCommandHandler(CollectionUpdateCommandData<T> data)
-        { _data = data; }
-
-
+       
         public CommandStatus Handle(CollectionUpdateCommand<T> command)
         {
-            bool ret = _data.Update(command.Coleccion);
-            return new CommandStatus();
+            CollectionUpdateCommandData<T> _data = GetData();
+
+            bool ret;
+
+            try
+            {
+                ret = _data.Update(command.Coleccion);
+                return new Success();
+            }
+            catch (Exception ex)
+            {
+                // Notify, log
+                return new Failure(ex.Message);
+
+            }
 
         }
     }

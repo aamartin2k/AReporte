@@ -17,6 +17,8 @@ namespace AReport.Support.Interface
         // Queries
         UserRoleQueryResult Handle(UserRoleQuery query);
 
+        UserDepartamentQueryResult Handle(UserDepartamentQuery query);
+
         DepartamentQueryResult Handle(DepartamentQuery query);
 
         ClaveMesQueryResult Handle (ClaveMesQuery query);

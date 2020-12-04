@@ -1,22 +1,16 @@
 ﻿using AReport.DAL.Entity;
 using AReport.Support.Entity;
 using System.Collections.ObjectModel;
+using System;
 
 namespace AReport.Srv.Data
 {
-    internal class ClaveMesQueryData
+    internal class ClaveMesQueryData : CollectionQueryData<ClaveMes>
     {
-        private ClaveMesDataHandler _dataReader;
-
-        public ClaveMesQueryData(ClaveMesDataHandler dataReader)
+       
+        protected override EntityDataHandler<ClaveMes> GetDataHandler()
         {
-            _dataReader = dataReader;
-        }
-
-        public Collection<ClaveMes> ClavesMes
-        {
-            get { return _dataReader.Collection; }
-
+            return new ClaveMesDataHandler();
         }
     }
 }

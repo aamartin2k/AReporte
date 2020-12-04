@@ -10,7 +10,7 @@ namespace AReport.DAL.Entity
     {
         protected override ObjectReaderBase<Asistencia> GetEntityByIdReader()
         {
-            return new AsistenciaByIdReader();
+            return new AsistenciaReaderById();
         }
 
         protected override ObjectReaderBase<Asistencia> GetReader()

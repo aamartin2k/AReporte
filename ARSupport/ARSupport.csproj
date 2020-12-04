@@ -64,18 +64,31 @@
     <Compile Include="Entity\Status.cs" />
     <Compile Include="Entity\Userinfo.cs" />
     <Compile Include="Entity\Usuario.cs" />
+    <Compile Include="Interface\IData.cs" />
     <Compile Include="Interface\IEntity.cs" />
     <Compile Include="Interface\IMessageHandling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\AsistenciaQuery.cs" />
+    <Compile Include="Query\AsistenciaQueryResult.cs" />
     <Compile Include="Query\ClaveMesQuery.cs" />
+    <Compile Include="Query\ClaveMesQueryResult.cs" />
     <Compile Include="Query\CollectionQueryResult.cs" />
+    <Compile Include="Query\ConjuntoDatosAdministracionQuery.cs" />
+    <Compile Include="Query\ConjuntoDatosAdministracionQueryResult.cs" />
+    <Compile Include="Query\ConjuntoDatosAsistenciaQuery.cs" />
+    <Compile Include="Query\ConjuntoDatosAsistenciaQueryResult.cs" />
     <Compile Include="Query\DepartamentQuery.cs" />
     <Compile Include="Query\EntityQueryResult.cs" />
     <Compile Include="Query\IncidenceQuery.cs" />
+    <Compile Include="Query\UserDepartamentQuery.cs" />
+    <Compile Include="Query\UserDepartamentQueryResult.cs" />
     <Compile Include="Query\UserRoleQuery.cs" />
+    <Compile Include="Query\UserRoleQueryResult.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Diagrams\Entity.cd" />
+    <None Include="Diagrams\Query.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

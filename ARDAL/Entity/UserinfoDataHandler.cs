@@ -9,7 +9,7 @@ namespace AReport.DAL.Entity
     {
         protected override ObjectReaderBase<Userinfo> GetEntityByIdReader()
         {
-            throw new NotImplementedException();
+            return new UserinfoReaderById();
         }
 
         protected override ObjectReaderBase<Userinfo> GetReader()

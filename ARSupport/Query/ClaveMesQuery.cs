@@ -1,9 +1,4 @@
-﻿using AReport.Support.Entity;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace AReport.Support.Query
 {
@@ -12,13 +7,6 @@ namespace AReport.Support.Query
     {
     }
 
-    [Serializable]
-    public class ClaveMesQueryResult : CollectionQueryResult<ClaveMes>
-    {
-       
-        public ClaveMesQueryResult(Collection<ClaveMes> datos) : base(datos)
-        {
-        }
-    }
+   
 
 }

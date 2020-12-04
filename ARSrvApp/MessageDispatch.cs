@@ -1,4 +1,5 @@
 ﻿using AReport.DAL.Entity;
+using AReport.DAL.Data;
 using AReport.Srv.Command;
 using AReport.Srv.Data;
 using AReport.Srv.Query;
@@ -7,9 +8,7 @@ using AReport.Support.Entity;
 using AReport.Support.Interface;
 using AReport.Support.Query;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace AReport.Srv
 {
@@ -44,6 +43,7 @@ namespace AReport.Srv
 
 
         #endregion
+       
         #region Query Handling
         // Query Handling
 
@@ -56,11 +56,21 @@ namespace AReport.Srv
             return qryHandler.Handle(query);
         }
 
+        public UserDepartamentQueryResult Handle(UserDepartamentQuery query)
+        {
+            // get user by Id
+            // read DeptId
+            // get Dept by id
+            // read Name
+
+            return new UserDepartamentQueryResult(4, "Pepe");
+        }
+
 
         public DepartamentQueryResult Handle(DepartamentQuery query)
         {
-            DepartamentoDataHandler dataReader = new DepartamentoDataHandler();
-            DepartamentQueryData qryData = new DepartamentQueryData(dataReader);
+
+            DepartamentoData qryData = new DepartamentoData();
             DepartamentQueryHandler qryHandler = new DepartamentQueryHandler(qryData);
 
             return qryHandler.Handle(query);
@@ -68,8 +78,7 @@ namespace AReport.Srv
 
         public ClaveMesQueryResult Handle(ClaveMesQuery query)
         {
-            ClaveMesDataHandler dataReader = new ClaveMesDataHandler();
-            ClaveMesQueryData qryData = new ClaveMesQueryData(dataReader);
+            ClaveMesData qryData = new ClaveMesData();
             ClaveMesQueryHandler qryHandler = new ClaveMesQueryHandler(qryData);
 
             return qryHandler.Handle(query);

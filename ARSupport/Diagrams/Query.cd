@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AReport.Support.Query.EntityQueryResult&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\EntityQueryResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.CollectionQueryResult&lt;T&gt;" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Query\CollectionQueryResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.AsistenciaQueryResult" Collapsed="true">
+    <Position X="1.25" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\AsistenciaQueryResult.cs</FileName>
+      <NewMemberFileName>Query\AsistenciaQuery.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.ClaveMesQueryResult" Collapsed="true">
+    <Position X="3.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\ClaveMesQueryResult.cs</FileName>
+      <NewMemberFileName>Query\ClaveMesQuery.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.DepartamentQueryResult" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\DepartamentQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.IncidenceQueryResult" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\IncidenceQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.ConjuntoDatosAdministracionQueryResult" Collapsed="true">
+    <Position X="6.75" Y="3.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\ConjuntoDatosAdministracionQueryResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AReport.Support.Query.ConjuntoDatosAsistenciaQueryResult" Collapsed="true">
+    <Position X="2.5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Query\ConjuntoDatosAsistenciaQueryResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

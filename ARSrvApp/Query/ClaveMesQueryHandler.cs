@@ -1,23 +1,20 @@
 ﻿using AReport.Support.Query;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using AReport.Srv.Data;
+using AReport.DAL.Data;
 
 namespace AReport.Srv.Query
 {
     internal class ClaveMesQueryHandler
     {
-        private ClaveMesQueryData _data;
+        private ClaveMesData _data;
 
         // para inyectar dependencias ClaveMesQueryData
-        public ClaveMesQueryHandler(ClaveMesQueryData data)
+        public ClaveMesQueryHandler(ClaveMesData data)
         { _data = data; }
 
 
         public ClaveMesQueryResult Handle(ClaveMesQuery query)
         {
-            return new ClaveMesQueryResult(_data.ClavesMes);
+            return new ClaveMesQueryResult(_data.QueryCollection());
         }
 
     }
