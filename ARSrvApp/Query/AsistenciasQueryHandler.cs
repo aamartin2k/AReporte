@@ -20,11 +20,7 @@ namespace AReport.Srv.Query
 
         public AsistenciaQueryResult Handle(AsistenciaQuery query)
         {
-            //return new AsistenciaQueryResult(new Collection<Asistencia>());
-
-            Collection<Asistencia> result = _data.ConsultaRegistroAsistenciaMes(query.Mes, query.Anno, query.Departamento)  ;
-
-            return new AsistenciaQueryResult(result);
+            return _data.Handle(query);
         }
 
     }

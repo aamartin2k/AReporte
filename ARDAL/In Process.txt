@@ -105,3 +105,8 @@ Implementacion de interfase publica de DAL:
  AsistenciaDataHandler
  DiaSemanaDataHandler
  IncidenciaDataHandler
+ CausaIncidenciaDataHandler
+ UsuarioDataHandler
+
+ IncidenceQueryData
+ IncidenceQueryHandler

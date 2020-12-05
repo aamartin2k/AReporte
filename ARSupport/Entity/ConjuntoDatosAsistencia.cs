@@ -10,10 +10,19 @@ namespace AReport.Support.Entity
     public class ConjuntoDatosAsistencia
     {
         // Ref a Tablas de Descriptores
-        public Collection<CausaIncidencia> CausasIncidencias { get; set; }
+        public Collection<CausaIncidencia> CausasIncidencias { get; }
 
-        public Collection<Incidencia> Incidencias { get; set; }
+        public Collection<Incidencia> Incidencias { get;  }
 
-        public Collection<Empleado> Empleados { get; set; }
+        public Collection<Empleado> Empleados { get;  }
+
+        public ConjuntoDatosAsistencia(Collection<CausaIncidencia> causas,
+                                       Collection<Incidencia> incidencias,
+                                       Collection<Empleado> empleados)
+        {
+            CausasIncidencias = causas;
+            Incidencias = incidencias;
+            Empleados = empleados;
+        }
     }
 }

@@ -7,11 +7,14 @@ namespace AReport.DAL.Reader
     /*
      * ** No usa int Ent.Id  , tiene PK string **
      * 
-    CREATE TABLE [dbo].[Userinfo](
-       [Userid] [varchar](20) NOT NULL,
-       [Name] [varchar](50) NULL,
-       [Deptid] [int] NOT NULL,
-    */
+     /*
+     CREATE TABLE [dbo].[Userinfo](
+	    [Userid] [varchar](20) NOT NULL,
+        [UserCode] [varchar](20) NULL,
+	    [Name] [varchar](50) NULL,
+        [Deptid] [int] NOT NULL,
+     */
+
     class UserinfoMapper : MapperBase<Userinfo>
     {
       
@@ -24,6 +27,9 @@ namespace AReport.DAL.Reader
                
                 ent.Userid = (DBNull.Value == record["Userid"]) ?
                             string.Empty : (string)record["Userid"];
+
+                ent.UserCode = (DBNull.Value == record["UserCode"]) ?
+                            string.Empty : (string)record["UserCode"];
 
                 ent.Nombre = (DBNull.Value == record["Name"]) ?
                             string.Empty : (string)record["Name"];

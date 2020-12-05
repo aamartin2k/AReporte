@@ -9,6 +9,7 @@ namespace AReport.Support.Entity
     /*
      CREATE TABLE [dbo].[Userinfo](
 	    [Userid] [varchar](20) NOT NULL,
+        [UserCode] [varchar](20) NULL,
 	    [Name] [varchar](50) NULL,
         [Deptid] [int] NOT NULL,
      */
@@ -27,6 +28,9 @@ namespace AReport.Support.Entity
 
 
         public string Userid
+        { get; set; }
+
+        public string UserCode
         { get; set; }
 
         public string Nombre

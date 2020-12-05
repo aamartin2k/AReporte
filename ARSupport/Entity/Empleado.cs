@@ -11,9 +11,11 @@ namespace AReport.Support.Entity
     {
         public string Id { get; set; }
         public string Nombre { get; set; }
+
         // Tomado de Userinfo Usercode
         public string Code { get; set; }
-        public string Departamento { get; set; }
+        //public string Departamento { get; set; }
+        public int DepartamentoId { get; set; }
 
         public Collection<Asistencia> Asistencias { get; set; }
     }

@@ -23,7 +23,6 @@ namespace AReport.Support.Entity
         { get; set; }
 
 
-       
         public string Description
         { get; set; }
     }

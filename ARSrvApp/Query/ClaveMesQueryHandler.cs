@@ -1,14 +1,16 @@
 ﻿using AReport.Support.Query;
 using AReport.DAL.Data;
+using AReport.Support.Entity;
+using AReport.Support.Interface;
 
 namespace AReport.Srv.Query
 {
     internal class ClaveMesQueryHandler
     {
-        private ClaveMesData _data;
+        private ICollectionRead<ClaveMes> _data;
 
         // para inyectar dependencias ClaveMesQueryData
-        public ClaveMesQueryHandler(ClaveMesData data)
+        public ClaveMesQueryHandler(ICollectionRead<ClaveMes> data)
         { _data = data; }
 
 

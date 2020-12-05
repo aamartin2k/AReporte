@@ -23,9 +23,13 @@ namespace AReport.Support.Interface
 
         ClaveMesQueryResult Handle (ClaveMesQuery query);
 
-        IncidenceQueryResult Handle(IncidenceQuery query);
-
         AsistenciaQueryResult Handle(AsistenciaQuery query);
+
+
+
+        //IncidenceQueryResult Handle(IncidenceQuery query);
+
+
 
     }
 }

@@ -1,4 +1,4 @@
-﻿using AReport.DAL.Entity;
+﻿
 using AReport.DAL.Data;
 using AReport.Srv.Command;
 using AReport.Srv.Data;
@@ -27,8 +27,7 @@ namespace AReport.Srv
         #region Command Handling
         public CommandStatus Handle(LoginCommand command)
         {
-            UsuarioDataHandler dataReader = new UsuarioDataHandler();
-            LoginCommandData cmdData = new LoginCommandData(dataReader);
+            ICollectionRead<Usuario> cmdData = new UsuarioData();
             LoginCommandHandler cmdHandler = new LoginCommandHandler(cmdData);
 
             return cmdHandler.Handle(command);
@@ -49,48 +48,47 @@ namespace AReport.Srv
 
         public UserRoleQueryResult Handle(UserRoleQuery query)
         {
-            UsuarioDataHandler dataReader = new UsuarioDataHandler();
-            UserRoleQueryData qryData = new UserRoleQueryData(dataReader);
-            UserRoleQueryHandler qryHandler = new UserRoleQueryHandler(qryData);
+
+            ICollectionRead<Usuario> qryDataUser =  new UsuarioData();
+            IEntityRead<Userinfo> qryDataUserInfo = new UserinfoData();
+            UserRoleQueryHandler qryHandler = new UserRoleQueryHandler(qryDataUser, qryDataUserInfo);
 
             return qryHandler.Handle(query);
         }
 
         public UserDepartamentQueryResult Handle(UserDepartamentQuery query)
         {
-            // get user by Id
-            // read DeptId
-            // get Dept by id
-            // read Name
+            IEntityRead<Userinfo> qryDataUser = new UserinfoData();
+            ICollectionRead<Dept> qryDataDept = new DepartamentoData();
+            UserDepartamentQueryHandler qryHandler = new UserDepartamentQueryHandler(qryDataUser, qryDataDept);
 
-            return new UserDepartamentQueryResult(4, "Pepe");
+            return qryHandler.Handle(query);
         }
 
 
         public DepartamentQueryResult Handle(DepartamentQuery query)
         {
-
-            DepartamentoData qryData = new DepartamentoData();
-            DepartamentQueryHandler qryHandler = new DepartamentQueryHandler(qryData);
+            ICollectionRead<Dept> qryDataDept = new DepartamentoData();
+            DepartamentQueryHandler qryHandler = new DepartamentQueryHandler(qryDataDept);
 
             return qryHandler.Handle(query);
         }
 
         public ClaveMesQueryResult Handle(ClaveMesQuery query)
         {
-            ClaveMesData qryData = new ClaveMesData();
+            ICollectionRead<ClaveMes> qryData = new ClaveMesData();
             ClaveMesQueryHandler qryHandler = new ClaveMesQueryHandler(qryData);
 
             return qryHandler.Handle(query);
         }
+        
+        //public IncidenceQueryResult Handle(IncidenceQuery query)
+        //{
+        //    IncidenceQueryData qryData = new IncidenceQueryData();
+        //    IncidenceQueryHandler qryHandler = new IncidenceQueryHandler(qryData);
 
-        public IncidenceQueryResult Handle(IncidenceQuery query)
-        {
-            IncidenceQueryData qryData = new IncidenceQueryData();
-            IncidenceQueryHandler qryHandler = new IncidenceQueryHandler(qryData);
-
-            return qryHandler.Handle(query);
-        }
+        //    return qryHandler.Handle(query);
+        //}
 
         public AsistenciaQueryResult Handle(AsistenciaQuery query)
         {

@@ -6,18 +6,19 @@ using System.Data;
 namespace AReport.DAL.Reader
 {
     /*
-    CREATE TABLE [dbo].[Userinfo](
-       [Userid] [varchar](20) NOT NULL,
-       [Name] [varchar](50) NULL,
-       [Deptid] [int] NOT NULL,
-    */
+     CREATE TABLE [dbo].[Userinfo](
+	    [Userid] [varchar](20) NOT NULL,
+        [UserCode] [varchar](20) NULL,
+	    [Name] [varchar](50) NULL,
+        [Deptid] [int] NOT NULL,
+     */
 
     class UserinfoReader : ObjectReaderBase<Userinfo>
     {
         
         protected override string CommandText
         {
-            get { return "SELECT [Userid], [Name], [Deptid] FROM [dbo].[Userinfo]"; }
+            get { return "SELECT [Userid], [UserCode], [Name], [Deptid] FROM [dbo].[Userinfo]"; }
         }
 
       

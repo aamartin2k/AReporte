@@ -5,10 +5,21 @@ using System.Collections.ObjectModel;
 namespace AReport.Support.Query
 {
     [Serializable]
-    public class AsistenciaQueryResult : CollectionQueryResult<Asistencia>
+
+    //public class AsistenciaQueryResult : CollectionQueryResult<Asistencia>
+    //{
+    //    public AsistenciaQueryResult(Collection<Asistencia> datos) : base(datos)
+    //    {
+    //    }
+    //}
+
+    public class AsistenciaQueryResult 
     {
-        public AsistenciaQueryResult(Collection<Asistencia> datos) : base(datos)
+        private ConjuntoDatosAsistencia _datos;
+
+        public AsistenciaQueryResult(ConjuntoDatosAsistencia datos) 
         {
+            _datos = datos;
         }
     }
 }

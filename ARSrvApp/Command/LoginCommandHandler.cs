@@ -1,5 +1,8 @@
-﻿using AReport.Srv.Data;
+﻿using AReport.DAL.Data;
+using AReport.Srv.Data;
 using AReport.Support.Command;
+using AReport.Support.Entity;
+using AReport.Support.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +12,16 @@ namespace AReport.Srv.Command
 {
     internal class LoginCommandHandler
     {
-        private LoginCommandData _data;
+        private ICollectionRead<Usuario> _data;
 
         // para inyectar dependencias
-        public LoginCommandHandler(LoginCommandData data)
+        public LoginCommandHandler(ICollectionRead<Usuario> data) 
         { _data = data; }
 
         public CommandStatus Handle(LoginCommand command)
         {
 
-            if (_data.ValidateUser(command.UserName, command.Password))
+            if (ValidateUser(command.UserName, command.Password))
             {
                 return new Success();
             }
@@ -28,5 +31,24 @@ namespace AReport.Srv.Command
                 return new Failure("Clave incorrecta");
             }
         }
+
+        bool ValidateUser(string login, string pwd)
+        {
+
+            // intentar leer un usuario por su nombre Login
+            var usuario = _data.QueryCollection().Where(u => u.Login == login).FirstOrDefault();
+
+            // verificar 
+            if (usuario != null)
+            {
+                if (usuario.Password == pwd)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }
