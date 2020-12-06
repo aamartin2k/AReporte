@@ -7,6 +7,9 @@ namespace AReport.Support.Query
     public class UserDepartamentQuery
     {
         public string UserId
-        { get; set; }
+        { get; }
+
+        public UserDepartamentQuery(string userId)
+        { UserId = userId; }
     }
 }

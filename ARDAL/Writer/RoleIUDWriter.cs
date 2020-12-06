@@ -9,7 +9,7 @@ namespace AReport.DAL.Writer
            [Description] [varchar](20) NOT NULL,
     */
 
-    public class RoleInsert : DescriptorInsert<Role>  
+    class RoleInsert : DescriptorInsert<Role>  
     {
         protected override string DescriptionValue
         {
@@ -32,7 +32,7 @@ namespace AReport.DAL.Writer
        
     }
 
-    public class RoleUpdate : DescriptorUpdate<Role>
+    class RoleUpdate : DescriptorUpdate<Role>
     {
         protected override string TableName
         {
@@ -67,7 +67,7 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class RoleDelete : DescriptorDelete<Role> 
+    class RoleDelete : DescriptorDelete<Role> 
     {
         protected override string TableName
         {

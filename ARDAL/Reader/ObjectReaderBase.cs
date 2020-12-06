@@ -5,7 +5,7 @@ using System.Data;
 
 namespace AReport.DAL.Reader
 {
-    public abstract class ObjectReaderBase<T> 
+    abstract class ObjectReaderBase<T> 
     {
         // Revisar implementacion de Readerbase con varios argumentos e implementar en base
         //   separar el paso de parametros a clases derivadas

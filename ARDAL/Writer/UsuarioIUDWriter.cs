@@ -13,7 +13,7 @@ namespace AReport.DAL.Writer
 	    [Password] [varchar](20) NOT NULL,
      */
 
-    public class UsuarioInsert : UsuarioTableData
+    class UsuarioInsert : UsuarioTableData
     {
         protected override string CommandText
         {
@@ -54,7 +54,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class UsuarioUpdate : UsuarioTableData
+    class UsuarioUpdate : UsuarioTableData
     {
        
         protected override string CommandText
@@ -94,7 +94,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class UsuarioDelete : UsuarioTableData
+    class UsuarioDelete : UsuarioTableData
     {
        
         protected override string CommandText

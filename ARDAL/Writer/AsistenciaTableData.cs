@@ -10,10 +10,9 @@ namespace AReport.DAL.Writer
 	    [ChekInId] [int] NULL,
 	    [ChekOutId] [int] NULL,
 	    [IncidenciaId] [int] NULL,
-	    [Observacion] [varchar](80) NULL,
      */
 
-    public abstract class AsistenciaTableData : CommandTextWriter<Asistencia>
+    abstract class AsistenciaTableData : CommandTextWriter<Asistencia>
     {
         protected override string TableName
         { get { return "[AA_Asistencias]"; } }

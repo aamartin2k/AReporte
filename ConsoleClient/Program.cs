@@ -1,8 +1,6 @@
 ﻿
 using System;
 using System.Linq;
-using AReport.DAL.Entity;
-using AReport.Support.Entity;
 using System.Collections.ObjectModel;
 using AReport.Support.Common;
 using Zyan.Communication;
@@ -10,6 +8,7 @@ using AReport.Support.Interface;
 using AReport.Support.Command;
 using AReport.Support.Query;
 using AReport.DAL.Data;
+using AReport.Support.Entity;
 
 namespace ConsoleClient
 {
@@ -29,47 +28,16 @@ namespace ConsoleClient
 
 
             // Pruebas a Servidor
-            //ConnectSync();
+            ConnectSync();
 
-            TestConcat();
+            //TestConcat();
 
             Console.ReadKey();
 
         }
 
-        //Otros test
-        static void TestConcat()
-        {
-            string[] presArray = {
-              "Adams", "Arthur", "Buchanan", "Bush", "Carter", "Cleveland",
-              "Clinton", "Coolidge", "Eisenhower", "Fillmore", "Ford", "Garfield",
-              "Grant", "Harding", "Harrison", "Hayes", "Hoover", "Jackson",
-              "Jefferson", "Johnson", "Kennedy", "Lincoln", "Madison", "McKinley",
-              "Monroe", "Nixon", "Obama", "Pierce", "Polk", "Reagan", "Roosevelt",
-              "Taft", "Taylor", "Truman", "Tyler", "Van Buren", "Washington", "Wilson"};
-
-
-            Collection<string> col, total, presidents; ;
-
-            presidents = new Collection<string>(presArray);
-            total = new Collection<string>();
-
         
-            var seqCol = presidents.Skip(18);
-            var seqTotal = total.Concat(seqCol);
-            total = new Collection<string>(seqTotal.ToList());
-
-            seqCol = presidents.Reverse().Skip(18);
-            seqTotal = total.Concat(seqCol);
-            total = new Collection<string>(seqTotal.ToList());
-
-
-            foreach (var item in total)
-            {
-                Console.Write(item + " ");
-            }
-        }
-
+       
         #region Test Server
 
         static void ConnectSync()
@@ -78,8 +46,8 @@ namespace ConsoleClient
             Console.WriteLine(string.Format("Conectando con Zyan Component {0} en localhost, puerto {1}, oprima cualquier tecla para terminar.", Constants.ZyanServerName, Constants.ZyanServerPort));
 
             // connect to the Zyan ComponentHost and create a new Proxy for the service
-            //var connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
-            var connString = string.Format("tcp://app:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
+            var connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
+            //var connString = string.Format("tcp://app:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
 
             using (var connection = new ZyanConnection(connString))
             {
@@ -90,11 +58,87 @@ namespace ConsoleClient
                 {
                     // si login es aceptado, continuar leyendo datos
                     ReadDataAction(service);
+
+                    // modificar datos
+                    WriteDataAction(service);
                 }
             }
         }
 
         static bool LoginAction(IMessageHandling proxy)
+        {
+            Console.WriteLine("\nEjecutando login\n");
+
+            return LoginJefeGrupo(proxy);
+            //return LoginSupervisor(proxy);
+            //return LoginAdministrador(proxy);
+        }
+
+        static void ReadDataAction(IMessageHandling proxy)
+        {
+            Console.WriteLine("\nEjecutando lectura de datos\n");
+
+            ReadDataJefeGrupo(proxy);
+            //ReadDataSupervisor(proxy);
+            //ReadDataAdministrador(proxy);
+        }
+
+        static void WriteDataAction(IMessageHandling proxy)
+        {
+            //Console.WriteLine("\nEjecutando escritura de datos\n");
+
+            //WriteDataJefeGrupo(proxy);
+            //WriteDataSupervisor(proxy);
+            //WriteDataAdministrador(proxy);
+        }
+
+        #region Login
+        // HACK se requiere guardar UserId despues de login
+        private static string _userID;
+
+        #region Login Usuario JefeGrupo
+        static bool LoginJefeGrupo(IMessageHandling proxy)
+        {
+            var loginCmd = new LoginCommand
+            {
+                UserName = "Pepe",
+                Password = "PasswordPepe",
+            };
+
+            var status = proxy.Handle(loginCmd);
+
+            bool Success = status.GetType() == typeof(Success);
+            if (Success)
+            {
+                Console.WriteLine("Login Aceptado.");
+
+                // Leer User Role
+                var URquery = new UserRoleQuery(loginCmd.UserName);
+
+                var result = proxy.Handle(URquery);
+                Console.WriteLine(string.Format(" UserID: {0} Nombre: {1} Rol: {2}", result.UserID, result.UserName,  result.UserRole));
+
+                // Guardar UserId para Lectura de datos 
+                _userID = result.UserID;
+
+                // Valor de prueba en DB 72011518751
+                Console.WriteLine(string.Format(" Comparacion UserID leído: {0}  esperado: 72011518751 ", _userID));
+
+             
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(string.Format("Login Denegado. Mensaje: {0}", (status as Failure).Errormessage));
+                return false;
+            }
+
+        }
+
+        #endregion
+
+        #region Login Supervisor RR HH
+        static bool LoginSupervisor(IMessageHandling proxy)
         {
             var loginCmd = new LoginCommand
             {
@@ -110,10 +154,47 @@ namespace ConsoleClient
                 Console.WriteLine("Login Aceptado.");
 
                 // Leer User Role
-                var URquery = new UserRoleQuery("Tata");
+                var URquery = new UserRoleQuery(loginCmd.UserName);
 
                 var result = proxy.Handle(URquery);
-                Console.WriteLine(string.Format("Login Aceptado. UserID: {0}  Rol: {1}", result.UserID, result.UserRole));
+                Console.WriteLine(string.Format(" UserID: {0} Nombre: {1} Rol: {2}", result.UserID, result.UserName, result.UserRole));
+               
+                // Guardar UserId para Lectura de datos
+                _userID = result.UserID;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(string.Format("Login Denegado. Mensaje: {0}", (status as Failure).Errormessage));
+                return false;
+            }
+
+        }
+        #endregion
+
+        #region Login Usuario Administrador
+        static bool LoginAdministrador(IMessageHandling proxy)
+        {
+            var loginCmd = new LoginCommand
+            {
+                UserName = "Admin",
+                Password = "Admin",
+            };
+
+            var status = proxy.Handle(loginCmd);
+
+            bool Success = status.GetType() == typeof(Success);
+            if (Success)
+            {
+                Console.WriteLine("Login Aceptado.");
+
+                // Leer User Role
+                var URquery = new UserRoleQuery(loginCmd.UserName);
+
+                var result = proxy.Handle(URquery);
+                Console.WriteLine(string.Format(" UserID: {0} Nombre: {1} Rol: {2}", result.UserID, result.UserName, result.UserRole));
+                // Guardar UserId para Lectura de datos
+                _userID = result.UserID;
 
                 return true;
             }
@@ -124,57 +205,156 @@ namespace ConsoleClient
             }
 
         }
-
-        static void ReadDataAction(IMessageHandling proxy)
-        {
-
-            // leyendo departamentos
-            DepartamentQuery dptQry = new DepartamentQuery();
-            DepartamentQueryResult rst = proxy.Handle(dptQry);
-
-            if (rst.Coleccion != null)
-            {
-                foreach (var dpt in rst.Coleccion)
-                {
-                    Console.WriteLine(string.Format("ID: {0} \tDescript: {1} \tStatus: {2}", dpt.Id, dpt.Description, dpt.State));
-                }
-            }
-            else
-                Console.WriteLine("No hay registros en Departamentos.");
-            // leyendo claves de mes
-
-            ClaveMesQuery kmQry = new ClaveMesQuery();
-            ClaveMesQueryResult kmRst = proxy.Handle(kmQry);
-
-            if (kmRst.Coleccion != null)
-            {
-                foreach (var keym in kmRst.Coleccion)
-                {
-                    Console.WriteLine(string.Format("Entity Id:: {0} \tMes: {1} \tAño: {2}", keym.Id, keym.Mes, keym.Anno));
-                }
-            }
-            else
-                Console.WriteLine("No hay registros en ClavesMes.");
-
-            //  Leyendo asistencia para un departamento y mes
-            AsistenciaQuery asQry = new AsistenciaQuery(10, 2020, 2);
-            AsistenciaQueryResult asRst = proxy.Handle(asQry);
-
-            /*
-            if (asRst.Coleccion != null)
-            {
-                foreach (Asistencia p in asRst.Coleccion)
-                    Console.WriteLine(string.Format("Id: {0}\tUserId: {1}\tFecha: {2}\tDia: {3}\tChekInId: {4}\tChekOutId: {5}\tInTime: {6}\tOutTime: {7}"
-                        , p.Id, p.UserId, p.Fecha, p.DiaSemana, p.ChekInId, p.ChekOutId, p.ChekinTime, p.ChekoutTime));
-            }
-            else
-                Console.WriteLine("No hay registros en Asistencias.");
-            */
-        }
-
+        #endregion
 
         #endregion
 
+        #region Read Data 
+
+        // HACK se requiere guardar referencia a 4 asistencias para pruebas de escritura
+        private static Asistencia _asist01, _asist02, _asist03, _asist04;
+        
+        // HACK se requiere guardar referencia a colecciones
+        private static Collection<Incidencia> _incidencias;
+        private static Collection<Asistencia> _asistencias;
+
+        #region Read Data Usuario JefeGrupo
+        static void ReadDataJefeGrupo(IMessageHandling proxy)
+        {
+            // consultar dept del usuario
+            UserDepartamentQuery dptQry = new UserDepartamentQuery(_userID);
+            UserDepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
+
+            Console.WriteLine(string.Format(" Leído Departamento Id: {0}\t Nombre: {1}", dptQryRst.Id, dptQryRst.Name));
+            // consultar claves mes existentes
+            ClaveMesQuery cmQry = new ClaveMesQuery();
+            ClaveMesQueryResult cmQryRst = proxy.Handle(cmQry);
+
+            Console.WriteLine("\nClaves Mes registradas");
+            foreach (var item in cmQryRst.Coleccion)
+            {
+                Console.WriteLine(string.Format(" Clave Mes: {0}", item.Texto  ));
+            }
+            // consultar asistencia para un mes
+            // aislar datos de mes
+            ClaveMes mk = cmQryRst.Coleccion[0];
+
+            AsistenciaQuery asistQry = new AsistenciaQuery(mk.Id, dptQryRst.Id);
+            AsistenciaQueryResult asistQryRst = proxy.Handle(asistQry);
+
+            // guardando ref a incidencias recibidas
+            _incidencias = asistQryRst.Incidencias;
+            Console.WriteLine("\nIncidencias en el Mes registradas: " + _incidencias.Count);
+
+            _asistencias = new Collection<Asistencia>();
+
+            Console.WriteLine("\nAsistencias en el Mes registradas");
+            Console.WriteLine(string.Format("Recibidos {0} empleados." , asistQryRst.Empleados.Count));
+            // listando empleados
+            foreach (var item in asistQryRst.Empleados)
+            {
+                Console.WriteLine(string.Format("Nombre: {0}\t Id: {1}\t Codigo: {2} Cant. Asistencias: {3}", item.Nombre, item.Id, item.Code, item.Asistencias.Count));
+            }
+
+            Console.WriteLine("\nAsistencias por trabajador");
+
+            foreach (var empleado in asistQryRst.Empleados)
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Format(" {0}", empleado.Nombre));
+
+                foreach (var asist in empleado.Asistencias)
+                {
+                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana,  asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaIncidencia, asist.IncidenciaObservacion));
+
+                    if (asist.Id == 177)
+                        _asist01 = asist;
+                    if (asist.Id == 232)
+                        _asist02 = asist;
+                    if (asist.Id == 342)
+                        _asist03 = asist;
+                    if (asist.Id == 452)
+                        _asist04 = asist;
+                }
+            }
+
+            _asistencias.Add(_asist01);
+            _asistencias.Add(_asist02);
+            _asistencias.Add(_asist03);
+            _asistencias.Add(_asist04);
+        }
+
+        #endregion
+
+        #region Read Data Supervisor RR HH
+        static void ReadDataSupervisor(IMessageHandling proxy)
+        {
+
+        }
+        #endregion
+
+        #region Read Data Usuario Administrador
+        static void ReadDataAdministrador(IMessageHandling proxy)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Write Data 
+        static void WriteDataJefeGrupo(IMessageHandling proxy)
+        {
+            // I Parte inicialmente no hay incidencias, se crean 4 nuevas en las asistencias guardadas
+
+            //_asist01.IncidenciaCausaIncidencia = 2;
+            //_asist01.IncidenciaObservacion = "Primera Incidencia adicionada.";
+
+            //_asist02.IncidenciaCausaIncidencia = 4;
+            //_asist02.IncidenciaObservacion = "Segunda Incidencia adicionada.";
+
+            //_asist03.IncidenciaCausaIncidencia = 7;
+            //_asist03.IncidenciaObservacion = "Tercera Incidencia adicionada.";
+
+            //_asist04.IncidenciaCausaIncidencia = 9;
+            //_asist04.IncidenciaObservacion = "Cuarta Incidencia adicionada.";
+
+           
+
+            // II Parte Ya existen incidencias, se modifican
+            // SE borra la primera y se actualizan 2da y tercera
+            _asist01.IncidenciaCausaIncidencia = 0;
+
+            _asist02.IncidenciaCausaIncidencia = 2;
+            _asist02.IncidenciaObservacion = "Segunda Incidencia MODIFICADA 3.";
+
+            //_asist03.IncidenciaCausaIncidencia = 1;
+            //_asist03.IncidenciaObservacion = "Tercera Incidencia MODIFICADA.";
+
+            _asistencias = new Collection<Asistencia>();
+            _asistencias.Add(_asist01);
+            _asistencias.Add(_asist02);
+
+
+            // Comando de actualizacion
+            AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand(_incidencias, _asistencias);
+            var status = proxy.Handle(asistCmd);
+
+            bool Success = status.GetType() == typeof(Success);
+
+            if (Success)
+                Console.WriteLine("Comando Ejecutado con éxito.");
+            else
+                Console.WriteLine("Comando fallido. Error: " + (status as Failure).Errormessage);
+        }
+
+        static void WriteDataSupervisor(IMessageHandling proxy)
+        { }
+        static void WriteDataAdministrador(IMessageHandling proxy)
+        { }
+        #endregion
+        #endregion
 
     }
 }

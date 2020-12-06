@@ -22,13 +22,14 @@ namespace AReport.DAL.Data
 
         public Checkinout QueryEntity(string id)
         {
-            CheckinoutEntityRead entRead = new CheckinoutEntityRead();
-            return entRead.QueryEntity(id);
+            throw new NotImplementedException();
+           
         }
 
         public Checkinout QueryEntity(int id)
         {
-            throw new NotImplementedException();
+            CheckinoutEntityRead entRead = new CheckinoutEntityRead();
+            return entRead.QueryEntity(id);
         }
     }
 
@@ -36,7 +37,7 @@ namespace AReport.DAL.Data
     {
         public Collection<Checkinout> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<Checkinout> GetReader()
@@ -54,6 +55,7 @@ namespace AReport.DAL.Data
 
         public Checkinout QueryEntity(string id)
         {
+            
             throw new NotImplementedException();
         }
 
@@ -67,7 +69,7 @@ namespace AReport.DAL.Data
     {
         public Collection<Checkinout> QueryCollection(string userId, DateTime date)
         {
-            return QueryCollection(userId, date);
+            return Collection(userId, date);
         }
 
         protected override ObjectReaderBase<Checkinout> GetReader()

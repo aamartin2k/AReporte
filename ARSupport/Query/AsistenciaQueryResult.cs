@@ -6,20 +6,24 @@ namespace AReport.Support.Query
 {
     [Serializable]
 
-    //public class AsistenciaQueryResult : CollectionQueryResult<Asistencia>
-    //{
-    //    public AsistenciaQueryResult(Collection<Asistencia> datos) : base(datos)
-    //    {
-    //    }
-    //}
+   
 
     public class AsistenciaQueryResult 
     {
-        private ConjuntoDatosAsistencia _datos;
+        // Ref a Tablas de Descriptores
+        public Collection<CausaIncidencia> CausasIncidencias { get; }
 
-        public AsistenciaQueryResult(ConjuntoDatosAsistencia datos) 
+        public Collection<Incidencia> Incidencias { get; }
+
+        public Collection<Empleado> Empleados { get; }
+
+        public AsistenciaQueryResult(Collection<CausaIncidencia> causas,
+                                       Collection<Incidencia> incidencias,
+                                       Collection<Empleado> empleados)
         {
-            _datos = datos;
+            CausasIncidencias = causas;
+            Incidencias = incidencias;
+            Empleados = empleados;
         }
     }
 }

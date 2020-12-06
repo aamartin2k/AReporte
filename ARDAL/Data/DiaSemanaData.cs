@@ -40,7 +40,7 @@ namespace AReport.DAL.Data
     {
         public Collection<DiaSemana> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<DiaSemana> GetReader()

@@ -6,17 +6,15 @@ using System.Text;
 
 namespace AReport.Support.Entity
 {
-    
+
     /*
-    CREATE TABLE [dbo].[AA_Asistencias](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[FechaId] [int] NOT NULL,
-	[UserId] [varchar](20) NOT NULL,
-	[ChekInId] [int] NULL,
-	[ChekOutId] [int] NULL,
-	[IncidenciaId] [int] NULL,
-	[Observacion] [varchar](80) NULL,
-    
+   CREATE TABLE [dbo].[AA_Asistencias](
+	    [Id] [int] IDENTITY(1,1) NOT NULL,
+	    [FechaId] [int] NOT NULL,
+	    [UserId] [varchar](20) NOT NULL,
+	    [ChekInId] [int] NULL,
+	    [ChekOutId] [int] NULL,
+	    [IncidenciaId] [int] NULL,
      */
 
     [Serializable]
@@ -53,7 +51,7 @@ namespace AReport.Support.Entity
 
         // Referencia a Entidad Incidencia
         public Incidencia IncidenciaRef { get; set; }
-        public int CausaIncidenciaId { get; set; }
+        public int IncidenciaCausaIncidencia { get; set; }
         // Registra la obs de incidencia en GUI
         public string IncidenciaObservacion { get; set; }
     }

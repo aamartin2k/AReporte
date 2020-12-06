@@ -3,7 +3,7 @@ using System.Data;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class DescriptorUpdate<T> : CommandTextWriter<T>
+    abstract class DescriptorUpdate<T> : CommandTextWriter<T>
     {
         protected abstract string DescriptionField { get; }
         protected abstract string DescriptionParam { get; }

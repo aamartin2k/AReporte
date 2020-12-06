@@ -41,6 +41,17 @@ namespace AReport.Srv.Command
             // verificar 
             if (usuario != null)
             {
+                // Chequeo de Rol 
+                // Los usuarios con Rol 1/2 deben tener un usuario del sistema (userinfo) enlazados
+                // porque deben pertenecer a un departamento. Deben tener 
+                // un string id asignado en campo UserId.
+                if ((usuario.RoleId != 3 ) && string.IsNullOrEmpty(usuario.UserId))
+                {
+                    // log alert
+                    //return false;
+                    throw new Exception("El usuario debe tener string UserId asignado!.");
+                }
+
                 if (usuario.Password == pwd)
                 {
                     return true;

@@ -26,7 +26,7 @@ namespace AReport.DAL.Data
     {
         public Collection<CausaIncidencia> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<CausaIncidencia> GetReader()

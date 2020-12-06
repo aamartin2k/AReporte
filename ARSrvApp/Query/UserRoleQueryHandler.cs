@@ -36,8 +36,10 @@ namespace AReport.Srv.Query
                 string userId = usuario.UserId;
 
                 var user = _userInfo.QueryEntity(userId);
-                string userName = user.Nombre;
+                string userName = string.Empty;
 
+                if (user != null)
+                    userName = user.Nombre;
 
                 return new UserRoleQueryResult(usuario.RoleIdEnum, usuario.UserId, userName);
             }

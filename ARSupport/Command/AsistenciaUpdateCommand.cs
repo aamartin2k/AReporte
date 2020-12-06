@@ -9,10 +9,16 @@ using System.Text;
 namespace AReport.Support.Command
 {
     [Serializable]
-    public class AsistenciaUpdateCommand : EntityUpdateCommand<ConjuntoDatosAsistencia>
+    public class AsistenciaUpdateCommand 
     {
-        public AsistenciaUpdateCommand(ConjuntoDatosAsistencia datos) : base(datos)
+        public Collection<Incidencia> Incidencias { get; }
+
+        public Collection<Asistencia> Asistencias { get; }
+
+        public AsistenciaUpdateCommand(Collection<Incidencia> incidencias, Collection<Asistencia> asistencias)
         {
+            Incidencias = incidencias;
+            Asistencias = asistencias;
         }
     }
 

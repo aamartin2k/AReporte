@@ -11,7 +11,7 @@ namespace AReport.DAL.Writer
    [Anno] [int] NOT NULL,
     */
 
-    public class ClaveMesInsert : ClaveMesTableData
+    class ClaveMesInsert : ClaveMesTableData
     {
         protected override string CommandText
         {
@@ -40,7 +40,7 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class ClaveMesUpdate : ClaveMesTableData
+    class ClaveMesUpdate : ClaveMesTableData
     {
         protected override string CommandText
         {
@@ -75,7 +75,7 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class ClaveMesDelete : ClaveMesTableData
+    class ClaveMesDelete : ClaveMesTableData
     {
         protected override string CommandText
         {

@@ -35,9 +35,9 @@ namespace AReport.Srv
 
         public CommandStatus Handle(AsistenciaUpdateCommand command)
         {
-            EntityUpdateCommandHandler<ConjuntoDatosAsistencia> cmdHandler  = new AsistenciaUpdateCommandHandler();
+            AsistenciaUpdateData cmdData = new AsistenciaUpdateData();
+            AsistenciaUpdateCommandHandler cmdHandler = new AsistenciaUpdateCommandHandler(cmdData);
             return cmdHandler.Handle(command);
-
         }
 
 
@@ -82,14 +82,7 @@ namespace AReport.Srv
             return qryHandler.Handle(query);
         }
         
-        //public IncidenceQueryResult Handle(IncidenceQuery query)
-        //{
-        //    IncidenceQueryData qryData = new IncidenceQueryData();
-        //    IncidenceQueryHandler qryHandler = new IncidenceQueryHandler(qryData);
-
-        //    return qryHandler.Handle(query);
-        //}
-
+        
         public AsistenciaQueryResult Handle(AsistenciaQuery query)
         {
             AsistenciaQueryData qryData = new AsistenciaQueryData();

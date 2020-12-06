@@ -45,7 +45,7 @@ namespace AReport.DAL.Data
     {
         public Collection<Asistencia> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<Asistencia> GetReader()

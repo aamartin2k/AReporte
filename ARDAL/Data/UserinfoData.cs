@@ -22,8 +22,6 @@ namespace AReport.DAL.Data
         }
 
 
-
-
         public Userinfo QueryEntity(int id)
         {
             throw new NotImplementedException();
@@ -34,7 +32,7 @@ namespace AReport.DAL.Data
     {
         public Collection<Userinfo> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<Userinfo> GetReader()

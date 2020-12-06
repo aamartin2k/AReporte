@@ -49,10 +49,8 @@
     <Compile Include="Entity\Asistencia.cs" />
     <Compile Include="Entity\CausaIncidencia.cs" />
     <Compile Include="Entity\Checkinout.cs" />
-    <Compile Include="Entity\ClavesMes.cs" />
+    <Compile Include="Entity\ClaveMes.cs" />
     <Compile Include="Entity\Configuracion.cs" />
-    <Compile Include="Entity\ConjuntoDatosAdministracion.cs" />
-    <Compile Include="Entity\ConjuntoDatosAsistencia.cs" />
     <Compile Include="Entity\Dept.cs" />
     <Compile Include="Entity\DiaSemana.cs" />
     <Compile Include="Entity\Empleado.cs" />
@@ -73,12 +71,9 @@
     <Compile Include="Query\ClaveMesQuery.cs" />
     <Compile Include="Query\ClaveMesQueryResult.cs" />
     <Compile Include="Query\CollectionQueryResult.cs" />
-    <Compile Include="Query\ConjuntoDatosAdministracionQuery.cs" />
-    <Compile Include="Query\ConjuntoDatosAdministracionQueryResult.cs" />
-    <Compile Include="Query\ConjuntoDatosAsistenciaQuery.cs" />
-    <Compile Include="Query\ConjuntoDatosAsistenciaQueryResult.cs" />
+    <Compile Include="Query\AdministracionQuery.cs" />
+    <Compile Include="Query\AdministracionQueryResult.cs" />
     <Compile Include="Query\DepartamentQuery.cs" />
-    <Compile Include="Query\EntityQueryResult.cs" />
     <Compile Include="Query\IncidenceQuery.cs" />
     <Compile Include="Query\UserDepartamentQuery.cs" />
     <Compile Include="Query\UserDepartamentQueryResult.cs" />

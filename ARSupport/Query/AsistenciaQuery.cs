@@ -40,7 +40,6 @@ namespace AReport.Support.Query
         {
             Mes = mes;
             Anno = anno;
-            Departamentos = new Collection<int>();
             Departamentos = departs;
 
             Mode = QueryMode.MesAnnoListDepart;
@@ -49,7 +48,7 @@ namespace AReport.Support.Query
         public AsistenciaQuery(int mesId, Collection<int> departs)
         {
             MesId = mesId;
-            Departamentos = new Collection<int>();
+            //Departamentos = new Collection<int>();
             Departamentos = departs;
 
             Mode = QueryMode.ClaveMesListDepart;

@@ -9,7 +9,7 @@ namespace AReport.DAL.Writer
 	    [Observacion] [varchar](80) NULL,
     */
 
-    public abstract class IncidenciaTableData : CommandTextWriter<Incidencia>
+    abstract class IncidenciaTableData : CommandTextWriter<Incidencia>
     {
         protected override string TableName
         { get { return "[AA_Incidencias]"; } }

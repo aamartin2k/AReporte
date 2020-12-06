@@ -50,24 +50,17 @@
     <Compile Include="Command\AsistenciaUpdateCommandHandler.cs" />
     <Compile Include="Command\CollectionUpdateCommandHandler.cs" />
     <Compile Include="Command\EntityUpdateCommandHandler.cs" />
-    <Compile Include="Data\AsistenciasQueryData.cs" />
-    <Compile Include="Data\AsistenciaUpdateCommandData.cs" />
-    <None Include="Data\CollectionQueryData.cs" />
+    <Compile Include="Data\AsistenciaQueryData.cs" />
+    <Compile Include="Data\AsistenciaUpdateData.cs" />
     <Compile Include="Data\CollectionUpdateCommandData.cs" />
     <Compile Include="Data\EntityUpdateCommandData.cs" />
-    <None Include="Data\IncidenceQueryData.cs" />
-    <None Include="Data\UserRoleQueryData.cs" />
     <Compile Include="Query\AsistenciasQueryHandler.cs" />
-    <None Include="Data\ClaveMesQueryData.cs" />
     <Compile Include="Query\ClaveMesQueryHandler.cs" />
     <Compile Include="Query\DepartamentQueryHandler.cs" />
     <Compile Include="Command\LoginCommandHandler.cs" />
-    <None Include="Data\DepartamentQueryData.cs" />
-    <None Include="Data\LoginCommandData.cs" />
     <Compile Include="MessageDispatch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Query\IncidenceQueryHandler.cs" />
     <Compile Include="Query\UserDepartamentQueryHandler.cs" />
     <Compile Include="Query\UserRoleQueryHandler.cs" />
   </ItemGroup>

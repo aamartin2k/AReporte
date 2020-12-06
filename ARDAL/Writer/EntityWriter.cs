@@ -6,7 +6,7 @@ using AReport.Support.Entity;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class EntityWriter<T>
+    abstract class EntityWriter<T>
     {
 
         protected abstract string CommandText { get; }

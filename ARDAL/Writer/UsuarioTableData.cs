@@ -11,7 +11,7 @@ namespace AReport.DAL.Writer
        [Password] [varchar](20) NOT NULL,
     */
 
-    public abstract class UsuarioTableData : CommandTextWriter<Usuario>
+    abstract class UsuarioTableData : CommandTextWriter<Usuario>
     {
         protected override string TableName
         { get { return "[AA_Usuarios]"; } }

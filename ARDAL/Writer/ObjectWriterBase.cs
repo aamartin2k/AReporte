@@ -7,12 +7,11 @@ using AReport.Support.Interface;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class ObjectWriterBase<T>
+    abstract class ObjectWriterBase<T>
     {
         protected abstract EntityWriter<T> GetWriter(EntityState status);
 
        
-
         public bool Write(Collection<T> collection)
         {
             // entidades a ser eliminadas

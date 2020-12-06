@@ -14,7 +14,7 @@ namespace AReport.DAL.Writer
         La Tabla Dept solo se lee.
   */
 
-    public class DepartamentoInsert : CommandTextWriter<Dept>
+    class DepartamentoInsert : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {
@@ -46,7 +46,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class DepartamentoUpdate : CommandTextWriter<Dept>
+    class DepartamentoUpdate : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {
@@ -78,7 +78,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class DepartamentoDelete : CommandTextWriter<Dept>
+    class DepartamentoDelete : CommandTextWriter<Dept>
     {
         protected override string CommandText
         {

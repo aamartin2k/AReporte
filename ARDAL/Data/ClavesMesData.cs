@@ -2,6 +2,8 @@
 using AReport.Support.Interface;
 using System;
 using System.Collections.ObjectModel;
+using AReport.DAL.Reader;
+
 
 namespace AReport.DAL.Data
 {
@@ -42,4 +44,52 @@ namespace AReport.DAL.Data
             throw new NotImplementedException();
         }
     }
+
+    class ClavesMesCollectionRead : CollectionReadBase<ClaveMes>, ICollectionRead<ClaveMes>
+    {
+        protected override ObjectReaderBase<ClaveMes> GetReader()
+        {
+            return new ClaveMesReader();
+        }
+
+        public Collection<ClaveMes> QueryCollection()
+        {
+            return Collection();
+        }
+
+    }
+
+    class ClaveMesEntityRead : EntityReadBase<ClaveMes>, IEntityRead<ClaveMes>
+    {
+
+        public ClaveMes QueryEntity(int id)
+        {
+            return GetEntity(id);
+        }
+
+
+        public ClaveMes QueryEntity(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override ObjectReaderBase<ClaveMes> GetReader()
+        {
+            return new ClaveMesByIdReader();
+        }
+    }
+
+    class ClaveMesByMesAnnoRead : EntityReadBase<ClaveMes>, IEntityReadByIntInt<ClaveMes>
+    {
+        public ClaveMes QueryEntity(int param1, int param2)
+        {
+            return GetEntity(param1, param2);
+        }
+
+        protected override ObjectReaderBase<ClaveMes> GetReader()
+        {
+            return new ClaveMesByMesAnnoReader();
+        }
+    }
+
 }

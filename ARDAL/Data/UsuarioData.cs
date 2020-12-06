@@ -26,7 +26,7 @@ namespace AReport.DAL.Data
     {
         public Collection<Usuario> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<Usuario> GetReader()

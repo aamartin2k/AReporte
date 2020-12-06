@@ -8,7 +8,7 @@ using System;
 namespace AReport.DAL.Data
 {
     public class IncidenciaData : ICollectionRead<Incidencia>, IEntityRead<Incidencia>,
-                                  ICollectionWrite<Incidencia>
+                                  ICollectionWrite<Incidencia>, IEntityWrite<Incidencia>
     {
         public Collection<Incidencia> QueryCollection()
         {
@@ -32,13 +32,19 @@ namespace AReport.DAL.Data
             IncidenciaCollectionWrite colWrite = new IncidenciaCollectionWrite();
             return colWrite.WriteCollection(collection);
         }
+
+        public bool WriteEntity(Incidencia entity)
+        {
+            IncidenciaEntityWrite entWrite = new IncidenciaEntityWrite();
+            return entWrite.WriteEntity(entity);
+        }
     }
 
     class IncidenciaCollectionRead : CollectionReadBase<Incidencia>, ICollectionRead<Incidencia>
     {
         public Collection<Incidencia> QueryCollection()
         {
-            return QueryCollection();
+            return Collection();
         }
 
         protected override ObjectReaderBase<Incidencia> GetReader()
@@ -77,6 +83,19 @@ namespace AReport.DAL.Data
         protected override ObjectReaderBase<Incidencia> GetReader()
         {
             return new IncidenciaByIdReader();
+        }
+    }
+
+    class IncidenciaEntityWrite : EntityWriteBase<Incidencia>, IEntityWrite<Incidencia>
+    {
+        public bool WriteEntity(Incidencia entity)
+        {
+            return Write(entity); ;
+        }
+
+        protected override ObjectWriterBase<Incidencia> GetWriter()
+        {
+            return new IncidenciaWriter();
         }
     }
 }

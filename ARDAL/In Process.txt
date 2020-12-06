@@ -95,18 +95,25 @@ Implementacion de interfase publica de DAL:
  AA_ClavesMes ClavesMes
 
  eliminar: 
- AReport.DAL.BOD.BOGenerator
- ClaveMesDataHandler		ClaveMesQueryData	 CollectionQueryData
- DepartamentoDataHandler	DepartamentQueryData
- FechaMesDataHandler
- JefesDeptDataHandler
- UserinfoDataHandler
- CheckinoutDataHandler
- AsistenciaDataHandler
- DiaSemanaDataHandler
- IncidenciaDataHandler
- CausaIncidenciaDataHandler
- UsuarioDataHandler
+ *AReport.DAL.BOD.BOGenerator
+ *ClaveMesDataHandler		*ClaveMesQueryData	 *CollectionQueryData
+ *DepartamentoDataHandler	*DepartamentQueryData
+ *FechaMesDataHandler
+ *JefesDeptDataHandler
+ *UserinfoDataHandler
+ *CheckinoutDataHandler
+ *AsistenciaDataHandler
+ *DiaSemanaDataHandler
+ *IncidenciaDataHandler
+ *CausaIncidenciaDataHandler
+ *UsuarioDataHandler
 
- IncidenceQueryData
- IncidenceQueryHandler
+ *IncidenceQueryData
+ *IncidenceQueryHandler
+
+
+ procesar:
+ *RoleDataHandler
+ *StatusDataHandler
+
+ *EntityDataHandler para eliminar

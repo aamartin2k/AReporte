@@ -4,7 +4,7 @@ using System.Data;
 
 namespace AReport.DAL.Writer
 {
-    public abstract class CommandTextWriter<T> : EntityWriter<T>
+    abstract class CommandTextWriter<T> : EntityWriter<T>
     {
         protected abstract string TableName { get; }
         protected abstract string ParamPKId { get; }

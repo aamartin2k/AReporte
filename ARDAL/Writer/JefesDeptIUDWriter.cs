@@ -11,7 +11,7 @@ namespace AReport.DAL.Writer
         [UserId] [varchar](20) NOT NULL,
      */
 
-    public class JefesDeptInsert : JefesDeptTableData
+     class JefesDeptInsert : JefesDeptTableData
     {
         protected override string CommandText
         {
@@ -41,7 +41,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class JefesDeptUpdate : JefesDeptTableData
+    class JefesDeptUpdate : JefesDeptTableData
     {
 
         protected override string CommandText
@@ -76,7 +76,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class JefesDeptDelete : JefesDeptTableData
+    class JefesDeptDelete : JefesDeptTableData
         {
 
             protected override string CommandText

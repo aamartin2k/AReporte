@@ -11,7 +11,7 @@ namespace AReport.DAL.Writer
 	    [Observacion] [varchar](80) NULL,
     */
 
-    public class IncidenciaInsert : IncidenciaTableData
+    class IncidenciaInsert : IncidenciaTableData
     {
         protected override string CommandText
         {
@@ -40,7 +40,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class IncidenciaUpdate : IncidenciaTableData
+    class IncidenciaUpdate : IncidenciaTableData
     {
 
         protected override string CommandText
@@ -75,7 +75,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class IncidenciaDelete : IncidenciaTableData
+    class IncidenciaDelete : IncidenciaTableData
     {
 
         protected override string CommandText

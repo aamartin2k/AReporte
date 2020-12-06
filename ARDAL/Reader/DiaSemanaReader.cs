@@ -11,7 +11,7 @@ namespace AReport.DAL.Reader
 	    [DiaSemanaId] [int] IDENTITY(1,1) NOT NULL,
 	    [Description] [varchar](12) NOT NULL,
      */
-    public class DiaSemanaReader : ObjectReaderBase<DiaSemana>
+    class DiaSemanaReader : ObjectReaderBase<DiaSemana>
     {
 
         protected override string CommandText
@@ -53,7 +53,7 @@ namespace AReport.DAL.Reader
         }
     }
 
-    public class DiaSemanaByIdReader : DiaSemanaReader
+    class DiaSemanaByIdReader : DiaSemanaReader
     {
         protected override string CommandText
         {

@@ -9,7 +9,7 @@ namespace AReport.DAL.Writer
 	    [UserId] [varchar](20) NOT NULL,
      */
 
-    public abstract class JefesDeptTableData : CommandTextWriter<JefesDept>
+    abstract class JefesDeptTableData : CommandTextWriter<JefesDept>
     {
         protected override string TableName
         { get { return "[AA_JefesDept]"; } }

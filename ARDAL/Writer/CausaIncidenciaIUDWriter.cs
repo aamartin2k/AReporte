@@ -8,7 +8,7 @@ namespace AReport.DAL.Writer
        [CausaId] [int] IDENTITY(1,1) NOT NULL,
        [Description] [varchar](20) NOT NULL
     */
-    public class CausaIncidenciaInsert : DescriptorInsert<CausaIncidencia>
+    class CausaIncidenciaInsert : DescriptorInsert<CausaIncidencia>
     {
         protected override string DescriptionValue
         {
@@ -31,7 +31,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class CausaIncidenciaUpdate : DescriptorUpdate<CausaIncidencia>
+    class CausaIncidenciaUpdate : DescriptorUpdate<CausaIncidencia>
     {
         protected override string TableName
         {
@@ -66,7 +66,7 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class CausaIncidenciaDelete : DescriptorDelete<CausaIncidencia>
+    class CausaIncidenciaDelete : DescriptorDelete<CausaIncidencia>
     {
         protected override string TableName
         {

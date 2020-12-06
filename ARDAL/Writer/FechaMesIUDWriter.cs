@@ -12,7 +12,7 @@ namespace AReport.DAL.Writer
 	    [DiaSemanaId] [int] NOT NULL,
      */
 
-    public class FechaMesInsert : FechaMesTableData 
+    class FechaMesInsert : FechaMesTableData 
     {
         protected override string CommandText
         {
@@ -47,7 +47,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class FechaMesUpdate : FechaMesTableData
+    class FechaMesUpdate : FechaMesTableData
     {
          
         protected override string CommandText
@@ -87,7 +87,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class FechaMesDelete : FechaMesTableData
+    class FechaMesDelete : FechaMesTableData
     {
         
         protected override string CommandText

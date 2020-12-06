@@ -10,7 +10,7 @@ namespace AReport.DAL.Writer
     */
     //  public class DiaSemanaWriter
 
-    public class DiaSemanaInsert : DescriptorInsert<DiaSemana>
+    class DiaSemanaInsert : DescriptorInsert<DiaSemana>
     {
         protected override string DescriptionValue
         {
@@ -33,7 +33,7 @@ namespace AReport.DAL.Writer
         }
     }
 
-    public class DiaSemanaUpdate : DescriptorUpdate<DiaSemana>
+    class DiaSemanaUpdate : DescriptorUpdate<DiaSemana>
     {
         protected override string TableName
         {
@@ -68,7 +68,7 @@ namespace AReport.DAL.Writer
 
     }
 
-    public class DiaSemanaDelete : DescriptorDelete<DiaSemana>
+    class DiaSemanaDelete : DescriptorDelete<DiaSemana>
     {
         protected override string TableName
         {
