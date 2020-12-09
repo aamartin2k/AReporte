@@ -34,9 +34,5 @@ namespace AReport.Support.Entity
             get { return string.Format("Mes: {0} Año: {1}", Mes, Anno);   }
         }
 
-        public override string ToString()
-        {
-            return Texto;
-        }
     }
 }

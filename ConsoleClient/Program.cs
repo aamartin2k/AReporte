@@ -69,8 +69,8 @@ namespace ConsoleClient
         {
             Console.WriteLine("\nEjecutando login\n");
 
-            return LoginJefeGrupo(proxy);
-            //return LoginSupervisor(proxy);
+            //return LoginJefeGrupo(proxy);
+            return LoginSupervisor(proxy);
             //return LoginAdministrador(proxy);
         }
 
@@ -78,17 +78,17 @@ namespace ConsoleClient
         {
             Console.WriteLine("\nEjecutando lectura de datos\n");
 
-            ReadDataJefeGrupo(proxy);
-            //ReadDataSupervisor(proxy);
+            //ReadDataJefeGrupo(proxy);
+            ReadDataSupervisor(proxy);
             //ReadDataAdministrador(proxy);
         }
 
         static void WriteDataAction(IMessageHandling proxy)
         {
-            //Console.WriteLine("\nEjecutando escritura de datos\n");
+            Console.WriteLine("\nEjecutando escritura de datos\n");
 
             //WriteDataJefeGrupo(proxy);
-            //WriteDataSupervisor(proxy);
+            WriteDataSupervisor(proxy);
             //WriteDataAdministrador(proxy);
         }
 
@@ -215,7 +215,7 @@ namespace ConsoleClient
         private static Asistencia _asist01, _asist02, _asist03, _asist04;
         
         // HACK se requiere guardar referencia a colecciones
-        private static Collection<Incidencia> _incidencias;
+        //private static Collection<Incidencia> _incidencias;
         private static Collection<Asistencia> _asistencias;
 
         #region Read Data Usuario JefeGrupo
@@ -235,7 +235,7 @@ namespace ConsoleClient
             {
                 Console.WriteLine(string.Format(" Clave Mes: {0}", item.Texto  ));
             }
-            // consultar asistencia para un mes
+            // consultar asistencia para un mes y departamento del usuario
             // aislar datos de mes
             ClaveMes mk = cmQryRst.Coleccion[0];
 
@@ -243,8 +243,7 @@ namespace ConsoleClient
             AsistenciaQueryResult asistQryRst = proxy.Handle(asistQry);
 
             // guardando ref a incidencias recibidas
-            _incidencias = asistQryRst.Incidencias;
-            Console.WriteLine("\nIncidencias en el Mes registradas: " + _incidencias.Count);
+            Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
 
             _asistencias = new Collection<Asistencia>();
 
@@ -289,12 +288,64 @@ namespace ConsoleClient
         #region Read Data Supervisor RR HH
         static void ReadDataSupervisor(IMessageHandling proxy)
         {
+            // consultar lista de departamentos
+            DepartamentQuery dptQry = new DepartamentQuery();
+            DepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
+
+            Console.WriteLine("\nLeida lista de departamentos. Cantidad: " + dptQryRst.Coleccion.Count);
+            foreach (var depart in dptQryRst.Coleccion)
+            {
+                Console.WriteLine(string.Format(" Leído Departamento Id: {0}\t Nombre: {1}", depart.Id, depart.Description));
+            }
+
+            // consultar claves mes existentes
+            ClaveMesQuery cmQry = new ClaveMesQuery();
+            ClaveMesQueryResult cmQryRst = proxy.Handle(cmQry);
+
+            Console.WriteLine("\nClaves Mes registradas");
+            foreach (var item in cmQryRst.Coleccion)
+            {
+                Console.WriteLine(string.Format(" Clave Mes: {0}", item.Texto));
+            }
+
+            // consultar asistencia para un mes y tres departamentos 
+            ClaveMes mk = cmQryRst.Coleccion[1];
+            Collection<int> departs = new Collection<int>();
+
+            departs.Add(dptQryRst.Coleccion[1].Id);
+            departs.Add(dptQryRst.Coleccion[3].Id);
+            departs.Add(dptQryRst.Coleccion[5].Id);
+
+            AsistenciaQuery asistQry = new AsistenciaQuery(mk.Id, departs);
+            AsistenciaQueryResult asistQryRst = proxy.Handle(asistQry);
+
+            Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
+            Console.WriteLine("\nAsistencias en el Mes registradas");
+            Console.WriteLine(string.Format("Recibidos {0} empleados.", asistQryRst.Empleados.Count));
+            // listando empleados
+            foreach (var item in asistQryRst.Empleados)
+            {
+                Console.WriteLine(string.Format("Nombre: {0}\t Id: {1}\t Codigo: {2} Cant. Asistencias: {3}", item.Nombre, item.Id, item.Code, item.Asistencias.Count));
+            }
+
+            foreach (var empleado in asistQryRst.Empleados)
+            {
+                Console.WriteLine();
+                Console.WriteLine(string.Format(" {0}", empleado.Nombre));
+
+                foreach (var asist in empleado.Asistencias)
+                {
+                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana, asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaIncidencia, asist.IncidenciaObservacion));
+
+                }
+            }
 
         }
+
         #endregion
 
         #region Read Data Usuario Administrador
-        static void ReadDataAdministrador(IMessageHandling proxy)
+                static void ReadDataAdministrador(IMessageHandling proxy)
         {
 
         }
@@ -320,25 +371,30 @@ namespace ConsoleClient
             //_asist04.IncidenciaCausaIncidencia = 9;
             //_asist04.IncidenciaObservacion = "Cuarta Incidencia adicionada.";
 
-           
+
 
             // II Parte Ya existen incidencias, se modifican
             // SE borra la primera y se actualizan 2da y tercera
-            _asist01.IncidenciaCausaIncidencia = 0;
+            //_asist01.IncidenciaCausaIncidencia = 0;
 
-            _asist02.IncidenciaCausaIncidencia = 2;
-            _asist02.IncidenciaObservacion = "Segunda Incidencia MODIFICADA 3.";
+            //_asist02.IncidenciaCausaIncidencia = 2;
+            //_asist02.IncidenciaObservacion = "Segunda Incidencia MODIFICADA 3.";
 
-            //_asist03.IncidenciaCausaIncidencia = 1;
-            //_asist03.IncidenciaObservacion = "Tercera Incidencia MODIFICADA.";
+            ////_asist03.IncidenciaCausaIncidencia = 1;
+            ////_asist03.IncidenciaObservacion = "Tercera Incidencia MODIFICADA.";
 
-            _asistencias = new Collection<Asistencia>();
-            _asistencias.Add(_asist01);
-            _asistencias.Add(_asist02);
+            //_asistencias = new Collection<Asistencia>();
+            //_asistencias.Add(_asist01);
+            //_asistencias.Add(_asist02);
 
 
+            // III Parte Se crea de nuevo la primera
+            _asist01.IncidenciaCausaIncidencia = 2;
+            _asist01.IncidenciaObservacion = "Primera Incidencia adicionada.";
+
+            
             // Comando de actualizacion
-            AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand(_incidencias, _asistencias);
+            AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand( _asistencias);
             var status = proxy.Handle(asistCmd);
 
             bool Success = status.GetType() == typeof(Success);

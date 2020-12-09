@@ -74,7 +74,6 @@
     <Compile Include="Query\AdministracionQuery.cs" />
     <Compile Include="Query\AdministracionQueryResult.cs" />
     <Compile Include="Query\DepartamentQuery.cs" />
-    <Compile Include="Query\IncidenceQuery.cs" />
     <Compile Include="Query\UserDepartamentQuery.cs" />
     <Compile Include="Query\UserDepartamentQueryResult.cs" />
     <Compile Include="Query\UserRoleQuery.cs" />

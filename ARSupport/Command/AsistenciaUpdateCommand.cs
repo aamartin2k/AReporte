@@ -11,13 +11,13 @@ namespace AReport.Support.Command
     [Serializable]
     public class AsistenciaUpdateCommand 
     {
-        public Collection<Incidencia> Incidencias { get; }
+        //public Collection<Incidencia> Incidencias { get; }
 
         public Collection<Asistencia> Asistencias { get; }
 
-        public AsistenciaUpdateCommand(Collection<Incidencia> incidencias, Collection<Asistencia> asistencias)
+        public AsistenciaUpdateCommand(Collection<Asistencia> asistencias)
         {
-            Incidencias = incidencias;
+            //Incidencias = incidencias;
             Asistencias = asistencias;
         }
     }

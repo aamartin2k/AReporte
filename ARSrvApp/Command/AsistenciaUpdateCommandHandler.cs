@@ -37,7 +37,10 @@ namespace AReport.Srv.Command
                 int causa;
                 Incidencia incidenciaRef;
                 bool esPropiedadCero, esReferenciaNull;
+
                 Collection<Asistencia> colAssist = new Collection<Asistencia>();
+                Collection<Incidencia> colIncid = new Collection<Incidencia>();
+
 
                 // recorrer las asistencias y comparar propiedad y referencia
 
@@ -63,14 +66,14 @@ namespace AReport.Srv.Command
                         // al hacer cero la prop, se escribe DbNull en record
 
                         incidenciaRef.State = EntityState.Deleted;
-                        // despues
-                        //TODO Comprobar que command.Incidencias contiene incidenciaRef
-                        Console.WriteLine("Coleccion contiene incidenciaRef: " + command.Incidencias.Contains(incidenciaRef));
+                        colIncid.Add(incidenciaRef);
                     }
 
                     // Insertar Nueva Incidencia
                     if (!esPropiedadCero && esReferenciaNull)
                     {
+                        // Se crea la entidad y se inserta el registro en DB primero,
+                        //para obtenr su Id y actualizar Asistencia relacionada
                         Incidencia newInc = _data.InsertarNuevaIncidencia(asistencia.IncidenciaCausaIncidencia, asistencia.IncidenciaObservacion);
 
                         asistencia.IncidenciaId = newInc.Id;
@@ -94,6 +97,7 @@ namespace AReport.Srv.Command
                             incidenciaRef.Observacion = asistencia.IncidenciaObservacion;
 
                             incidenciaRef.State = EntityState.Modified;
+                            colIncid.Add(incidenciaRef);
                         }
                     }
                 }
@@ -105,13 +109,11 @@ namespace AReport.Srv.Command
                     return new Failure("Error actualizando Asistencias");
 
 
-                ret = _data.ActualizarIncidencias(command.Incidencias);
+                ret = _data.ActualizarIncidencias(colIncid);
                 if (!ret)
                     return new Failure("Error actualizando Incidencias");
 
                 
-
-
                 return new Success();
             }
             catch (Exception ex)

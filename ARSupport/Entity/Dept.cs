@@ -25,5 +25,10 @@ namespace AReport.Support.Entity
 
         public string Description
         { get; set; }
+
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }
