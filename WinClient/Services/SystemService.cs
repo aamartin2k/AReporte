@@ -420,55 +420,22 @@ namespace AReport.Client.Services
 
         internal static void ConsultarAsistencias(object key)
         {
-            Console.WriteLine();
-            // Crear Query con datos y pasar a metodo unico que hace Handle y actualiza formulario.
             // Convertir object a ClaveMes
             ClaveMes cm = (ClaveMes)key;
             AsistenciaQuery asistQry = new AsistenciaQuery(cm.Id, _userDeptId);
+
+            ConsultarAsistencias(asistQry);
         }
 
         internal static void ConsultarAsistencias(int mes, int anno)
         {
             AsistenciaQuery asistQry = new AsistenciaQuery(mes, anno, _userDeptId);
+            ConsultarAsistencias(asistQry);
         }
 
        
 
-        private static bool LeerDatosJefeDepartamento()
-        {
-            bool ret;
-
-            ret = ConsultarDepartUsuario();
-
-            if (ret)
-                ret = ConsultarClavesMes();
-
-            return ret;
-        }
-
-        // consultar dept del usuario
-        private static bool ConsultarDepartUsuario()
-        {
-            const string methodName = "ConsultarDepartUsuario";
-
-            try
-            {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
-
-                UserDepartamentQuery dptQry = new UserDepartamentQuery(_userID);
-                UserDepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
-
-                _userDeptId = dptQryRst.Id;
-
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
-                return false;
-            }
-        }
+      
        
         #endregion
 
@@ -526,15 +493,36 @@ namespace AReport.Client.Services
 
         internal static void ConsultarAsistencias(object key, Collection<object> list)
         {
-            // Convertir collection de object en coll int *****
+            // Convertir collection de object en coll int 
+            //var keys = list.Select(k => (k as ClaveMes).Id);
+            Collection<int> keyList = new Collection<int>();
+            Dept km;
+
+            foreach (var item in list)
+            {
+                km = (Dept)item;
+                keyList.Add(km.Id);
+            }
+
             ClaveMes cm = (ClaveMes)key;
-            AsistenciaQuery asistQry = new AsistenciaQuery(cm.Id, list);
+            AsistenciaQuery asistQry = new AsistenciaQuery(cm.Id, keyList);
+
+            ConsultarAsistencias(asistQry);
         }
 
         internal static void ConsultarAsistencias(int mes, int anno, Collection<object> list)
         {
-            Console.WriteLine();
+            // Convertir collection de object en coll int  
+            // WARN Codigo repetido.
+            var keys = list.Select(k => (k as ClaveMes).Id);
+            Collection<int> keyList = new Collection<int>(keys.ToArray());
+
+            AsistenciaQuery asistQry = new AsistenciaQuery(mes, anno, keyList);
+
+            ConsultarAsistencias(asistQry);
         }
+
+       
 
         #endregion
 
@@ -551,6 +539,97 @@ namespace AReport.Client.Services
         #endregion
 
         #region Métodos Privados
+
+        
+
+        private static void ConsultarAsistencias(AsistenciaQuery qry)
+        {
+            
+            const string methodName = "ConsultarAsistencias";
+
+            try
+            {
+                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Asistencias registradas.");
+
+                AsistenciaQueryResult result = proxy.Handle(qry);
+
+                CausaIncidencia nci = new CausaIncidencia();
+                nci.Id = 0;
+                nci.Description = string.Empty;
+                //result.CausasIncidencias.Add(nci);
+                result.CausasIncidencias.Insert(0, nci);
+                /*
+                // ***************************************
+                // Departments
+                //Department Empleado
+                //Employee  Asistencia
+                var matchingEmployees = from dept in Departments
+                                        join emp in Employees on dept.DeptNo equals emp.DeptNo
+                                        into AvailableEmployees
+                                        select new { department = dept, employees = AvailableEmployees };
+
+                //select new
+                //{
+                //    DeptNo = dept.DeptNo,
+                //    employees = from emp in AvailableEmployees
+                //               orderby emp.EmployeeNo
+                //               select emp
+                //};
+                this.GroupEmployee = matchingEmployees.ToDictionary(x => x.department, y => y.employees);
+
+                //dgvEmployees.DataSource = matchingEmployees.ToList();
+                //bsEmployees.DataSource = matchingEmployees.ToList();
+                bsDepartments.DataSource = GroupEmployee.Keys;
+                // ****************************************
+                */
+                _editForm.bdsEmpleados.DataSource = result.Empleados;
+                _editForm.bdsCausasIncidencia.DataSource = result.CausasIncidencias;
+
+                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Asistencias consultadas con exito.");
+                
+            }
+            catch (Exception ex)
+            {
+                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+            }
+        }
+
+        private static bool LeerDatosJefeDepartamento()
+        {
+            bool ret;
+
+            ret = ConsultarDepartUsuario();
+
+            if (ret)
+                ret = ConsultarClavesMes();
+
+            return ret;
+        }
+
+        // consultar dept del usuario
+        private static bool ConsultarDepartUsuario()
+        {
+            const string methodName = "ConsultarDepartUsuario";
+
+            try
+            {
+                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
+
+                UserDepartamentQuery dptQry = new UserDepartamentQuery(_userID);
+                UserDepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
+
+                _userDeptId = dptQryRst.Id;
+
+                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                return false;
+            }
+        }
+
         #endregion
 
         #endregion

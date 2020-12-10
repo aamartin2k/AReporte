@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormClient));
             this.tbcControl = new System.Windows.Forms.TabControl();
             this.tbpConsultaJGrupo = new System.Windows.Forms.TabPage();
+            this.nupMes = new System.Windows.Forms.NumericUpDown();
+            this.nupAnno = new System.Windows.Forms.NumericUpDown();
             this.btConsultar = new System.Windows.Forms.Button();
             this.lbSelDepart = new System.Windows.Forms.Label();
             this.chlbSelDepart = new System.Windows.Forms.CheckedListBox();
@@ -40,17 +43,46 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbpResultados = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dgvAsistencia = new System.Windows.Forms.DataGridView();
+            this.bdnEmpleados = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bdsEmpleados = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
+            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbDepart = new System.Windows.Forms.Label();
+            this.lbNumero = new System.Windows.Forms.Label();
+            this.lbNombre = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbpAdmin = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tslbInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.nupAnno = new System.Windows.Forms.NumericUpDown();
-            this.nupMes = new System.Windows.Forms.NumericUpDown();
-            this.tbpAdmin = new System.Windows.Forms.TabPage();
+            this.bdsCausasIncidencia = new System.Windows.Forms.BindingSource(this.components);
+            this.bdsAsistencias = new System.Windows.Forms.BindingSource(this.components);
             this.tbcControl.SuspendLayout();
             this.tbpConsultaJGrupo.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupMes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).BeginInit();
+            this.tbpResultados.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdnEmpleados)).BeginInit();
+            this.bdnEmpleados.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsEmpleados)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCausasIncidencia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsAsistencias)).BeginInit();
             this.SuspendLayout();
             // 
             // tbcControl
@@ -61,10 +93,10 @@
             this.tbcControl.Controls.Add(this.tbpConsultaJGrupo);
             this.tbcControl.Controls.Add(this.tbpResultados);
             this.tbcControl.Controls.Add(this.tbpAdmin);
-            this.tbcControl.Location = new System.Drawing.Point(12, 25);
+            this.tbcControl.Location = new System.Drawing.Point(0, 38);
             this.tbcControl.Name = "tbcControl";
             this.tbcControl.SelectedIndex = 0;
-            this.tbcControl.Size = new System.Drawing.Size(637, 314);
+            this.tbcControl.Size = new System.Drawing.Size(882, 389);
             this.tbcControl.TabIndex = 1;
             // 
             // tbpConsultaJGrupo
@@ -82,10 +114,24 @@
             this.tbpConsultaJGrupo.Location = new System.Drawing.Point(4, 22);
             this.tbpConsultaJGrupo.Name = "tbpConsultaJGrupo";
             this.tbpConsultaJGrupo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpConsultaJGrupo.Size = new System.Drawing.Size(629, 288);
+            this.tbpConsultaJGrupo.Size = new System.Drawing.Size(874, 363);
             this.tbpConsultaJGrupo.TabIndex = 0;
             this.tbpConsultaJGrupo.Text = "Consulta";
             this.tbpConsultaJGrupo.UseVisualStyleBackColor = true;
+            // 
+            // nupMes
+            // 
+            this.nupMes.Location = new System.Drawing.Point(44, 39);
+            this.nupMes.Name = "nupMes";
+            this.nupMes.Size = new System.Drawing.Size(67, 20);
+            this.nupMes.TabIndex = 12;
+            // 
+            // nupAnno
+            // 
+            this.nupAnno.Location = new System.Drawing.Point(44, 72);
+            this.nupAnno.Name = "nupAnno";
+            this.nupAnno.Size = new System.Drawing.Size(67, 20);
+            this.nupAnno.TabIndex = 11;
             // 
             // btConsultar
             // 
@@ -166,22 +212,250 @@
             // 
             // tbpResultados
             // 
+            this.tbpResultados.AutoScroll = true;
+            this.tbpResultados.Controls.Add(this.textBox1);
+            this.tbpResultados.Controls.Add(this.comboBox1);
+            this.tbpResultados.Controls.Add(this.dgvAsistencia);
+            this.tbpResultados.Controls.Add(this.bdnEmpleados);
+            this.tbpResultados.Controls.Add(this.tableLayoutPanel1);
             this.tbpResultados.Location = new System.Drawing.Point(4, 22);
             this.tbpResultados.Name = "tbpResultados";
             this.tbpResultados.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpResultados.Size = new System.Drawing.Size(629, 288);
+            this.tbpResultados.Size = new System.Drawing.Size(874, 363);
             this.tbpResultados.TabIndex = 1;
             this.tbpResultados.Text = "Resultados";
             this.tbpResultados.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(477, 28);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(150, 20);
+            this.textBox1.TabIndex = 5;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(720, 53);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 4;
+            this.comboBox1.ValueMember = "Id";
+            // 
+            // dgvAsistencia
+            // 
+            this.dgvAsistencia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAsistencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAsistencia.Location = new System.Drawing.Point(6, 122);
+            this.dgvAsistencia.Name = "dgvAsistencia";
+            this.dgvAsistencia.Size = new System.Drawing.Size(860, 217);
+            this.dgvAsistencia.TabIndex = 3;
+            // 
+            // bdnEmpleados
+            // 
+            this.bdnEmpleados.AddNewItem = null;
+            this.bdnEmpleados.BindingSource = this.bdsEmpleados;
+            this.bdnEmpleados.CountItem = this.bindingNavigatorCountItem;
+            this.bdnEmpleados.DeleteItem = null;
+            this.bdnEmpleados.Dock = System.Windows.Forms.DockStyle.None;
+            this.bdnEmpleados.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bindingNavigatorMoveFirstItem,
+            this.bindingNavigatorMovePreviousItem,
+            this.bindingNavigatorSeparator,
+            this.bindingNavigatorPositionItem,
+            this.bindingNavigatorCountItem,
+            this.bindingNavigatorSeparator1,
+            this.bindingNavigatorMoveNextItem,
+            this.bindingNavigatorMoveLastItem,
+            this.bindingNavigatorSeparator2});
+            this.bdnEmpleados.Location = new System.Drawing.Point(477, 51);
+            this.bdnEmpleados.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
+            this.bdnEmpleados.MoveLastItem = this.bindingNavigatorMoveLastItem;
+            this.bdnEmpleados.MoveNextItem = this.bindingNavigatorMoveNextItem;
+            this.bdnEmpleados.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
+            this.bdnEmpleados.Name = "bdnEmpleados";
+            this.bdnEmpleados.PositionItem = this.bindingNavigatorPositionItem;
+            this.bdnEmpleados.Size = new System.Drawing.Size(209, 25);
+            this.bdnEmpleados.TabIndex = 3;
+            this.bdnEmpleados.Text = "bindingNavigator1";
+            // 
+            // bdsEmpleados
+            // 
+            this.bdsEmpleados.CurrentChanged += new System.EventHandler(this.bdsEmpleados_CurrentChanged);
+            // 
+            // bindingNavigatorCountItem
+            // 
+            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+            // 
+            // bindingNavigatorMoveFirstItem
+            // 
+            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
+            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
+            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Text = "Move first";
+            // 
+            // bindingNavigatorMovePreviousItem
+            // 
+            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
+            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
+            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Text = "Move previous";
+            // 
+            // bindingNavigatorSeparator
+            // 
+            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorPositionItem
+            // 
+            this.bindingNavigatorPositionItem.AccessibleName = "Position";
+            this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.bindingNavigatorPositionItem.Text = "0";
+            this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+            // 
+            // bindingNavigatorSeparator1
+            // 
+            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // bindingNavigatorMoveNextItem
+            // 
+            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
+            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
+            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Text = "Move next";
+            // 
+            // bindingNavigatorMoveLastItem
+            // 
+            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
+            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
+            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Text = "Move last";
+            // 
+            // bindingNavigatorSeparator2
+            // 
+            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81F));
+            this.tableLayoutPanel1.Controls.Add(this.lbDepart, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbNumero, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbNombre, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 2);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 70);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lbDepart
+            // 
+            this.lbDepart.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbDepart.AutoSize = true;
+            this.lbDepart.Location = new System.Drawing.Point(89, 50);
+            this.lbDepart.Name = "lbDepart";
+            this.lbDepart.Size = new System.Drawing.Size(74, 13);
+            this.lbDepart.TabIndex = 8;
+            this.lbDepart.Text = "Departamento";
+            this.lbDepart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbNumero
+            // 
+            this.lbNumero.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbNumero.AutoSize = true;
+            this.lbNumero.Location = new System.Drawing.Point(89, 26);
+            this.lbNumero.Name = "lbNumero";
+            this.lbNumero.Size = new System.Drawing.Size(24, 13);
+            this.lbNumero.TabIndex = 7;
+            this.lbNumero.Text = "Nro";
+            this.lbNumero.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbNombre
+            // 
+            this.lbNombre.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbNombre.AutoSize = true;
+            this.lbNombre.Location = new System.Drawing.Point(89, 4);
+            this.lbNombre.Name = "lbNombre";
+            this.lbNombre.Size = new System.Drawing.Size(44, 13);
+            this.lbNombre.TabIndex = 6;
+            this.lbNombre.Text = "Nombre";
+            this.lbNombre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Nombre:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Nro:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 50);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Departamento:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbpAdmin
+            // 
+            this.tbpAdmin.Location = new System.Drawing.Point(4, 22);
+            this.tbpAdmin.Name = "tbpAdmin";
+            this.tbpAdmin.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpAdmin.Size = new System.Drawing.Size(874, 363);
+            this.tbpAdmin.TabIndex = 2;
+            this.tbpAdmin.Text = "Administracion";
+            this.tbpAdmin.UseVisualStyleBackColor = true;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tslbInfo,
             this.toolStripSplitButton1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 342);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 430);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(661, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(882, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -200,46 +474,34 @@
             this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 20);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
-            // nupAnno
-            // 
-            this.nupAnno.Location = new System.Drawing.Point(44, 72);
-            this.nupAnno.Name = "nupAnno";
-            this.nupAnno.Size = new System.Drawing.Size(67, 20);
-            this.nupAnno.TabIndex = 11;
-            // 
-            // nupMes
-            // 
-            this.nupMes.Location = new System.Drawing.Point(44, 39);
-            this.nupMes.Name = "nupMes";
-            this.nupMes.Size = new System.Drawing.Size(67, 20);
-            this.nupMes.TabIndex = 12;
-            // 
-            // tbpAdmin
-            // 
-            this.tbpAdmin.Location = new System.Drawing.Point(4, 22);
-            this.tbpAdmin.Name = "tbpAdmin";
-            this.tbpAdmin.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpAdmin.Size = new System.Drawing.Size(629, 288);
-            this.tbpAdmin.TabIndex = 2;
-            this.tbpAdmin.Text = "Administracion";
-            this.tbpAdmin.UseVisualStyleBackColor = true;
-            // 
             // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 364);
+            this.ClientSize = new System.Drawing.Size(882, 452);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tbcControl);
             this.Name = "FormClient";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormClient_Load);
             this.tbcControl.ResumeLayout(false);
             this.tbpConsultaJGrupo.ResumeLayout(false);
             this.tbpConsultaJGrupo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).EndInit();
+            this.tbpResultados.ResumeLayout(false);
+            this.tbpResultados.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdnEmpleados)).EndInit();
+            this.bdnEmpleados.ResumeLayout(false);
+            this.bdnEmpleados.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsEmpleados)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsCausasIncidencia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsAsistencias)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,5 +525,28 @@
         private System.Windows.Forms.NumericUpDown nupAnno;
         private System.Windows.Forms.NumericUpDown nupMes;
         private System.Windows.Forms.TabPage tbpAdmin;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lbDepart;
+        private System.Windows.Forms.Label lbNumero;
+        private System.Windows.Forms.Label lbNombre;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.BindingNavigator bdnEmpleados;
+        private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator;
+        private System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator1;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
+        private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
+        private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView dgvAsistencia;
+        internal System.Windows.Forms.BindingSource bdsEmpleados;
+        internal System.Windows.Forms.BindingSource bdsCausasIncidencia;
+        internal System.Windows.Forms.BindingSource bdsAsistencias;
     }
 }

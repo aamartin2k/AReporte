@@ -9,6 +9,8 @@ using AReport.Client.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using AReport.Support.Entity;
+using System.Collections.Generic;
 
 namespace AReport.Client
 {
@@ -80,7 +82,7 @@ namespace AReport.Client
             lbSelDepart.Visible = false;
             chlbSelDepart.Visible = false;
             // Mostrar tabControl page Seleccion.
-            tbcControl.Controls.Remove(tbpResultados);
+            //tbcControl.Controls.Remove(tbpResultados);
             tbcControl.Controls.Remove(tbpAdmin);
 
             ConfigurarConstante();
@@ -91,7 +93,7 @@ namespace AReport.Client
         {
             lbSelDepart.Visible = true;
             chlbSelDepart.Visible = true;
-            tbcControl.Controls.Remove(tbpResultados);
+            //tbcControl.Controls.Remove(tbpResultados);
             tbcControl.Controls.Remove(tbpAdmin);
 
             ConfigurarConstante();
@@ -100,7 +102,7 @@ namespace AReport.Client
         private void ConfigurarModoAdministrador()
         {
             tbcControl.Controls.Remove(tbpConsultaJGrupo);
-            tbcControl.Controls.Remove(tbpAdmin);
+            tbcControl.Controls.Remove(tbpResultados);
         }
 
         #endregion
@@ -115,7 +117,6 @@ namespace AReport.Client
                 ret = ValidarDatosMesAnno();
                 if (ret)
                     ConsultarJefeGrupo();
-                
             }
 
             if (_editMode == FormClientMode.Supervisor)
@@ -132,6 +133,7 @@ namespace AReport.Client
                 
             }
 
+            tbcControl.SelectTab(tbpResultados);
            
         }
 
@@ -208,7 +210,7 @@ namespace AReport.Client
             Collection<object> list = new Collection<object>();
 
             foreach (var item in chlbSelDepart.CheckedItems)
-            {
+            {   //TODO Probar asignar colecc a colecc
                 list.Add(item);
             } 
 
@@ -253,8 +255,42 @@ namespace AReport.Client
             // Para deshabilitar
             cmbSelMes.Enabled = !status;
         }
+
+        private void bdsEmpleados_CurrentChanged(object sender, EventArgs e)
+        {
+            //bsEmployees.DataSource = this.GroupEmployee[(Department)bsDepartments.Current];
+            Empleado emp = (Empleado)bdsEmpleados.Current;
+            List<Asistencia> asist = new List<Asistencia>(emp.Asistencias);
+
+            bdsAsistencias.DataSource = asist;
+        }
+
+
+
+
+
         #endregion
 
+        private void FormClient_Load(object sender, EventArgs e)
+        {
+            // Crear bindings temporalmenet aqui
+            Binding emplNombre = new Binding("Text", bdsEmpleados, "Nombre");
+            lbNombre.DataBindings.Add(emplNombre);
 
+            Binding emplCode = new Binding("Text", bdsEmpleados, "Code");
+            lbNumero.DataBindings.Add(emplCode);
+
+            Binding emplDepart = new Binding("Text", bdsEmpleados, "Departamento");
+            lbDepart.DataBindings.Add(emplDepart);
+
+
+            // prueba textBox1
+            Binding emplCode1 = new Binding("Text", bdsEmpleados, "Code");
+            textBox1.DataBindings.Add(emplCode1);
+
+            dgvAsistencia.ReadOnly = false;
+
+            dgvAsistencia.DataSource = bdsAsistencias;
+        }
     }
 }

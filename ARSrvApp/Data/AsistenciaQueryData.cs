@@ -593,7 +593,7 @@ namespace AReport.Srv.Data
 
         #endregion
 
-        #region Gestion Emplados
+        #region Gestion Empleados
         Collection<Empleado> RetEmpleadosByDepart(Collection<int> departs)
         {
             Collection<Empleado> col, total;
@@ -617,6 +617,12 @@ namespace AReport.Srv.Data
             Empleado newEmp;
             Collection<Empleado> newEmpCol = new Collection<Empleado>();
 
+            // Leer coleccion de departamentos para actualizar prop
+            // Departamento de nuevo empleado.
+
+            ICollectionRead<Dept> DepartamentData = new DepartamentoData();
+            var depts = DepartamentData.QueryCollection();
+
 
             foreach (var user in userinfoCol)
             {
@@ -626,7 +632,8 @@ namespace AReport.Srv.Data
                 newEmp.Nombre = user.Nombre;
                 newEmp.Code = user.UserCode;
                 newEmp.DepartamentoId = user.DepartamentoId;
-
+                // In place lookup usando LINQ!
+                newEmp.Departamento = depts.Where(d => d.Id == user.DepartamentoId).First().Description;
                 newEmpCol.Add(newEmp);
             }
 
@@ -641,12 +648,12 @@ namespace AReport.Srv.Data
         {
             // creando colecciones para respuesta
             
-            Collection<Incidencia> colIncidencias;
+            //Collection<Incidencia> colIncidencias;
             Collection<Empleado> colEmpleados;
             Collection<Asistencia> colAssist;
 
             // Lectura de toda la tabla
-            Collection<CausaIncidencia> causasInc = RetCausaIncidencia();
+            Collection<CausaIncidencia> colCausasIncid = RetCausaIncidencia();
 
             // select Empleado handler de acuerdo a tipo de query
             switch (query.Mode)
@@ -663,8 +670,6 @@ namespace AReport.Srv.Data
                     break;
 
             }
-
-            
 
             // select Asistencia handler de acuerdo a tipo de query
             switch (query.Mode)
@@ -689,22 +694,23 @@ namespace AReport.Srv.Data
             }
 
             // enlazando Empleados y Asistencias + Incidencias
-            colIncidencias = new Collection<Incidencia>();
+            //colIncidencias = new Collection<Incidencia>();
 
             foreach (var empl in colEmpleados)
             {
                 IEnumerable<Asistencia> assistByEmpl = colAssist.Where(a => a.UserId == empl.Id);
                 empl.Asistencias = new Collection<Asistencia>(assistByEmpl.ToArray());
 
-                foreach (var asist in empl.Asistencias)
-                {
-                    if (asist.IncidenciaRef != null)
-                        colIncidencias.Add(asist.IncidenciaRef);
-                }
+                //foreach (var asist in empl.Asistencias)
+                //{
+                //    if (asist.IncidenciaRef != null)
+                //        colIncidencias.Add(asist.IncidenciaRef);
+                //}
             }
 
             // Creando conjunto de datos de retorno
-            AsistenciaQueryResult ret = new AsistenciaQueryResult(causasInc, colIncidencias, colEmpleados);
+            //AsistenciaQueryResult ret = new AsistenciaQueryResult(causasInc, colIncidencias, colEmpleados);
+            AsistenciaQueryResult ret = new AsistenciaQueryResult(colCausasIncid, colEmpleados);
 
             // retornando
             return ret;

@@ -243,7 +243,7 @@ namespace ConsoleClient
             AsistenciaQueryResult asistQryRst = proxy.Handle(asistQry);
 
             // guardando ref a incidencias recibidas
-            Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
+            //Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
 
             _asistencias = new Collection<Asistencia>();
 
@@ -319,7 +319,7 @@ namespace ConsoleClient
             AsistenciaQuery asistQry = new AsistenciaQuery(mk.Id, departs);
             AsistenciaQueryResult asistQryRst = proxy.Handle(asistQry);
 
-            Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
+            //Console.WriteLine("\nIncidencias en el Mes registradas: " + asistQryRst.Incidencias.Count);
             Console.WriteLine("\nAsistencias en el Mes registradas");
             Console.WriteLine(string.Format("Recibidos {0} empleados.", asistQryRst.Empleados.Count));
             // listando empleados
