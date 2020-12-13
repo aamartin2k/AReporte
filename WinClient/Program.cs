@@ -65,7 +65,7 @@ namespace AReport.Client
 
             // 
             // Configurar Form
-            ret = SystemService.CrearMainForm();
+            ret = SystemService.ConfigurarMainForm();
             if (!ret)
                 goto FinalError;
 

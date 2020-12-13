@@ -1,8 +1,6 @@
 ﻿
 #region Descripción
 /* 
- *  Lógica del sistema.
- * 
  *  Soporte a las operaciones de usuario.
  * 
  *  Es el acceso de la capa de presentación a todos los servicios de sistema.
@@ -42,7 +40,6 @@ namespace AReport.Client.Services
 
         // Valores necesarios para secuencia de inicio
         // Datos del usuario que inicia sesión
-        //TODO Valorar uso de struct.
         static string _userName;
         static public string _userID;
         static UserRoleEnum _userRole;
@@ -50,6 +47,13 @@ namespace AReport.Client.Services
 
         // Referencia a formularios
         private static FormClient _editForm;
+
+        // Referencia a BindingSources
+        private static BindingSource bdsEmpleados;
+        private static BindingSource bdsCausasIncidencia;
+        private static BindingSource bdsAsistencias;
+        private static BindingSource bdsDepartamentos;
+        private static BindingSource bdsEmpDept;
 
         #endregion
 
@@ -233,9 +237,9 @@ namespace AReport.Client.Services
             }
         }
 
-        internal static bool CrearMainForm()
+        internal static bool ConfigurarMainForm()
         {
-            const string methodName = "CrearMainForm";
+            const string methodName = "ConfigurarMainForm";
 
             try
             {
@@ -473,12 +477,7 @@ namespace AReport.Client.Services
 
                 if (dptQryRst.Coleccion.Count > 0)
                 {
-                    foreach (var depart in dptQryRst.Coleccion)
-                    {
-                        // chlbSelDepart
-                        Console.WriteLine(string.Format(" Leído Departamento Id: {0}\t Nombre: {1}", depart.Id, depart.Description));
-                        _editForm.chlbSelDepart.Items.Add(depart);
-                    }
+                    _editForm.chlbSelDepart.DataSource = dptQryRst.Coleccion;
                 }
 
                 Log.WriteEntry(_className, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
@@ -556,33 +555,11 @@ namespace AReport.Client.Services
                 CausaIncidencia nci = new CausaIncidencia();
                 nci.Id = 0;
                 nci.Description = string.Empty;
+                //TODO REvisar Insertar incidencia Id 0 sin texto
                 //result.CausasIncidencias.Add(nci);
-                result.CausasIncidencias.Insert(0, nci);
-                /*
-                // ***************************************
-                // Departments
-                //Department Empleado
-                //Employee  Asistencia
-                var matchingEmployees = from dept in Departments
-                                        join emp in Employees on dept.DeptNo equals emp.DeptNo
-                                        into AvailableEmployees
-                                        select new { department = dept, employees = AvailableEmployees };
+                //result.CausasIncidencias.Insert(0, nci);
 
-                //select new
-                //{
-                //    DeptNo = dept.DeptNo,
-                //    employees = from emp in AvailableEmployees
-                //               orderby emp.EmployeeNo
-                //               select emp
-                //};
-                this.GroupEmployee = matchingEmployees.ToDictionary(x => x.department, y => y.employees);
-
-                //dgvEmployees.DataSource = matchingEmployees.ToList();
-                //bsEmployees.DataSource = matchingEmployees.ToList();
-                bsDepartments.DataSource = GroupEmployee.Keys;
-                // ****************************************
-                */
-                _editForm.bdsEmpleados.DataSource = result.Empleados;
+                _editForm.bdsTodosEmpleados.DataSource = result.Empleados;
                 _editForm.bdsCausasIncidencia.DataSource = result.CausasIncidencias;
 
                 Log.WriteEntry(_className, methodName, TraceEventType.Information, "Asistencias consultadas con exito.");

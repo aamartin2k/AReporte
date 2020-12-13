@@ -5,12 +5,18 @@
  */
 #endregion
 
+
+ //  revisar casos de uso
+ // mostrar y ocultar tabs desde consulta hasta resultados
+ // implemen crear/eliminar incidencias en grid y aplicar incidencias masivas
+
 using AReport.Client.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using AReport.Support.Entity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AReport.Client
 {
@@ -81,19 +87,22 @@ namespace AReport.Client
         {
             lbSelDepart.Visible = false;
             chlbSelDepart.Visible = false;
-            // Mostrar tabControl page Seleccion.
-            //tbcControl.Controls.Remove(tbpResultados);
+            cmbDepartamentos.Visible = false;
+            // Mostrar tabControl page Seleccion y ocultar las demas.
+            tbcControl.Controls.Remove(tbpResultados);
             tbcControl.Controls.Remove(tbpAdmin);
-
+        
             ConfigurarConstante();
-
         }
 
         private void ConfigurarModoSupervisor()
         {
             lbSelDepart.Visible = true;
             chlbSelDepart.Visible = true;
-            //tbcControl.Controls.Remove(tbpResultados);
+            cmbDepartamentos.Visible = true;
+
+            // Mostrar tabControl page Seleccion y ocultar las demas.
+            tbcControl.Controls.Remove(tbpResultados);
             tbcControl.Controls.Remove(tbpAdmin);
 
             ConfigurarConstante();
@@ -132,7 +141,8 @@ namespace AReport.Client
                 }
                 
             }
-
+            tbcControl.Controls.Remove(tbpConsultaJGrupo);
+            tbcControl.Controls.Add(tbpResultados);
             tbcControl.SelectTab(tbpResultados);
            
         }
@@ -209,6 +219,8 @@ namespace AReport.Client
             // Leer departamentos seleccionados
             Collection<object> list = new Collection<object>();
 
+            bdsDepartamentos.DataSource = chlbSelDepart.CheckedItems;
+           
             foreach (var item in chlbSelDepart.CheckedItems)
             {   //TODO Probar asignar colecc a colecc
                 list.Add(item);
@@ -258,39 +270,94 @@ namespace AReport.Client
 
         private void bdsEmpleados_CurrentChanged(object sender, EventArgs e)
         {
-            //bsEmployees.DataSource = this.GroupEmployee[(Department)bsDepartments.Current];
             Empleado emp = (Empleado)bdsEmpleados.Current;
             List<Asistencia> asist = new List<Asistencia>(emp.Asistencias);
 
             bdsAsistencias.DataSource = asist;
+            // Implementar metodos diferentes para jefe y supervisor, filtro combo depart
         }
 
+        private void bdsTodosEmpleados_DataSourceChanged(object sender, EventArgs e)
+        {
+            if (_editMode == FormClientMode.Supervisor)
+            {
+                bdsEmpleados.DataSource = bdsTodosEmpleados.DataSource;
+                // Filtrar de acuerdo a departamento activo, forzando controlador de ebvento del combo
+                cmbDepartamentos.SelectedIndex = 0;
+            }
 
+            if (_editMode == FormClientMode.JefeGrupo)
+            {
+                Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+                var empl = colEmp.OrderBy(em => em.Nombre);
+                bdsEmpleados.DataSource = empl.ToList();
+            }
+                
+        }
 
+        private void cmbDepartamentos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDepartamentos.SelectedValue != null)
+            {
+                int deptId = (int)cmbDepartamentos.SelectedValue;
 
+                Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+
+                //HARDCODED Caso especial Al seleccionar Caudal, id =  1
+                // se deben mostrar todos los empleados.
+               
+                if (deptId == 1)
+                {
+                    var empl = colEmp.OrderBy(em => em.DepartamentoId).ThenBy(em => em.Nombre);
+                    bdsEmpleados.DataSource = empl.ToList();
+                }
+                else
+                {
+                    var empl = colEmp.Where(em => em.DepartamentoId == deptId).OrderBy(em => em.DepartamentoId).ThenBy(em => em.Nombre);
+                    bdsEmpleados.DataSource = empl.ToList();
+                }
+
+                //  mover al primer registro
+                bdsEmpleados.MoveFirst();
+                
+            }
+        }
+
+        private void dgvAsistencia_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+                e.Cancel = true; 
+        }
+
+        private void dgvAsistencia_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //detectar click derecho sobre columnas de Incidencia (idx = 4) y Observacion (idx = 5) 
+            if ((e.Button == MouseButtons.Right) && (e.ColumnIndex == 4) | (e.ColumnIndex == 5))
+                MessageBox.Show("Mouse Button Right on Incidencia/Obsr column,  row: " + e.RowIndex);
+        }
 
         #endregion
 
-        private void FormClient_Load(object sender, EventArgs e)
-        {
-            // Crear bindings temporalmenet aqui
-            Binding emplNombre = new Binding("Text", bdsEmpleados, "Nombre");
-            lbNombre.DataBindings.Add(emplNombre);
 
-            Binding emplCode = new Binding("Text", bdsEmpleados, "Code");
-            lbNumero.DataBindings.Add(emplCode);
+        //// Crear bindings temporalmenet aqui
+        //Binding emplNombre = new Binding("Text", bdsEmpleados, "Nombre");
+        //lbNombre.DataBindings.Add(emplNombre);
 
-            Binding emplDepart = new Binding("Text", bdsEmpleados, "Departamento");
-            lbDepart.DataBindings.Add(emplDepart);
+        //Binding emplCode = new Binding("Text", bdsEmpleados, "Code");
+        //lbNumero.DataBindings.Add(emplCode);
+
+        //Binding emplDepart = new Binding("Text", bdsEmpleados, "Departamento");
+        //lbDepart.DataBindings.Add(emplDepart);
 
 
-            // prueba textBox1
-            Binding emplCode1 = new Binding("Text", bdsEmpleados, "Code");
-            textBox1.DataBindings.Add(emplCode1);
+        //// prueba textBox1
+        ////Binding emplCode1 = new Binding("Text", bdsEmpleados, "Code");
+        ////textBox1.DataBindings.Add(emplCode1);
 
-            dgvAsistencia.ReadOnly = false;
 
-            dgvAsistencia.DataSource = bdsAsistencias;
-        }
+        //dgvAsistencia.DataSource = bdsAsistencias;
+
+
+
     }
 }
