@@ -17,10 +17,8 @@ namespace AReport.Client
 {
     static class Program
     {
-        // Declaraciones
-        const string _className = "Program";
+        
        
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

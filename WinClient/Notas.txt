@@ -1,0 +1,7 @@
+﻿DataGrid principal es Read Only
+Implementar formulario para crear y asignar incidencias
+ Al crear se asigna a filas previamente seleccinadas: 1 boton
+
+ Al asignar a grupo:
+  para J Departamento aparece un checkList en el form para seleccionar los usuarios  
+  para Supervisor aparece ademas un checklist con los departamentos y uno para los usuarios

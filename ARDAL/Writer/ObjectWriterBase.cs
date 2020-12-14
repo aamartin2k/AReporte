@@ -11,7 +11,10 @@ namespace AReport.DAL.Writer
     {
         protected abstract EntityWriter<T> GetWriter(EntityState status);
 
-       
+        // Para implementar uso de Transaccion creada externamente, 
+        // al actualizar Asistencias & Incidencias se requiere una unica transaccion.
+        //protected abstract IDbTransaction GetTransaction();
+
         public bool Write(Collection<T> collection)
         {
             // entidades a ser eliminadas

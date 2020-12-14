@@ -16,7 +16,9 @@ using AReport.Support.Common;
 using AReport.Support.Entity;
 using AReport.Support.Interface;
 using AReport.Support.Query;
+using AReport.Client.Forms;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -30,7 +32,17 @@ namespace AReport.Client.Services
     internal static class SystemService
     {
         #region Declaraciones
-        const string _className = "SystemService";
+        static string _className ;
+        static string ClassName
+        {
+            get {
+                if (_className == null)
+                    _className = typeof(SystemService).Name;
+
+                return _className;
+            }
+        }
+
 
         static public IMessageHandling proxy;
         static ZyanConnection _connection;
@@ -47,13 +59,17 @@ namespace AReport.Client.Services
 
         // Referencia a formularios
         private static FormClient _editForm;
+        private static FormAsigIncidencia _incAsignForm;
 
-        // Referencia a BindingSources
-        private static BindingSource bdsEmpleados;
+
+       // Referencia a BindingSources
+       private static BindingSource bdsEmpleados;
         private static BindingSource bdsCausasIncidencia;
         private static BindingSource bdsAsistencias;
-        private static BindingSource bdsDepartamentos;
-        private static BindingSource bdsEmpDept;
+        internal static BindingSource bdsDepartamentos;
+        private static BindingSource bdsTodosEmpleados;
+
+        // Referencia a DataGridView y componentes
 
         #endregion
 
@@ -88,17 +104,18 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Ejecutando Tareas de Inicio.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Ejecutando Tareas de Inicio.");
 
                 // Crear formularios
                 _editForm = new FormClient();
+                _incAsignForm = new FormAsigIncidencia();
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Terminadas Tareas de Inicio.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Inicio.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -109,16 +126,16 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Leyendo configuracion.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Leyendo configuracion.");
 
                 _connString = string.Format("tcp://localhost:{1}/{0}", Constants.ZyanServerName, Constants.ZyanServerPort);
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Leida cadena de conexion: {0}.", _connString));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Leida cadena de conexion: {0}.", _connString));
 
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -129,7 +146,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Conectando con servidor.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Conectando con servidor.");
 
                 var connection = new ZyanConnection(_connString);
                 var service = connection.CreateProxy<IMessageHandling>();
@@ -137,12 +154,12 @@ namespace AReport.Client.Services
                 _connection = connection;
                 proxy = service;
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Conexion realizada con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Conexion realizada con exito.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -153,7 +170,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Realizando login de usuario.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Realizando login de usuario.");
                 // mostrar login dialog
                 LoginHandler _login = new LoginHandler();
 
@@ -173,7 +190,7 @@ namespace AReport.Client.Services
 
                     if (ret != DialogResult.OK)
                     {
-                        Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Login cancelado por usuario: {0}", _login.UserLogin));
+                        Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Login cancelado por usuario: {0}", _login.UserLogin));
                         return false;
                     }
 
@@ -190,23 +207,23 @@ namespace AReport.Client.Services
 
                     if (Success)
                     {
-                        Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Login exitoso para usuario: {0}", loginCmd.UserName));
+                        Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Login exitoso para usuario: {0}", loginCmd.UserName));
                         return true;
                     }
 
                     intento--;
-                    Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Login fallido para usuario: {0}", loginCmd.UserName));
+                    Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Login fallido para usuario: {0}", loginCmd.UserName));
                 }
                 while (intento > 0);
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Agotados los intentos de login para usuario: {0}", _userName));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Agotados los intentos de login para usuario: {0}", _userName));
                 return false;
 
             }
             catch (Exception ex)
             {
                 //Log
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -217,13 +234,13 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Rol de usuario: " + _userName);
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Consultando Rol de usuario: " + _userName);
 
                 // Leer User Role
                 var URquery = new UserRoleQuery(_userName);
                 var result = proxy.Handle(URquery);
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, string.Format("Resultado: UserID: {0} Nombre: {1} Rol: {2}", result.UserID, result.UserName, result.UserRole));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Resultado: UserID: {0} Nombre: {1} Rol: {2}", result.UserID, result.UserName, result.UserRole));
 
                 // Guardar UserId para Lectura de datos 
                 _userID = result.UserID;
@@ -232,7 +249,7 @@ namespace AReport.Client.Services
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -243,31 +260,35 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Creando Formulario de Edicion.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Creando Formulario de Edicion.");
 
                 switch (_userRole)
                 {
                     case UserRoleEnum.JefeDepartamento:
-                        _editForm.EditMode = FormClientMode.JefeGrupo;
+                        _editForm.EditMode = UserRoleEnum.JefeDepartamento;
+                        ConfigBindSourcesJefeDepartamento();
                         break;
 
                     case UserRoleEnum.Supervisor:
-                        _editForm.EditMode = FormClientMode.Supervisor;
+                        _editForm.EditMode = UserRoleEnum.Supervisor;
+                        ConfigBindSourcesJefeDepartamento();
+                        ConfigBindSourcesSupervisor();
                         break;
 
                     case UserRoleEnum.Administrador:
                     default:
-                        _editForm.EditMode = FormClientMode.Administrador;
+                        _editForm.EditMode = UserRoleEnum.Administrador;
+                        ConfigBindSourcesAdministrador();
                         break;
                 }
                
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Formulario de Edicion creado con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Formulario de Edicion creado con exito.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -279,7 +300,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Leyendo datos de inicio.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Leyendo datos de inicio.");
 
                 switch (_userRole)
                 {
@@ -298,15 +319,132 @@ namespace AReport.Client.Services
                 }
 
                 if(ret)
-                    Log.WriteEntry(_className, methodName, TraceEventType.Information, "Datos de inicio leidos con exito.");
+                    Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Datos de inicio leidos con exito.");
 
                 return ret;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
+        }
+
+        #endregion
+
+        #region Configuracion de BindingSources
+
+        private static void ConfigBindSourcesJefeDepartamento()
+        {
+            // bdsEmpleados  
+            bdsEmpleados = new BindingSource();
+            bdsEmpleados.DataSource = typeof(Empleado);
+            bdsEmpleados.CurrentChanged += new EventHandler(bdsEmpleados_CurrentChanged);
+
+            // bdsTodosEmpleados
+            bdsTodosEmpleados = new BindingSource();
+            bdsTodosEmpleados.DataSource = typeof(AReport.Support.Entity.Empleado);
+            bdsTodosEmpleados.DataSourceChanged += new EventHandler(bdsTodosEmpleados_DataSourceChanged);
+            _editForm.cmbDepartamentos.SelectedIndexChanged += new EventHandler(cmbDepartamentos_SelectedIndexChanged);
+
+            _editForm.lbNombre.DataBindings.Add(new Binding("Text", bdsEmpleados, "Nombre", true));
+            _editForm.lbNumero.DataBindings.Add(new Binding("Text", bdsEmpleados, "Code", true));
+            _editForm.lbDepart.DataBindings.Add(new Binding("Text", bdsEmpleados, "Departamento", true));
+            _editForm.bdnEmpleados.BindingSource = bdsEmpleados;
+
+            // bdsAsistencias
+            bdsAsistencias = new BindingSource();
+            bdsAsistencias.DataSource = typeof(Asistencia);
+
+            _editForm.dgvAsistencia.DataSource = bdsAsistencias;
+
+            //bdsCausasIncidencias
+            bdsCausasIncidencia = new BindingSource();
+            bdsCausasIncidencia.DataSource = typeof(CausaIncidencia);
+
+            _editForm.incidCausaIncidenciaComboBoxColumn.DataSource = bdsCausasIncidencia;
+            _editForm.incidCausaIncidenciaComboBoxColumn.DisplayMember = "Description";
+            _editForm.incidCausaIncidenciaComboBoxColumn.ValueMember = "Id";
+
+            _incAsignForm.cmbCausas.DataSource = bdsCausasIncidencia;
+            _incAsignForm.cmbCausas.DisplayMember = "Description";
+            _incAsignForm.cmbCausas.ValueMember = "Id";
+        }
+
+        private static void bdsEmpleados_CurrentChanged(object sender, EventArgs e)
+        {
+            Empleado emp = (Empleado)bdsEmpleados.Current;
+            List<Asistencia> asist = new List<Asistencia>(emp.Asistencias);
+
+            bdsAsistencias.DataSource = asist;
+            // Implementar metodos diferentes para jefe y supervisor, filtro combo depart
+        }
+
+        private static void ConfigBindSourcesSupervisor()
+        {
+            // bdsDepartamentos
+            bdsDepartamentos = new BindingSource();
+            bdsDepartamentos.DataSource = typeof(Dept);
+
+            _editForm.cmbDepartamentos.DataSource = bdsDepartamentos;
+            _editForm.cmbDepartamentos.DisplayMember = "Description";
+            _editForm.cmbDepartamentos.ValueMember = "Id";
+            _editForm.cmbDepartamentos.SelectedIndexChanged += new EventHandler(cmbDepartamentos_SelectedIndexChanged);
+
+            
+            
+        }
+
+        private static void bdsTodosEmpleados_DataSourceChanged(object sender, EventArgs e)
+        {
+            Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+
+            if (_userRole == UserRoleEnum.Supervisor)
+            {
+                var empl = colEmp.OrderBy(em => em.DepartamentoId).ThenBy(em => em.Nombre);
+                bdsEmpleados.DataSource = empl.ToList();
+            }
+
+            if (_userRole == UserRoleEnum.JefeDepartamento)
+            {
+                var empl = colEmp.OrderBy(em => em.Nombre);
+                bdsEmpleados.DataSource = empl.ToList();
+            }
+
+        }
+
+        private static void cmbDepartamentos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_editForm.cmbDepartamentos.SelectedValue != null)
+            {
+                int deptId = (int)_editForm.cmbDepartamentos.SelectedValue;
+
+                Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+
+                //HARDCODED Caso especial Al seleccionar Caudal, id =  1
+                // se deben mostrar todos los empleados.
+
+                if (deptId == 1)
+                {
+                    var empl = colEmp.OrderBy(em => em.DepartamentoId).ThenBy(em => em.Nombre);
+                    bdsEmpleados.DataSource = empl.ToList();
+                }
+                else
+                {
+                    var empl = colEmp.Where(em => em.DepartamentoId == deptId).OrderBy(em => em.DepartamentoId).ThenBy(em => em.Nombre);
+                    bdsEmpleados.DataSource = empl.ToList();
+                }
+
+                //  mover al primer registro
+                bdsEmpleados.MoveFirst();
+
+            }
+        }
+
+
+        private static void ConfigBindSourcesAdministrador()
+        {
+
         }
 
         #endregion
@@ -318,19 +456,21 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Ejecutando Tareas de Fin.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Ejecutando Tareas de Fin.");
 
                 // Disponer las referencias a formularios. No es imprescindible pero le ahorra trabajo al GC. 
                 _editForm.Dispose();
                 _editForm = null;
 
+                _incAsignForm.Dispose();
+                _incAsignForm = null;
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Terminadas Tareas de Fin.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Fin.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -341,14 +481,14 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Ejecutando Guardar Configuracion.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Ejecutando Guardar Configuracion.");
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Terminada Guardar Configuracion.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminada Guardar Configuracion.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -359,10 +499,10 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Cerrando conexion con servidor.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Cerrando conexion con servidor.");
                 _connection.Dispose();
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Conexion terminada.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Conexion terminada.");
             }
             catch (Exception ex)
             {
@@ -370,14 +510,14 @@ namespace AReport.Client.Services
                 {
                     _connection.Dispose();
                 }
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
             }
             finally
             {
                 _connection = null;
                 proxy = null;
 
-                //Log.WriteEntry(_className, methodName, TraceEventType.Information, "Refeencia a conexion anulada en bloque finally.");
+                //Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Refeencia a conexion anulada en bloque finally.");
             }
         }
 
@@ -391,7 +531,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Claves de Mes registradas.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Consultando Claves de Mes registradas.");
 
                 // consultar claves mes existentes
                 ClaveMesQuery cmQry = new ClaveMesQuery();
@@ -404,18 +544,17 @@ namespace AReport.Client.Services
                 {
                     foreach (var mes in cmQryRst.Coleccion)
                     {
-                        //TODO Si no funciona, adicionar string y poner ref a object en prop Tag.
                         _editForm.cmbSelMes.Items.Add(mes);
                     }
                 }
 
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Claves de Mes consultadas con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Claves de Mes consultadas con exito.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -468,7 +607,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
 
                 DepartamentQuery dptQry = new DepartamentQuery();
                 DepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
@@ -480,12 +619,12 @@ namespace AReport.Client.Services
                     _editForm.chlbSelDepart.DataSource = dptQryRst.Coleccion;
                 }
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
@@ -548,7 +687,7 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Asistencias registradas.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Consultando Asistencias registradas.");
 
                 AsistenciaQueryResult result = proxy.Handle(qry);
 
@@ -559,15 +698,15 @@ namespace AReport.Client.Services
                 //result.CausasIncidencias.Add(nci);
                 //result.CausasIncidencias.Insert(0, nci);
 
-                _editForm.bdsTodosEmpleados.DataSource = result.Empleados;
-                _editForm.bdsCausasIncidencia.DataSource = result.CausasIncidencias;
+                bdsTodosEmpleados.DataSource = result.Empleados;
+                bdsCausasIncidencia.DataSource = result.CausasIncidencias;
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Asistencias consultadas con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Asistencias consultadas con exito.");
                 
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
             }
         }
 
@@ -590,19 +729,19 @@ namespace AReport.Client.Services
 
             try
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Consultando Departamento del usuario.");
 
                 UserDepartamentQuery dptQry = new UserDepartamentQuery(_userID);
                 UserDepartamentQueryResult dptQryRst = proxy.Handle(dptQry);
 
                 _userDeptId = dptQryRst.Id;
 
-                Log.WriteEntry(_className, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteEntry(_className, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
                 return false;
             }
         }
