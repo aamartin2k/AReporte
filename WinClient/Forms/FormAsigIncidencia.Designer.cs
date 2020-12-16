@@ -71,6 +71,7 @@
             // 
             // btOk
             // 
+            this.btOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btOk.Location = new System.Drawing.Point(12, 77);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(75, 23);
@@ -80,6 +81,7 @@
             // 
             // btCancel
             // 
+            this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btCancel.Location = new System.Drawing.Point(353, 77);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
@@ -91,7 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 112);
+            this.ClientSize = new System.Drawing.Size(524, 393);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btOk);
             this.Controls.Add(this.label2);
@@ -99,6 +101,7 @@
             this.Controls.Add(this.tbObserv);
             this.Controls.Add(this.cmbCausas);
             this.Name = "FormAsigIncidencia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormAsigIncidencia";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,10 +111,10 @@
         #endregion
 
         internal System.Windows.Forms.ComboBox cmbCausas;
-        private System.Windows.Forms.TextBox tbObserv;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btOk;
         private System.Windows.Forms.Button btCancel;
+        internal System.Windows.Forms.TextBox tbObserv;
     }
 }

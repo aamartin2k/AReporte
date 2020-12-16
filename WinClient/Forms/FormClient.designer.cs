@@ -224,12 +224,12 @@
             // 
             this.dgvAsistencia.AllowUserToAddRows = false;
             this.dgvAsistencia.AllowUserToDeleteRows = false;
+            this.dgvAsistencia.AllowUserToResizeColumns = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dgvAsistencia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAsistencia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvAsistencia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -519,6 +519,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tbcControl);
             this.Name = "FormClient";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.tbcControl.ResumeLayout(false);
             this.tbpConsultaJGrupo.ResumeLayout(false);

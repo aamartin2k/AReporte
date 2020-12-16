@@ -59,7 +59,7 @@ namespace AReport.Client.Services
 
         // Referencia a formularios
         private static FormClient _editForm;
-        private static FormAsigIncidencia _incAsignForm;
+        private static FormAsigIncidencia _incidAsignForm;
 
 
        // Referencia a BindingSources
@@ -108,7 +108,7 @@ namespace AReport.Client.Services
 
                 // Crear formularios
                 _editForm = new FormClient();
-                _incAsignForm = new FormAsigIncidencia();
+                _incidAsignForm = new FormAsigIncidencia();
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Inicio.");
                 return true;
@@ -366,9 +366,9 @@ namespace AReport.Client.Services
             _editForm.incidCausaIncidenciaComboBoxColumn.DisplayMember = "Description";
             _editForm.incidCausaIncidenciaComboBoxColumn.ValueMember = "Id";
 
-            _incAsignForm.cmbCausas.DataSource = bdsCausasIncidencia;
-            _incAsignForm.cmbCausas.DisplayMember = "Description";
-            _incAsignForm.cmbCausas.ValueMember = "Id";
+            _incidAsignForm.cmbCausas.DataSource = bdsCausasIncidencia;
+            _incidAsignForm.cmbCausas.DisplayMember = "Description";
+            _incidAsignForm.cmbCausas.ValueMember = "Id";
         }
 
         private static void bdsEmpleados_CurrentChanged(object sender, EventArgs e)
@@ -462,8 +462,8 @@ namespace AReport.Client.Services
                 _editForm.Dispose();
                 _editForm = null;
 
-                _incAsignForm.Dispose();
-                _incAsignForm = null;
+                _incidAsignForm.Dispose();
+                _incidAsignForm = null;
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Fin.");
                 return true;
@@ -674,11 +674,53 @@ namespace AReport.Client.Services
         #endregion
         #endregion
 
+        #region Manejo Incidencias
+        internal static void AsignarIncidencia()
+        {
+            // mostrar form modal
+            var ret = _incidAsignForm.ShowDialog(_editForm);
+
+            // actualizar valores
+            if (ret != DialogResult.OK)
+                return;
+
+            string obs = _incidAsignForm.tbObserv.Text;
+            int causa = (int) _incidAsignForm.cmbCausas.SelectedValue;
+
+            _incidAsignForm.tbObserv.Text = string.Empty;
+            _incidAsignForm.cmbCausas.Text = string.Empty;
+
+            // crear nueva incidencia
+            Incidencia inc = new Incidencia();
+            inc.CausaId = causa;
+            inc.Observacion = obs;
+            inc.State = EntityState.Added;
+
+            Asistencia data;
+            foreach (DataGridViewRow row in _editForm.dgvAsistencia.SelectedRows)
+            {
+                data = (Asistencia) row.DataBoundItem;
+
+                data.IncidenciaObservacion = obs;
+                data.IncidenciaCausaIncidencia = causa;
+                data.State = EntityState.Modified;
+            }
+            // Existe alternativa de usar BindingList<T> 
+            bdsAsistencias.ResetBindings(false);
+
+        }
+
+        internal static void AsignarIncidenciaGrupo()
+        {
+
+        }
+
+        #endregion
         #endregion
 
         #region Métodos Privados
 
-        
+
 
         private static void ConsultarAsistencias(AsistenciaQuery qry)
         {

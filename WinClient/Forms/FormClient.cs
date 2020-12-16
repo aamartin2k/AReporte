@@ -199,8 +199,14 @@ namespace AReport.Client.Forms
 
         private void btAsignar_Click(object sender, EventArgs e)
         {
+            // comprobar que hay rows seleccionadas
+            if (dgvAsistencia.SelectedRows.Count < 1)
+            {
+                MessageBox.Show("Debe seleccionar al menos una fila.", "Asignar incidencias.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             // llamada a Sys serv y mostra dialogo
-            // trabajar sobre bindinsource
+            SystemService.AsignarIncidencia();
         }
 
 
