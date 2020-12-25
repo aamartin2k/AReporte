@@ -49,10 +49,14 @@ namespace AReport.Support.Entity
         public string ChekoutTime
         { get; set; }
 
-        // Referencia a Entidad Incidencia
+        // Referencia a Entidad Incidencia, es necesario para la actualización.
         public Incidencia IncidenciaRef { get; set; }
-        public int IncidenciaCausaIncidencia { get; set; }
-        // Registra la obs de incidencia en GUI
+
+        // 
+        public int IncidenciaCausaId { get; set; }
+        // Registra la causa de incidencioa en GUI y se usa en Reporte
+        public string IncidenciaCausaDesc { get; set; }
+        // Registra la obs de incidencia en GUI  y se usa en Reporte
         public string IncidenciaObservacion { get; set; }
     }
 }

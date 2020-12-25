@@ -18,5 +18,10 @@ namespace AReport.Support.Entity
         public int DepartamentoId { get; set; }
 
         public Collection<Asistencia> Asistencias { get; set; }
+
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

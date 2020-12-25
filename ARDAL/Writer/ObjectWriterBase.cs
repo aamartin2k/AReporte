@@ -41,6 +41,8 @@ namespace AReport.DAL.Writer
                         writer.Connection = connection;
                         writer.Transaction = transaction;
                         writer.Execute();
+
+                        (entity as IEntity).State = EntityState.Unchanged;
                     }
 
                     // Detectar Delete y almacenar entidad en coleccion para eliminar
@@ -100,6 +102,8 @@ namespace AReport.DAL.Writer
                     writer.Connection = connection;
                     writer.Transaction = transaction;
                     writer.Execute();
+
+                    (entity as IEntity).State = EntityState.Unchanged;
                 }
 
                 transaction.Commit();

@@ -39,8 +39,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Zyan.Communication">
-      <HintPath>..\..\..\Dependencies\Zyan FX 2.8\Zyan.Communication.dll</HintPath>
+    <Reference Include="Zyan.Communication, Version=2.8.0.0, Culture=neutral, PublicKeyToken=022216e8e71b6602, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Dependencies\Zyan FX 2.13\Zyan.Communication.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

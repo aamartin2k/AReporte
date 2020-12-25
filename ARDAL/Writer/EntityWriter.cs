@@ -52,7 +52,16 @@ namespace AReport.DAL.Writer
 
                     command.Parameters.Add(param1);
                 }
-                
+
+                // Verbose 
+                Console.WriteLine("DEBUG SQL Start");
+                Console.WriteLine("Ejecutar: " + command.CommandText);
+                foreach (IDataParameter param in command.Parameters)
+                    Console.WriteLine(string.Format(" Param Name: {0}\t  Value {1}", param.ParameterName, param.Value));
+
+                Console.WriteLine("DEBUG SQL End");
+
+
                 command.ExecuteNonQuery();
                 
                 // Actualizar entity Id
@@ -71,10 +80,6 @@ namespace AReport.DAL.Writer
             }
 
         }
-
-
-
-
 
 
     }

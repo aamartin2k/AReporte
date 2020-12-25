@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -43,17 +43,20 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Zyan.Communication">
-      <HintPath>..\..\..\Dependencies\Zyan FX 2.8\Zyan.Communication.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\Zyan FX 2.13\Zyan.Communication.dll</HintPath>
+    </Reference>
+    <Reference Include="Zyan.SafeDeserializationHelpers">
+      <HintPath>..\..\..\..\..\AA Install\Zyan\Zyan.SafeDeserializationHelpers\net35\Zyan.SafeDeserializationHelpers.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AsistenciaUpdateCommandHandler.cs" />
-    <Compile Include="Command\CollectionUpdateCommandHandler.cs" />
-    <Compile Include="Command\EntityUpdateCommandHandler.cs" />
+    <None Include="Command\CollectionUpdateCommandHandler.cs" />
+    <None Include="Command\EntityUpdateCommandHandler.cs" />
     <Compile Include="Data\AsistenciaQueryData.cs" />
     <Compile Include="Data\AsistenciaUpdateData.cs" />
-    <Compile Include="Data\CollectionUpdateCommandData.cs" />
-    <Compile Include="Data\EntityUpdateCommandData.cs" />
+    <None Include="Data\CollectionUpdateCommandData.cs" />
+    <None Include="Data\EntityUpdateCommandData.cs" />
     <Compile Include="Query\AsistenciasQueryHandler.cs" />
     <Compile Include="Query\ClaveMesQueryHandler.cs" />
     <Compile Include="Query\DepartamentQueryHandler.cs" />

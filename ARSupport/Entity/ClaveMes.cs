@@ -29,14 +29,47 @@ namespace AReport.Support.Entity
         public int Anno
         { get; set; }
 
+        public string NombreMes
+        {
+            get { return _meses[Mes]; }
+        }
+
         public string Texto
         {
             get { return string.Format("Mes: {0} Año: {1}", Mes, Anno);   }
         }
 
+        public string TextoNombreMes
+        {
+            get { return string.Format("Mes: {0} Año: {1}", NombreMes, Anno); }
+        }
+
+        public string TextoNombreMesReporte
+        {
+            get { return string.Format("{0} del {1}", NombreMes, Anno); }
+        }
+
         public override string ToString()
         {
-            return Texto;
+            //return Texto;
+            return TextoNombreMes;
         }
+
+
+        private static string[] _meses = new string[]
+       {    "fake",
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+       };
     }
 }

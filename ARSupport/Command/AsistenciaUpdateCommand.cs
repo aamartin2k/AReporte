@@ -12,10 +12,12 @@ namespace AReport.Support.Command
     public class AsistenciaUpdateCommand 
     {
         public Collection<Asistencia> Asistencias { get; }
+        public Collection<Incidencia> Incidencias { get; }
 
-        public AsistenciaUpdateCommand(Collection<Asistencia> asistencias)
+        public AsistenciaUpdateCommand(Collection<Asistencia> asistencias, Collection<Incidencia> incidencias)
         {
             Asistencias = asistencias;
+            Incidencias = incidencias;
         }
     }
 

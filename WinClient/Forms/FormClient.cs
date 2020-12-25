@@ -5,34 +5,34 @@
  */
 #endregion
 
-
-//  revisar casos de uso
-// mostrar y ocultar tabs desde consulta hasta resultados
-// implemen crear/eliminar incidencias en grid y aplicar incidencias masivas
-
+#region Using
 using AReport.Client.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
-using AReport.Support.Entity;
-using System.Collections.Generic;
-using System.Linq;
 using AReport.Support.Common;
+#endregion
 
 namespace AReport.Client.Forms
 {
-    //public enum FormClientMode { JefeGrupo, Supervisor, Administrador}
-
+   
     public partial class FormClient : Form
     {
+        #region Declaraciones
         // Componentes de DataGridView
         private DataGridViewCellStyle dataGridViewCellStyle3, dataGridViewCellStyle4;
         private DataGridViewTextBoxColumn fechaTextBoxColumn;
         private DataGridViewTextBoxColumn diaSemanaTextBoxColumn;
         private DataGridViewTextBoxColumn chekinTimeTextBoxColumn;
         private DataGridViewTextBoxColumn chekoutTimeTextBoxColumn;
-        internal DataGridViewComboBoxColumn incidCausaIncidenciaComboBoxColumn;
+        //internal DataGridViewComboBoxColumn incidCausaIncidenciaComboBoxColumn;
+        private DataGridViewTextBoxColumn incidCausaIncidenciaComboBoxColumn;
         private DataGridViewTextBoxColumn incidObservacionTextBoxColumn;
+
+        // Control de Cambios pendientes
+        private bool cambiosPendientes;
+
+        #endregion
 
         public FormClient()
         {
@@ -41,9 +41,81 @@ namespace AReport.Client.Forms
 
         #region Configurar Editor
 
+        // Navegacion entre Tabs
+        private enum TabNavigationStatus { Consulta, Resultados, Administracion }
+        private void  TabNavigationMode(TabNavigationStatus mode)
+        {
+            switch (mode)
+            {
+                case TabNavigationStatus.Consulta:
+                    TabNavConsulta();
+                    break;
+
+                case TabNavigationStatus.Resultados:
+                    TabNavResultados();
+                    break;
+
+                case TabNavigationStatus.Administracion:
+                    TabNavAdministracion();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void TabNavConsulta()
+        {
+            // ocultar
+            if (tbcControl.Controls.Contains(tbpResultados))
+                tbcControl.Controls.Remove(tbpResultados);
+
+            if (tbcControl.Controls.Contains(tbpAdmin))
+                tbcControl.Controls.Remove(tbpAdmin);
+
+            // mostrar
+            if (!tbcControl.Controls.Contains(tbpConsulta))
+                tbcControl.Controls.Add(tbpConsulta);
+
+            tbcControl.SelectTab(tbpConsulta);
+        }
+
+        private void TabNavResultados()
+        {
+            // ocultar
+            if (tbcControl.Controls.Contains(tbpConsulta))
+                tbcControl.Controls.Remove(tbpConsulta);
+
+            if (tbcControl.Controls.Contains(tbpAdmin))
+                tbcControl.Controls.Remove(tbpAdmin);
+
+            // mostrar
+            if (!tbcControl.Controls.Contains(tbpResultados))
+                tbcControl.Controls.Add(tbpResultados);
+
+            tbcControl.SelectTab(tbpResultados);
+        }
+
+        private void TabNavAdministracion()
+        {
+            // ocultar
+            if (tbcControl.Controls.Contains(tbpConsulta))
+                tbcControl.Controls.Remove(tbpConsulta);
+
+            if (tbcControl.Controls.Contains(tbpResultados))
+                tbcControl.Controls.Remove(tbpResultados);
+
+            // mostrar
+            if (!tbcControl.Controls.Contains(tbpAdmin))
+                tbcControl.Controls.Add(tbpAdmin);
+
+            tbcControl.SelectTab(tbpAdmin);
+        }
+
         private UserRoleEnum _editMode;
         internal UserRoleEnum EditMode
         {
+            private get { return _editMode;  }
             set
             {
                 ConfigurarSegunModo(value);
@@ -89,10 +161,16 @@ namespace AReport.Client.Forms
             diaSemanaTextBoxColumn = new DataGridViewTextBoxColumn();
             chekinTimeTextBoxColumn = new DataGridViewTextBoxColumn();
             chekoutTimeTextBoxColumn = new DataGridViewTextBoxColumn();
-            incidCausaIncidenciaComboBoxColumn = new DataGridViewComboBoxColumn();
+            // Remplazar columna combo por textoo 
+            //incidCausaIncidenciaComboBoxColumn = new DataGridViewComboBoxColumn();
+            incidCausaIncidenciaComboBoxColumn = new DataGridViewTextBoxColumn();
+
             incidObservacionTextBoxColumn = new DataGridViewTextBoxColumn();
 
             dgvAsistencia.AutoGenerateColumns = false;
+            // permitir seleccionar una UNICA fila. Asi se asigna una incidencia a una única Fecha
+            // aunque se asigne a varios empleados.
+            dgvAsistencia.MultiSelect = false;
 
             dgvAsistencia.Columns.AddRange(new DataGridViewColumn[]
              {
@@ -130,11 +208,12 @@ namespace AReport.Client.Forms
             chekoutTimeTextBoxColumn.ReadOnly = true;
             // 
             // incidCausaIncidenciaComboBoxColumn
-            incidCausaIncidenciaComboBoxColumn.DataPropertyName = "IncidenciaCausaIncidencia";
+            //incidCausaIncidenciaComboBoxColumn.DataPropertyName = "IncidenciaCausaIncidencia";
+            incidCausaIncidenciaComboBoxColumn.DataPropertyName = "IncidenciaCausaDesc";
             incidCausaIncidenciaComboBoxColumn.HeaderText = "Incidencia";
-            incidCausaIncidenciaComboBoxColumn.MaxDropDownItems = 9;
-            incidCausaIncidenciaComboBoxColumn.Resizable = DataGridViewTriState.True;
-            incidCausaIncidenciaComboBoxColumn.SortMode = DataGridViewColumnSortMode.Automatic;
+            //incidCausaIncidenciaComboBoxColumn.MaxDropDownItems = 9;
+            //incidCausaIncidenciaComboBoxColumn.Resizable = DataGridViewTriState.True;
+            //incidCausaIncidenciaComboBoxColumn.SortMode = DataGridViewColumnSortMode.Automatic;
             incidCausaIncidenciaComboBoxColumn.ReadOnly = true;
             // 
             // incidObservacionTextBoxColumn 
@@ -159,7 +238,7 @@ namespace AReport.Client.Forms
             //Hardcoded. Se limita a 5 años atras arbitrariamente.
             nupAnno.Minimum = nupAnno.Maximum - 5;
 
-           
+            HandleSelectClave(true);
         }
 
         private void ConfigurarModoJefeGrupo()
@@ -167,10 +246,12 @@ namespace AReport.Client.Forms
             lbSelDepart.Visible = false;
             chlbSelDepart.Visible = false;
             cmbDepartamentos.Visible = false;
-            // Mostrar tabControl page Seleccion y ocultar las demas.
-            tbcControl.Controls.Remove(tbpResultados);
-            tbcControl.Controls.Remove(tbpAdmin);
-        
+            btGrupo.Visible = false;
+
+            // Mostrar tabControl page Consulta y ocultar las demas.
+            TabNavigationMode(TabNavigationStatus.Consulta);
+
+
             ConfigurarConstante();
         }
 
@@ -179,59 +260,100 @@ namespace AReport.Client.Forms
             lbSelDepart.Visible = true;
             chlbSelDepart.Visible = true;
             cmbDepartamentos.Visible = true;
+            btGrupo.Visible = true;
 
-            // Mostrar tabControl page Seleccion y ocultar las demas.
-            tbcControl.Controls.Remove(tbpResultados);
-            tbcControl.Controls.Remove(tbpAdmin);
+            // Mostrar tabControl page Consulta y ocultar las demas.
+            TabNavigationMode(TabNavigationStatus.Consulta);
 
             ConfigurarConstante();
         }
 
         private void ConfigurarModoAdministrador()
         {
-            tbcControl.Controls.Remove(tbpConsultaJGrupo);
-            tbcControl.Controls.Remove(tbpResultados);
+            // Mostrar tabControl page Consulta y ocultar las demas.
+            TabNavigationMode(TabNavigationStatus.Administracion);
         }
 
         #endregion
 
         #region Controladores de Eventos de Formulario
 
+        private void btRegresarConsulta_Click(object sender, EventArgs e)
+        {
+            if (ChequeoCambios())
+            {
+                TabNavigationMode(TabNavigationStatus.Consulta);
+            }
+        }
+
+        private void btTerminar_Click(object sender, EventArgs e)
+        {
+
+            ChequeoCambios();
+        }
+
+        private void btReporte_Click(object sender, EventArgs e)
+        {
+            ChequeoCambios();
+            SystemService.MostrarReporte();
+        }
+
+        private void btGuardar_Click(object sender, EventArgs e)
+        {
+            SystemService.ActualizarAsistencias();
+        }
+
+        private void btEliminar_Click(object sender, EventArgs e)
+        {
+            if (!ExistsSelectionInGrid())
+                return;
+
+            SystemService.EliminarIncidencia();
+            cambiosPendientes = true;
+        }
+
+        private void btGrupo_Click(object sender, EventArgs e)
+        {
+            if (!ExistsSelectionInGrid())
+                return;
+
+            SystemService.AsignarIncidenciaGrupo();
+            cambiosPendientes = true;
+        }
+
         private void btAsignar_Click(object sender, EventArgs e)
         {
             // comprobar que hay rows seleccionadas
-            if (dgvAsistencia.SelectedRows.Count < 1)
-            {
-                MessageBox.Show("Debe seleccionar al menos una fila.", "Asignar incidencias.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (!ExistsSelectionInGrid())
                 return;
-            }
-            // llamada a Sys serv y mostra dialogo
+
+            // llamada a Sys serv y mostrar dialogo
             SystemService.AsignarIncidencia();
+
+            cambiosPendientes = true;
         }
 
 
         private void btConsultar_Click(object sender, System.EventArgs e)
         {
-            bool ret;
+            bool ret = false;
 
-            // Ocultar tabs innecesarios
-            tbcControl.Controls.Remove(tbpConsultaJGrupo);
-           
             // Indicar espera con puntero
             tslbInfo.Text = "Esperando resultado de consulta...";
-            UseWaitCursor = true;
+            Application.UseWaitCursor = true;
+    
             Application.DoEvents();
 
 
             // Separar segun rol
-            if (_editMode == UserRoleEnum.JefeDepartamento)
+            if (EditMode == UserRoleEnum.JefeDepartamento)
             {
                 ret = ValidarDatosMesAnno();
                 if (ret)
                     ConsultarJefeDepartamento();
             }
 
-            if (_editMode == UserRoleEnum.Supervisor)
+            if (EditMode == UserRoleEnum.Supervisor)
             {
                 ret = ValidarDatosMesAnno();
 
@@ -244,15 +366,25 @@ namespace AReport.Client.Forms
                 }
                 
             }
-            
-            // Indicar fin espera con puntero
-            tslbInfo.Text = "Resultados de consulta recibidos.";
-            UseWaitCursor = false;
-            Application.DoEvents();
 
-            // mostrar tab resultados
-            tbcControl.Controls.Add(tbpResultados);
-            tbcControl.SelectTab(tbpResultados);
+            if (ret)
+            {
+                // Indicar fin espera con puntero
+                tslbInfo.Text = "Resultados de consulta recibidos.";
+                Application.UseWaitCursor = false;
+
+                Application.DoEvents();
+
+                // mostrar tab resultados
+                TabNavigationMode(TabNavigationStatus.Resultados);
+            }
+            else
+            {
+                UseWaitCursor = false;
+                tslbInfo.Text = "No se ha realizado la consulta.";
+            }
+
+
 
         }
 
@@ -306,8 +438,22 @@ namespace AReport.Client.Forms
 
         #endregion
 
+       
+
 
         #region Metodos privados
+
+        private bool ExistsSelectionInGrid()
+        {
+            if (dgvAsistencia.SelectedRows.Count < 1)
+            {
+                MessageBox.Show("Debe seleccionar al menos una fila.", "Asignar incidencias.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            else
+                return true;
+        }
+
         private bool ValidarDatosMesAnno()
         {
             if (rbtIntrodClave.Checked)
@@ -377,13 +523,8 @@ namespace AReport.Client.Forms
 
         private void ConsultarSupervisor()
         {
-
             // Leer departamentos seleccionados
             Collection<object> list = new Collection<object>();
-
-            // Pasar lista de elementos seleccionados como datasource
-            // del combo de seleccion de departamentos en Tab Resultados
-            SystemService.bdsDepartamentos.DataSource = chlbSelDepart.CheckedItems;
 
             foreach (var item in chlbSelDepart.CheckedItems)
             {   //TODO Probar asignar colecc a colecc
@@ -409,7 +550,19 @@ namespace AReport.Client.Forms
             }
         }
 
-       
+        private bool ChequeoCambios()
+        {
+            // Advertencia cambios
+            if (cambiosPendientes)
+            {
+                string warning = "Existen cambios sin guardar que pueden perderse. Seguro desea continuar?";
+                var ret = MessageBox.Show(warning, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                return ret == DialogResult.Yes;
+            }
+
+            return true;
+        }
 
         private void HandleSelectClave(bool status)
         {

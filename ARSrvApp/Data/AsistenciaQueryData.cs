@@ -380,8 +380,9 @@ namespace AReport.Srv.Data
                         {
                             xAssist.IncidenciaRef = inc;
                             //TODO Valorar implementacion
-                            xAssist.IncidenciaCausaIncidencia = inc.CausaId;
+                            xAssist.IncidenciaCausaId = inc.CausaId;
                             xAssist.IncidenciaObservacion = inc.Observacion;
+                  
                         }
                     }
 
@@ -693,24 +694,32 @@ namespace AReport.Srv.Data
                     break;
             }
 
-            // enlazando Empleados y Asistencias + Incidencias
+            // enlazando Empleados y Asistencias
             //colIncidencias = new Collection<Incidencia>();
 
             foreach (var empl in colEmpleados)
             {
                 IEnumerable<Asistencia> assistByEmpl = colAssist.Where(a => a.UserId == empl.Id);
+                // Asignando asistencias a cada empleado por su Id
                 empl.Asistencias = new Collection<Asistencia>(assistByEmpl.ToArray());
 
-                //foreach (var asist in empl.Asistencias)
-                //{
-                //    if (asist.IncidenciaRef != null)
-                //        colIncidencias.Add(asist.IncidenciaRef);
-                //}
+                // actualizando Descriptor de Causa de Incidencia en  Asistencias
+                foreach (var asist in empl.Asistencias)
+                {
+                    if (asist.IncidenciaRef != null)
+                    {
+                        // lookup improvisado
+                        int incId = asist.IncidenciaCausaId;
+                        var desc = colCausasIncid.Where(c => c.Id == incId).First();
+                        asist.IncidenciaCausaDesc = desc.Description;
+                    }
+                }
             }
 
             // Creando conjunto de datos de retorno
-            //AsistenciaQueryResult ret = new AsistenciaQueryResult(causasInc, colIncidencias, colEmpleados);
+            //AsistenciaQueryResult ret = new AsistenciaQueryResult(colCausasIncid, colIncidencias, colEmpleados);
             AsistenciaQueryResult ret = new AsistenciaQueryResult(colCausasIncid, colEmpleados);
+
 
             // retornando
             return ret;

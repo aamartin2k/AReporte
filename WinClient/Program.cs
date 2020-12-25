@@ -23,7 +23,7 @@ namespace AReport.Client
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             // Declaraciones
             bool ret;
@@ -51,6 +51,22 @@ namespace AReport.Client
             if (!ret)
                 goto FinalError;
 
+            // DEBUG
+            // Chequear arg de linea de comando para autologin
+            if (args.Length > 0)
+            {
+                if (args[0].StartsWith("al"))
+                {
+                    ret = SystemService.RealizarAutoLogin(args[0]);
+
+                    if (ret)
+                        goto ApplicationRun;
+                    else
+                        goto FinalOK;
+                }
+            }
+
+
             // Ejecutar User Login RealizarLogin()
             ret = SystemService.RealizarLogin();
             if (!ret)
@@ -72,6 +88,7 @@ namespace AReport.Client
             if (!ret)
                 goto FinalError;
 
+            ApplicationRun:
 
             Application.Run(SystemService.MainForm);
 

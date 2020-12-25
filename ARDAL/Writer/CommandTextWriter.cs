@@ -15,7 +15,7 @@ namespace AReport.DAL.Writer
             get { return CommandType.Text; }
         }
 
-        static protected object NullIfZeroInt(int value)
+        static protected object NullIfZeroValue(int value)
         {
             return value == 0 ? (object)DBNull.Value : value;
         }

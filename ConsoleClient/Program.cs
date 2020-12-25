@@ -67,7 +67,7 @@ namespace ConsoleClient
 
         static bool LoginAction(IMessageHandling proxy)
         {
-            Console.WriteLine("\nEjecutando login\n");
+            Console.WriteLine("\nEjecutando login\n");   
 
             //return LoginJefeGrupo(proxy);
             return LoginSupervisor(proxy);
@@ -215,7 +215,7 @@ namespace ConsoleClient
         private static Asistencia _asist01, _asist02, _asist03, _asist04;
         
         // HACK se requiere guardar referencia a colecciones
-        //private static Collection<Incidencia> _incidencias;
+        private static Collection<Incidencia> _incidencias;
         private static Collection<Asistencia> _asistencias;
 
         #region Read Data Usuario JefeGrupo
@@ -264,7 +264,7 @@ namespace ConsoleClient
 
                 foreach (var asist in empleado.Asistencias)
                 {
-                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana,  asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaIncidencia, asist.IncidenciaObservacion));
+                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana,  asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaId, asist.IncidenciaObservacion));
 
                     if (asist.Id == 177)
                         _asist01 = asist;
@@ -335,7 +335,7 @@ namespace ConsoleClient
 
                 foreach (var asist in empleado.Asistencias)
                 {
-                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana, asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaIncidencia, asist.IncidenciaObservacion));
+                    Console.WriteLine(string.Format(" {0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}", asist.State, asist.Id, asist.Fecha, asist.DiaSemana, asist.ChekinTime, asist.ChekoutTime, asist.IncidenciaCausaId, asist.IncidenciaObservacion));
 
                 }
             }
@@ -389,12 +389,12 @@ namespace ConsoleClient
 
 
             // III Parte Se crea de nuevo la primera
-            _asist01.IncidenciaCausaIncidencia = 2;
+            _asist01.IncidenciaCausaId = 2;
             _asist01.IncidenciaObservacion = "Primera Incidencia adicionada.";
 
             
             // Comando de actualizacion
-            AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand( _asistencias);
+            AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand( _asistencias, _incidencias);
             var status = proxy.Handle(asistCmd);
 
             bool Success = status.GetType() == typeof(Success);

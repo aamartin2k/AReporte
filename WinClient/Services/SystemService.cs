@@ -25,6 +25,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Zyan.Communication;
 
+using FastReport;
+using FastReport.Export.Image;
+
 #endregion
 
 namespace AReport.Client.Services
@@ -56,21 +59,24 @@ namespace AReport.Client.Services
         static public string _userID;
         static UserRoleEnum _userRole;
         static int _userDeptId;
+        static ClaveMes _fechaConsulta;
 
         // Referencia a formularios
         private static FormClient _editForm;
         private static FormAsigIncidencia _incidAsignForm;
+        //private static FormReport _reportForm;
 
-
-       // Referencia a BindingSources
-       private static BindingSource bdsEmpleados;
+        // Referencia a BindingSources
+        private static BindingSource bdsEmpleados;
+        private static BindingSource bdsTodosEmpleados;
+        private static BindingSource bdsSelectEmpleados;
         private static BindingSource bdsCausasIncidencia;
         private static BindingSource bdsAsistencias;
-        internal static BindingSource bdsDepartamentos;
-        private static BindingSource bdsTodosEmpleados;
+        private static BindingSource bdsSelectDepartamentosIncid;
+        private static BindingSource bdsTodosDepartamentos;
+        private static BindingSource bdsSelectDepartamentos;
 
-        // Referencia a DataGridView y componentes
-
+        private static Collection<Incidencia> colIncidencias;
         #endregion
 
         #region Propiedades
@@ -97,6 +103,65 @@ namespace AReport.Client.Services
 
         #region Métodos Públicos
 
+        #region Tareas de Depuracion
+        internal static bool RealizarAutoLogin(string arg)
+        {
+            const string methodName = "RealizarAutoLogin";
+
+            string login =null;
+            string password = null;
+
+            // login Jefe grupo
+            if (arg == "aljg")
+            {
+                login = "Pepe";
+                password = "PasswordPepe";
+            }
+
+            if (arg == "alsrh")
+            {
+                login = "Tata";
+                password = "PasswordTata";
+            }
+
+            var loginCmd = new LoginCommand
+            {
+                UserName = login,
+                Password = password,
+            };
+
+            var status = proxy.Handle(loginCmd);
+            bool Success = status.GetType() == typeof(Success);
+            if (Success)
+            {
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, string.Format("Login exitoso para usuario: {0}", loginCmd.UserName));
+                _userName = loginCmd.UserName;
+
+                // continuar inicio
+                bool ret;
+
+                ret = ConsultarRol();
+                if (!ret)
+                    return false;
+
+                ret = ConfigurarMainForm();
+                if (!ret)
+                    return false;
+
+                ret = LeerDatosInicio();
+                if (!ret)
+                    return false;
+
+                return true;
+            }
+
+
+            return false;
+
+        }
+
+        #endregion
+
         #region Tareas de Inicio
         internal static bool TareasInicio()
         {
@@ -109,6 +174,8 @@ namespace AReport.Client.Services
                 // Crear formularios
                 _editForm = new FormClient();
                 _incidAsignForm = new FormAsigIncidencia();
+                //_reportForm = new FormReport();
+
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Inicio.");
                 return true;
@@ -334,6 +401,36 @@ namespace AReport.Client.Services
 
         #region Configuracion de BindingSources
 
+        internal static void ConfigSelectEmpleados()
+        {
+            // Cuando No hay departamentos seleccionados y hay empleados en lista, borrarlos todos.
+            if ( (_incidAsignForm.chlbSelDepartIncid.CheckedItems.Count < 1) &&
+                 (bdsSelectEmpleados.Count > 0 ))
+            {
+                bdsSelectEmpleados.Clear();
+                return;
+            }
+                
+            // Actualizar listado de empleados que pertenecen a los departamentos seleccionados.
+            Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+            Collection<Empleado> selEmp = new Collection<Empleado>();
+
+            // hacer foreach coleccion
+            foreach (var dept in _incidAsignForm.chlbSelDepartIncid.CheckedItems)
+            {
+                var emplId = colEmp.Where(em => em.DepartamentoId == (dept as Dept).Id);
+
+                foreach (var emp in emplId)
+                {
+                    selEmp.Add(emp);
+                }
+            }
+            
+            bdsSelectEmpleados.DataSource = selEmp;
+            bdsSelectEmpleados.ResetBindings(false);
+        }
+
+
         private static void ConfigBindSourcesJefeDepartamento()
         {
             // bdsEmpleados  
@@ -343,10 +440,9 @@ namespace AReport.Client.Services
 
             // bdsTodosEmpleados
             bdsTodosEmpleados = new BindingSource();
-            bdsTodosEmpleados.DataSource = typeof(AReport.Support.Entity.Empleado);
+            bdsTodosEmpleados.DataSource = typeof(Empleado);
             bdsTodosEmpleados.DataSourceChanged += new EventHandler(bdsTodosEmpleados_DataSourceChanged);
-            _editForm.cmbDepartamentos.SelectedIndexChanged += new EventHandler(cmbDepartamentos_SelectedIndexChanged);
-
+            
             _editForm.lbNombre.DataBindings.Add(new Binding("Text", bdsEmpleados, "Nombre", true));
             _editForm.lbNumero.DataBindings.Add(new Binding("Text", bdsEmpleados, "Code", true));
             _editForm.lbDepart.DataBindings.Add(new Binding("Text", bdsEmpleados, "Departamento", true));
@@ -362,37 +458,50 @@ namespace AReport.Client.Services
             bdsCausasIncidencia = new BindingSource();
             bdsCausasIncidencia.DataSource = typeof(CausaIncidencia);
 
-            _editForm.incidCausaIncidenciaComboBoxColumn.DataSource = bdsCausasIncidencia;
-            _editForm.incidCausaIncidenciaComboBoxColumn.DisplayMember = "Description";
-            _editForm.incidCausaIncidenciaComboBoxColumn.ValueMember = "Id";
+            //_editForm.incidCausaIncidenciaComboBoxColumn.DataSource = bdsCausasIncidencia;
+            //_editForm.incidCausaIncidenciaComboBoxColumn.DisplayMember = "Description";
+            //_editForm.incidCausaIncidenciaComboBoxColumn.ValueMember = "Id";
 
             _incidAsignForm.cmbCausas.DataSource = bdsCausasIncidencia;
             _incidAsignForm.cmbCausas.DisplayMember = "Description";
             _incidAsignForm.cmbCausas.ValueMember = "Id";
+
+            // Incidencias
+            colIncidencias = new Collection<Incidencia>();
+
+            // creando instancias para modo supervisor
+            bdsSelectEmpleados = new BindingSource();
+            bdsSelectDepartamentosIncid = new BindingSource();
+            bdsTodosDepartamentos = new BindingSource();
+            bdsSelectDepartamentos = new BindingSource();
+
         }
 
         private static void bdsEmpleados_CurrentChanged(object sender, EventArgs e)
         {
             Empleado emp = (Empleado)bdsEmpleados.Current;
+            // Extraer Collection Asistencias del empleado activo y crear Lista genérica 
+            // para editar campos en DataGrid. Si se asigna la Collection directamente NO permite editar!
             List<Asistencia> asist = new List<Asistencia>(emp.Asistencias);
 
             bdsAsistencias.DataSource = asist;
-            // Implementar metodos diferentes para jefe y supervisor, filtro combo depart
         }
 
         private static void ConfigBindSourcesSupervisor()
         {
-            // bdsDepartamentos
-            bdsDepartamentos = new BindingSource();
-            bdsDepartamentos.DataSource = typeof(Dept);
+            
+            bdsSelectEmpleados.DataSource = typeof(Empleado);
+            bdsSelectDepartamentosIncid.DataSource = typeof(Dept);
+            bdsTodosDepartamentos.DataSource = typeof(Dept);   
+            bdsSelectDepartamentos.DataSource = typeof(Dept);
 
-            _editForm.cmbDepartamentos.DataSource = bdsDepartamentos;
+            _editForm.cmbDepartamentos.DataSource = bdsSelectDepartamentos;
             _editForm.cmbDepartamentos.DisplayMember = "Description";
             _editForm.cmbDepartamentos.ValueMember = "Id";
             _editForm.cmbDepartamentos.SelectedIndexChanged += new EventHandler(cmbDepartamentos_SelectedIndexChanged);
 
-            
-            
+            _incidAsignForm.chlbSelDepartIncid.DataSource = bdsSelectDepartamentosIncid;
+
         }
 
         private static void bdsTodosEmpleados_DataSourceChanged(object sender, EventArgs e)
@@ -421,7 +530,7 @@ namespace AReport.Client.Services
 
                 Collection<Empleado> colEmp = bdsTodosEmpleados.DataSource as Collection<Empleado>;
 
-                //HARDCODED Caso especial Al seleccionar Caudal, id =  1
+                //HARDCODED Caso especial Al seleccionar Departamento Caudal, id =  1
                 // se deben mostrar todos los empleados.
 
                 if (deptId == 1)
@@ -435,7 +544,7 @@ namespace AReport.Client.Services
                     bdsEmpleados.DataSource = empl.ToList();
                 }
 
-                //  mover al primer registro
+                //  Mover al primer registro.
                 bdsEmpleados.MoveFirst();
 
             }
@@ -458,12 +567,45 @@ namespace AReport.Client.Services
             {
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Ejecutando Tareas de Fin.");
 
+
                 // Disponer las referencias a formularios. No es imprescindible pero le ahorra trabajo al GC. 
+                _editForm.cmbDepartamentos.SelectedIndexChanged -= new EventHandler(cmbDepartamentos_SelectedIndexChanged);
+
                 _editForm.Dispose();
                 _editForm = null;
 
                 _incidAsignForm.Dispose();
                 _incidAsignForm = null;
+
+                //_reportForm.Dispose();
+                //_reportForm = null;
+
+                // Disponer las referencias a BindingSources.
+                bdsEmpleados.Dispose();
+                bdsEmpleados = null;
+
+                bdsCausasIncidencia.Dispose();
+                bdsCausasIncidencia = null;
+
+                bdsAsistencias.Dispose();
+                bdsAsistencias = null;
+
+                bdsSelectDepartamentosIncid.Dispose();
+                bdsSelectDepartamentosIncid = null;
+
+                bdsTodosDepartamentos.Dispose();
+                bdsTodosDepartamentos = null;
+
+                bdsSelectDepartamentos.Dispose();
+                bdsSelectDepartamentos = null;
+
+                bdsTodosEmpleados.Dispose();
+                bdsTodosEmpleados = null;
+
+                bdsSelectEmpleados.Dispose();
+                bdsSelectEmpleados = null;
+
+                colIncidencias = null;
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Terminadas Tareas de Fin.");
                 return true;
@@ -560,20 +702,34 @@ namespace AReport.Client.Services
         }
 
         #region Lectura de datos para rol Jefe de Departamento
-
+        /// <summary>
+        /// Prepara ejecución de consulta de Asistencias para Jefe de Departamento. Los resultados se restringen al Departamento del usuario.
+        /// </summary>
+        /// <param name="key">Objeto Clave de mes a consultar.</param>
         internal static void ConsultarAsistencias(object key)
         {
+            // Guardar datos de consulta
+            GuardarFechaConsulta(key);
+
             // Convertir object a ClaveMes
-            ClaveMes cm = (ClaveMes)key;
-            AsistenciaQuery asistQry = new AsistenciaQuery(cm.Id, _userDeptId);
+            AsistenciaQuery asistQry = new AsistenciaQuery((key as ClaveMes).Id, _userDeptId);
 
             ConsultarAsistencias(asistQry);
         }
 
+        /// <summary>
+        /// Prepara ejecución de consulta de Asistencias para Jefe de Departamento. Los resultados se restringen al Departamento del usuario.
+        /// </summary>
+        /// <param name="mes">Mes a consultar.</param>
+        /// <param name="anno">Año a consultar.</param>
         internal static void ConsultarAsistencias(int mes, int anno)
         {
+            // Guardar datos de consulta
+            GuardarFechaConsulta(mes, anno);
+
             AsistenciaQuery asistQry = new AsistenciaQuery(mes, anno, _userDeptId);
             ConsultarAsistencias(asistQry);
+ 
         }
 
        
@@ -617,6 +773,7 @@ namespace AReport.Client.Services
                 if (dptQryRst.Coleccion.Count > 0)
                 {
                     _editForm.chlbSelDepart.DataSource = dptQryRst.Coleccion;
+                    bdsTodosDepartamentos.DataSource = dptQryRst.Coleccion;
                 }
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Departamento del usuario consultado con exito.");
@@ -629,35 +786,59 @@ namespace AReport.Client.Services
             }
         }
 
+        /// <summary>
+        /// Prepara ejecución de consulta de Asistencias para Supervisor.
+        /// </summary>
+        /// <param name="key">Objeto Clave de mes a consultar.</param>
+        /// <param name="list">Lista de objetos Departamento a consultar.</param>
         internal static void ConsultarAsistencias(object key, Collection<object> list)
         {
-            // Convertir collection de object en coll int 
-            //var keys = list.Select(k => (k as ClaveMes).Id);
-            Collection<int> keyList = new Collection<int>();
-            Dept km;
+            // Guardar datos de consulta
+            GuardarFechaConsulta(key);
 
-            foreach (var item in list)
-            {
-                km = (Dept)item;
-                keyList.Add(km.Id);
-            }
 
-            ClaveMes cm = (ClaveMes)key;
-            AsistenciaQuery asistQry = new AsistenciaQuery(cm.Id, keyList);
+            // Pasar lista de elementos seleccionados como datasource
+            // del combo de seleccion de departamentos en Tab Resultados
+            bdsSelectDepartamentos.DataSource = _editForm.chlbSelDepart.CheckedItems;
+            bdsSelectDepartamentosIncid.DataSource = _editForm.chlbSelDepart.CheckedItems;
 
-            ConsultarAsistencias(asistQry);
-        }
-
-        internal static void ConsultarAsistencias(int mes, int anno, Collection<object> list)
-        {
             // Convertir collection de object en coll int  
             // WARN Codigo repetido.
-            var keys = list.Select(k => (k as ClaveMes).Id);
+            var keys = list.Select(k => (k as Dept).Id);
+            Collection<int> keyList = new Collection<int>(keys.ToArray());
+
+
+            AsistenciaQuery asistQry = new AsistenciaQuery((key as ClaveMes).Id, keyList);
+
+            ConsultarAsistencias(asistQry);
+
+        }
+
+        /// <summary>
+        /// Prepara ejecución de consulta de Asistencias para Supervisor. Permite consultar varios Departamentos.
+        /// </summary>
+        /// <param name="mes">Mes a consultar.</param>
+        /// <param name="anno">Año a consultar.</param>
+        /// <param name="list">Lista de objetos Departamento a consultar.</param>
+        internal static void ConsultarAsistencias(int mes, int anno, Collection<object> list)
+        {
+            // Guardar datos de consulta
+            GuardarFechaConsulta(mes, anno);
+
+            // Pasar lista de elementos seleccionados como datasource
+            // del combo de seleccion de departamentos en Tab Resultados
+            bdsSelectDepartamentos.DataSource = _editForm.chlbSelDepart.CheckedItems;
+            bdsSelectDepartamentosIncid.DataSource = _editForm.chlbSelDepart.CheckedItems;
+
+            // Convertir collection de object en coll int  
+            // WARN Codigo repetido.
+            var keys = list.Select(k => (k as Dept).Id);
             Collection<int> keyList = new Collection<int>(keys.ToArray());
 
             AsistenciaQuery asistQry = new AsistenciaQuery(mes, anno, keyList);
 
             ConsultarAsistencias(asistQry);
+
         }
 
        
@@ -678,6 +859,7 @@ namespace AReport.Client.Services
         internal static void AsignarIncidencia()
         {
             // mostrar form modal
+            _incidAsignForm.EditMode = UserRoleEnum.JefeDepartamento;
             var ret = _incidAsignForm.ShowDialog(_editForm);
 
             // actualizar valores
@@ -685,26 +867,25 @@ namespace AReport.Client.Services
                 return;
 
             string obs = _incidAsignForm.tbObserv.Text;
-            int causa = (int) _incidAsignForm.cmbCausas.SelectedValue;
-
-            _incidAsignForm.tbObserv.Text = string.Empty;
-            _incidAsignForm.cmbCausas.Text = string.Empty;
+            string causaDesc = _incidAsignForm.cmbCausas.Text;
+            int causaId = (int) _incidAsignForm.cmbCausas.SelectedValue;
 
             // crear nueva incidencia
             Incidencia inc = new Incidencia();
-            inc.CausaId = causa;
+            inc.CausaId = causaId;
             inc.Observacion = obs;
             inc.State = EntityState.Added;
 
-            Asistencia data;
-            foreach (DataGridViewRow row in _editForm.dgvAsistencia.SelectedRows)
-            {
-                data = (Asistencia) row.DataBoundItem;
+            //Asistencia data;
+            DataGridViewRow row = _editForm.dgvAsistencia.SelectedRows[0];
+            Asistencia asist = (Asistencia)row.DataBoundItem;
+            
+            asist.IncidenciaRef = inc;
+            asist.IncidenciaObservacion = obs;
+            asist.IncidenciaCausaId = causaId;
+            asist.IncidenciaCausaDesc = causaDesc;
+            asist.State = EntityState.Modified;
 
-                data.IncidenciaObservacion = obs;
-                data.IncidenciaCausaIncidencia = causa;
-                data.State = EntityState.Modified;
-            }
             // Existe alternativa de usar BindingList<T> 
             bdsAsistencias.ResetBindings(false);
 
@@ -712,16 +893,212 @@ namespace AReport.Client.Services
 
         internal static void AsignarIncidenciaGrupo()
         {
+            // pasar datos a form   bdsTodosDepartamentos
+            _incidAsignForm.chlbSelEmpleado.DataSource = bdsSelectEmpleados;
 
+            // mostrar form modal
+            _incidAsignForm.EditMode = UserRoleEnum.Supervisor;
+            var ret = _incidAsignForm.ShowDialog(_editForm);
+
+            // actualizar valores
+            if (ret != DialogResult.OK)
+                return;
+
+            string obs = _incidAsignForm.tbObserv.Text;
+            string causaDesc = _incidAsignForm.cmbCausas.Text;
+            int causaId = (int)_incidAsignForm.cmbCausas.SelectedValue;
+
+            // crear nueva incidencia
+            Incidencia newInc = new Incidencia();
+            newInc.CausaId = causaId;
+            newInc.Observacion = obs;
+            newInc.State = EntityState.Added;
+
+            DataGridViewRow row = _editForm.dgvAsistencia.SelectedRows[0];
+            Asistencia data = (Asistencia)row.DataBoundItem;
+
+            // obtener clave fecha de Asistencia
+            //data.FechaId      bdsAsistencias   bdsSelectEmpleados 
+
+            // para cada empleado seleccoinado en lista
+            // buscar asistencias por clave fecha
+            // incorporar incidencia
+            
+            foreach (var empl in _incidAsignForm.chlbSelEmpleado.CheckedItems)
+            {
+                var colAsist = (empl as Empleado).Asistencias.Where(asist => asist.FechaId == data.FechaId);
+
+                foreach (var asist in colAsist)
+                {
+                    asist.IncidenciaRef = newInc;
+                    asist.IncidenciaObservacion = obs;
+                    asist.IncidenciaCausaId = causaId;
+                    asist.IncidenciaCausaDesc = causaDesc;
+                    asist.State = EntityState.Modified;
+                }
+            }
+
+            bdsAsistencias.ResetBindings(false);
         }
 
+        internal static void  EliminarIncidencia()
+        {
+            Asistencia data;
+            Incidencia inc;
+
+            foreach (DataGridViewRow row in _editForm.dgvAsistencia.SelectedRows)
+            {
+                data = (Asistencia)row.DataBoundItem;
+
+                if (data.IncidenciaRef != null)
+                {
+                    inc = data.IncidenciaRef;
+                    // Marcar para eliminar objeto Incidencia.
+                    inc.State = EntityState.Deleted;
+
+                    // Almacenar ref en coleccion de actualizacion
+                    colIncidencias.Add(inc);
+
+                    // Marcar objeto Asistencia para actualizacion.
+                    // Hacer cero Id de referencia a Incidencia
+                    data.IncidenciaId = 0;
+                    data.State = EntityState.Modified;
+                    // Borrar campos. 
+                    data.IncidenciaCausaId = 0;
+                    data.IncidenciaObservacion = string.Empty;
+                    // Refrescar datos en lista.
+                    bdsAsistencias.ResetBindings(false);
+                }
+            }
+        }
+
+        internal static void ActualizarAsistencias()
+        {
+            const string methodName = "ActualizarAsistencias";
+
+            
+            try
+            {
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Ejecutando Actualizar Asistencias.");
+
+                Collection<Asistencia> colAsist = new Collection<Asistencia>();
+                Collection<Empleado> colEmpleados = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+
+                // implementacion sin LINQ
+                foreach (var empl in colEmpleados)
+                {
+                    foreach (var asi in empl.Asistencias)
+                    {
+                        colAsist.Add(asi);
+                    }
+                }
+
+                // Seleccionando solo las que se modificaron.
+                var modAsist = colAsist.Where(asi => asi.State != EntityState.Unchanged);
+
+                colAsist = new Collection<Asistencia>(modAsist.ToArray());
+
+                // Comando de actualizacion
+                AsistenciaUpdateCommand asistCmd = new AsistenciaUpdateCommand(colAsist, colIncidencias);
+                var status = proxy.Handle(asistCmd);
+
+                bool Success = status.GetType() == typeof(Success);
+
+                if (Success)
+                {
+                    colIncidencias = new Collection<Incidencia>();
+                    Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Actualizar Asistencias terminado con éxito.");
+                    MessageBox.Show("Actualizar Asistencias terminado con éxito.");
+
+                }
+                else
+                {
+                    Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Comando fallido. Error: {0}", (status as Failure).Errormessage));
+                    MessageBox.Show("Actualizar Asistencias terminado con Error.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.WriteEntry(ClassName, methodName, TraceEventType.Error, string.Format("Error: {0}", ex.Message));
+            }
+        }
+
+
         #endregion
+
+        // Region reportes
+
+        internal static void MostrarReporte()
+        {
+            Collection<Empleado> colEmpleados = bdsTodosEmpleados.DataSource as Collection<Empleado>;
+            List<Empleado> colEmp = new List<Empleado>(colEmpleados);
+
+            // Crear instancia.
+            Report report = new Report();
+
+            // Cargar definicion de reporte. 
+            report.Load("Reports\\report.frx");
+           
+            // Pasar datos.
+            report.RegisterData(colEmpleados, "Empleados");
+
+            // Pasar parametros
+            report.SetParameterValue("parNombreMesAnno", _fechaConsulta.TextoNombreMesReporte);
+            // prepare the report
+            bool ret =  report.Prepare();
+
+            if (ret)
+            {
+                // export as imahge
+                //ImageExport image = new ImageExport();
+                //image.ImageFormat = ImageExportFormat.Jpeg;
+                //report.Export(image, "Reports\\report.jpg");
+
+                FastReport.Export.PdfSimple.PDFSimpleExport pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport();
+                pdfExport.Export(report, "Reports\\report.pdf");
+
+                MessageBox.Show("Reporte listo!");
+            }
+            else
+            {
+                MessageBox.Show("Error perparando Reporte");
+            }
+            // free resources used by report
+            report.Dispose();
+
+           
+        }
+
+
+
         #endregion
 
         #region Métodos Privados
 
+        // Almacenar fecha de consulta en objeto ClaveMes, para actualizar etiqueta de mes en form de edicion
+        // y pasar texto a reporte.
+        private static void GuardarFechaConsulta(object key)
+        {
+            _fechaConsulta = key as ClaveMes;
+        }
 
+        private static void GuardarFechaConsulta(int mes, int anno)
+        {
+            _fechaConsulta = new ClaveMes();
+            _fechaConsulta.Mes = mes;
+            _fechaConsulta.Anno = anno;
+        }
 
+        private static void ActualizarFechaConsultaForm()
+        {
+            _editForm.lbMes.Text = _fechaConsulta.TextoNombreMes;
+            //MessageBox.Show("Actualizado: " + _fechaConsulta.TextoNombreMes);
+        }
+
+        /// <summary>
+        /// Realiza la consulta de Asistencia.
+        /// </summary>
+        /// <param name="qry">Objeto con parámetros de consulta.</param>
         private static void ConsultarAsistencias(AsistenciaQuery qry)
         {
             
@@ -733,15 +1110,11 @@ namespace AReport.Client.Services
 
                 AsistenciaQueryResult result = proxy.Handle(qry);
 
-                CausaIncidencia nci = new CausaIncidencia();
-                nci.Id = 0;
-                nci.Description = string.Empty;
-                //TODO REvisar Insertar incidencia Id 0 sin texto
-                //result.CausasIncidencias.Add(nci);
-                //result.CausasIncidencias.Insert(0, nci);
-
                 bdsTodosEmpleados.DataSource = result.Empleados;
+                bdsEmpleados.DataSource = result.Empleados;
                 bdsCausasIncidencia.DataSource = result.CausasIncidencias;
+                // Actualizar etiqueta Mes en Form Edicion
+                ActualizarFechaConsultaForm();
 
                 Log.WriteEntry(ClassName, methodName, TraceEventType.Information, "Asistencias consultadas con exito.");
                 

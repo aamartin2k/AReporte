@@ -43,19 +43,19 @@ namespace AReport.DAL.Writer
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekInId;
             //param1.Value = Entity.ChekInId;
-            param1.Value = NullIfZeroInt(Entity.ChekInId);
+            param1.Value = NullIfZeroValue(Entity.ChekInId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekOutId;
             //param1.Value = Entity.ChekOutId;
-            param1.Value = NullIfZeroInt(Entity.ChekOutId);
+            param1.Value = NullIfZeroValue(Entity.ChekOutId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamIncidenciaId;
             //param1.Value = Entity.IncidenciaId == 0 ? (object)DBNull.Value : Entity.IncidenciaId ;
-            param1.Value = NullIfZeroInt(Entity.IncidenciaId);
+            param1.Value = NullIfZeroValue(Entity.IncidenciaId);
             collection.Add(param1);
 
             return collection;
@@ -90,17 +90,17 @@ namespace AReport.DAL.Writer
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekInId;
-            param1.Value = NullIfZeroInt(Entity.ChekInId);
+            param1.Value = NullIfZeroValue(Entity.ChekInId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamChekOutId;
-            param1.Value = NullIfZeroInt(Entity.ChekOutId);
+            param1.Value = NullIfZeroValue(Entity.ChekOutId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();
             param1.ParameterName = ParamIncidenciaId;
-            param1.Value = NullIfZeroInt(Entity.IncidenciaId);
+            param1.Value = NullIfZeroValue(Entity.IncidenciaId);
             collection.Add(param1);
 
             param1 = command.CreateParameter();

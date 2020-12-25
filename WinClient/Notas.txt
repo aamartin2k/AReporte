@@ -2,6 +2,35 @@
 Implementar formulario para crear y asignar incidencias
  Al crear se asigna a filas previamente seleccinadas: 1 boton
 
- Al asignar a grupo:
-  para J Departamento aparece un checkList en el form para seleccionar los usuarios  
-  para Supervisor aparece ademas un checklist con los departamentos y uno para los usuarios
+Implementar export PDF  con FastReport + Export.PdfSimple
+
+Componente			Version Necesaria
+FastReport           V   2020.4.6.0
+FastReport.Compat    V   2020.3.8
+Export.PdfSimple     V   2021.1.0.0
+
+El proyecto Cliente NO requiere referencia a FastReport.Compat, pero debe estar
+presente por dependencia de FastReport
+para incluirlo se incorpora FastReport.Compat a los archivos del proyecto, con Build Action: None
+
+Al editar la plantilla de reporte en el programa Designer.exe, SE PIERDE el tipo de datos System.Collections.Generic
+
+  SAlva Dictionary
+
+   <BusinessObjectDataSource Name="Empleados" ReferenceName="Empleados" DataType="System.Collections.Generic.List`1[[DataFromBusinessObject.Empleado, DataFromBusinessObject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+      <Column Name="Nombre" DataType="System.String"/>
+      <Column Name="Code" DataType="System.String"/>
+      <Column Name="Departamento" DataType="System.String"/>
+      <BusinessObjectDataSource Name="Asistencias" DataType="System.Collections.Generic.List`1[[DataFromBusinessObject.Asistencia, DataFromBusinessObject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="Fecha" DataType="System.String"/>
+        <Column Name="DiaSemana" DataType="System.String"/>
+        <Column Name="ChekinTime" DataType="System.String"/>
+        <Column Name="ChekoutTime" DataType="System.String"/>
+        <Column Name="IncidenciaCausaIncidencia" DataType="null"/>
+        <Column Name="IncidenciaObservacion" DataType="System.String"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+
+	 <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" StartNewPage="true" KeepTogether="true" DataSource="Empleados">
+
+	 <DataBand Name="Data2" Top="149.75" Width="718.2" Height="18.9" KeepTogether="true" DataSource="Asistencias">
