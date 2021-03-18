@@ -31,9 +31,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ConsoleClient.Test_DAL</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AppUtils">
+      <HintPath>..\..\..\Dependencies\AppUtils\AppUtils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,8 +52,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="SystemService_Declarations.cs" />
+    <Compile Include="SystemService_InAction_Login.cs" />
+    <Compile Include="SystemService_OutAction.cs" />
+    <Compile Include="SystemService_Program.cs" />
+    <Compile Include="SystemService_Props.cs" />
+    <Compile Include="SystemService_ServerTest.cs" />
+    <Compile Include="SystemService_Startup.cs" />
+    <Compile Include="TD_Asistencia.cs" />
+    <Compile Include="TD_Program.cs" />
+    <None Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemService.cs" />
     <None Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>

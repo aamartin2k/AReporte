@@ -10,6 +10,9 @@ namespace ConsoleClient
 {
     class Test
     {
+        static void Main(string[] args)
+        {
+        }
 
 
         #region Test DAL

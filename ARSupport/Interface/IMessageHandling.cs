@@ -1,5 +1,9 @@
 ﻿using AReport.Support.Command;
 using AReport.Support.Query;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace AReport.Support.Interface
 {

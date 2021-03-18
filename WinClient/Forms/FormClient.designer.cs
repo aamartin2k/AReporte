@@ -29,26 +29,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormClient));
             this.tbcControl = new System.Windows.Forms.TabControl();
             this.tbpConsulta = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nupMes = new System.Windows.Forms.NumericUpDown();
-            this.nupAnno = new System.Windows.Forms.NumericUpDown();
-            this.btConsultar = new System.Windows.Forms.Button();
-            this.lbSelDepart = new System.Windows.Forms.Label();
+            this.groupBoxDepart = new System.Windows.Forms.GroupBox();
+            this.btCheckAllDepts = new System.Windows.Forms.Button();
+            this.btUncheckAllDepts = new System.Windows.Forms.Button();
             this.chlbSelDepart = new System.Windows.Forms.CheckedListBox();
-            this.cmbSelMes = new System.Windows.Forms.ComboBox();
-            this.rbtSelectClave = new System.Windows.Forms.RadioButton();
-            this.rbtIntrodClave = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.groupBoxMes = new System.Windows.Forms.GroupBox();
+            this.nupAnno = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.rbtIntrodClave = new System.Windows.Forms.RadioButton();
+            this.nupMes = new System.Windows.Forms.NumericUpDown();
+            this.rbtSelectClave = new System.Windows.Forms.RadioButton();
+            this.cmbSelMes = new System.Windows.Forms.ComboBox();
+            this.btConsultar = new System.Windows.Forms.Button();
             this.tbpResultados = new System.Windows.Forms.TabPage();
             this.dgvAsistencia = new System.Windows.Forms.DataGridView();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmbDepartamentos = new System.Windows.Forms.ComboBox();
+            this.tlpEmpleados = new System.Windows.Forms.TableLayoutPanel();
             this.lbDepart = new System.Windows.Forms.Label();
             this.lbNombre = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.btAsignar = new System.Windows.Forms.Button();
             this.btGrupo = new System.Windows.Forms.Button();
             this.btEliminar = new System.Windows.Forms.Button();
-            this.lbMes = new System.Windows.Forms.Label();
             this.bdnEmpleados = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -73,134 +73,168 @@
             this.btRegresarConsulta = new System.Windows.Forms.Button();
             this.btReporte = new System.Windows.Forms.Button();
             this.btGuardar = new System.Windows.Forms.Button();
+            this.cmbDepartamentos = new System.Windows.Forms.ComboBox();
+            this.lbMes = new System.Windows.Forms.Label();
             this.tbpAdmin = new System.Windows.Forms.TabPage();
+            this.tbcAdmin = new System.Windows.Forms.TabControl();
+            this.tbpUsuarios = new System.Windows.Forms.TabPage();
+            this.tlpUsuarios = new System.Windows.Forms.TableLayoutPanel();
+            this.btEditarUsuario = new System.Windows.Forms.Button();
+            this.btNuevoUsuario = new System.Windows.Forms.Button();
+            this.btGuardarUsuario = new System.Windows.Forms.Button();
+            this.btEliminarUsuario = new System.Windows.Forms.Button();
+            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
+            this.tbpDirectivos = new System.Windows.Forms.TabPage();
+            this.dgvJefes = new System.Windows.Forms.DataGridView();
+            this.tlpDirectivos = new System.Windows.Forms.TableLayoutPanel();
+            this.btEditarJefe = new System.Windows.Forms.Button();
+            this.btNuevoJefe = new System.Windows.Forms.Button();
+            this.btGuardarJefe = new System.Windows.Forms.Button();
+            this.btEliminarJefe = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tslbInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tbcControl.SuspendLayout();
             this.tbpConsulta.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).BeginInit();
+            this.groupBoxDepart.SuspendLayout();
+            this.groupBoxMes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).BeginInit();
             this.tbpResultados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tlpEmpleados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bdnEmpleados)).BeginInit();
             this.bdnEmpleados.SuspendLayout();
+            this.tbpAdmin.SuspendLayout();
+            this.tbcAdmin.SuspendLayout();
+            this.tbpUsuarios.SuspendLayout();
+            this.tlpUsuarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
+            this.tbpDirectivos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJefes)).BeginInit();
+            this.tlpDirectivos.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbcControl
             // 
-            this.tbcControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbcControl.Controls.Add(this.tbpConsulta);
             this.tbcControl.Controls.Add(this.tbpResultados);
             this.tbcControl.Controls.Add(this.tbpAdmin);
-            this.tbcControl.Location = new System.Drawing.Point(0, 12);
+            this.tbcControl.Location = new System.Drawing.Point(0, 1);
             this.tbcControl.Name = "tbcControl";
             this.tbcControl.SelectedIndex = 0;
-            this.tbcControl.Size = new System.Drawing.Size(852, 407);
+            this.tbcControl.Size = new System.Drawing.Size(852, 426);
             this.tbcControl.TabIndex = 1;
             // 
             // tbpConsulta
             // 
-            this.tbpConsulta.Controls.Add(this.label6);
-            this.tbpConsulta.Controls.Add(this.nupMes);
-            this.tbpConsulta.Controls.Add(this.nupAnno);
+            this.tbpConsulta.Controls.Add(this.groupBoxDepart);
+            this.tbpConsulta.Controls.Add(this.groupBoxMes);
             this.tbpConsulta.Controls.Add(this.btConsultar);
-            this.tbpConsulta.Controls.Add(this.lbSelDepart);
-            this.tbpConsulta.Controls.Add(this.chlbSelDepart);
-            this.tbpConsulta.Controls.Add(this.cmbSelMes);
-            this.tbpConsulta.Controls.Add(this.rbtSelectClave);
-            this.tbpConsulta.Controls.Add(this.rbtIntrodClave);
-            this.tbpConsulta.Controls.Add(this.label3);
-            this.tbpConsulta.Controls.Add(this.label2);
             this.tbpConsulta.Location = new System.Drawing.Point(4, 22);
             this.tbpConsulta.Name = "tbpConsulta";
             this.tbpConsulta.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpConsulta.Size = new System.Drawing.Size(844, 381);
+            this.tbpConsulta.Size = new System.Drawing.Size(844, 400);
             this.tbpConsulta.TabIndex = 0;
             this.tbpConsulta.Text = "Consulta";
             this.tbpConsulta.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // groupBoxDepart
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(8, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Mes a consultar:";
+            this.groupBoxDepart.Controls.Add(this.btCheckAllDepts);
+            this.groupBoxDepart.Controls.Add(this.btUncheckAllDepts);
+            this.groupBoxDepart.Controls.Add(this.chlbSelDepart);
+            this.groupBoxDepart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxDepart.Location = new System.Drawing.Point(320, 11);
+            this.groupBoxDepart.Name = "groupBoxDepart";
+            this.groupBoxDepart.Size = new System.Drawing.Size(493, 284);
+            this.groupBoxDepart.TabIndex = 17;
+            this.groupBoxDepart.TabStop = false;
+            this.groupBoxDepart.Text = "Seleccionar Departamentos a consultar:  ";
             // 
-            // nupMes
+            // btCheckAllDepts
             // 
-            this.nupMes.Location = new System.Drawing.Point(44, 68);
-            this.nupMes.Name = "nupMes";
-            this.nupMes.Size = new System.Drawing.Size(67, 20);
-            this.nupMes.TabIndex = 12;
+            this.btCheckAllDepts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCheckAllDepts.Location = new System.Drawing.Point(16, 40);
+            this.btCheckAllDepts.Name = "btCheckAllDepts";
+            this.btCheckAllDepts.Size = new System.Drawing.Size(65, 23);
+            this.btCheckAllDepts.TabIndex = 14;
+            this.btCheckAllDepts.Text = "X Todos";
+            this.btCheckAllDepts.UseVisualStyleBackColor = true;
+            this.btCheckAllDepts.Click += new System.EventHandler(this.btCheckAllDepts_Click);
+            // 
+            // btUncheckAllDepts
+            // 
+            this.btUncheckAllDepts.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btUncheckAllDepts.Location = new System.Drawing.Point(16, 71);
+            this.btUncheckAllDepts.Name = "btUncheckAllDepts";
+            this.btUncheckAllDepts.Size = new System.Drawing.Size(65, 23);
+            this.btUncheckAllDepts.TabIndex = 15;
+            this.btUncheckAllDepts.Text = "__ Todos";
+            this.btUncheckAllDepts.UseVisualStyleBackColor = true;
+            this.btUncheckAllDepts.Click += new System.EventHandler(this.btUncheckAllDepts_Click);
+            // 
+            // chlbSelDepart
+            // 
+            this.chlbSelDepart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chlbSelDepart.FormattingEnabled = true;
+            this.chlbSelDepart.Location = new System.Drawing.Point(104, 22);
+            this.chlbSelDepart.Name = "chlbSelDepart";
+            this.chlbSelDepart.Size = new System.Drawing.Size(355, 244);
+            this.chlbSelDepart.TabIndex = 7;
+            // 
+            // groupBoxMes
+            // 
+            this.groupBoxMes.Controls.Add(this.nupAnno);
+            this.groupBoxMes.Controls.Add(this.label2);
+            this.groupBoxMes.Controls.Add(this.label3);
+            this.groupBoxMes.Controls.Add(this.rbtIntrodClave);
+            this.groupBoxMes.Controls.Add(this.nupMes);
+            this.groupBoxMes.Controls.Add(this.rbtSelectClave);
+            this.groupBoxMes.Controls.Add(this.cmbSelMes);
+            this.groupBoxMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxMes.Location = new System.Drawing.Point(11, 11);
+            this.groupBoxMes.Name = "groupBoxMes";
+            this.groupBoxMes.Size = new System.Drawing.Size(293, 187);
+            this.groupBoxMes.TabIndex = 16;
+            this.groupBoxMes.TabStop = false;
+            this.groupBoxMes.Text = "Seleccionar mes a consultar:  ";
             // 
             // nupAnno
             // 
-            this.nupAnno.Location = new System.Drawing.Point(44, 101);
+            this.nupAnno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupAnno.Location = new System.Drawing.Point(46, 96);
             this.nupAnno.Name = "nupAnno";
             this.nupAnno.Size = new System.Drawing.Size(67, 20);
             this.nupAnno.TabIndex = 11;
             // 
-            // btConsultar
+            // label2
             // 
-            this.btConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btConsultar.Location = new System.Drawing.Point(153, 234);
-            this.btConsultar.Name = "btConsultar";
-            this.btConsultar.Size = new System.Drawing.Size(121, 32);
-            this.btConsultar.TabIndex = 9;
-            this.btConsultar.Text = "Ejecutar";
-            this.btConsultar.UseVisualStyleBackColor = true;
-            this.btConsultar.Click += new System.EventHandler(this.btConsultar_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(10, 67);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Mes:";
             // 
-            // lbSelDepart
+            // label3
             // 
-            this.lbSelDepart.AutoSize = true;
-            this.lbSelDepart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSelDepart.Location = new System.Drawing.Point(307, 11);
-            this.lbSelDepart.Name = "lbSelDepart";
-            this.lbSelDepart.Size = new System.Drawing.Size(167, 13);
-            this.lbSelDepart.TabIndex = 8;
-            this.lbSelDepart.Text = "Seleccionar Departamentos:";
-            // 
-            // chlbSelDepart
-            // 
-            this.chlbSelDepart.FormattingEnabled = true;
-            this.chlbSelDepart.Location = new System.Drawing.Point(310, 37);
-            this.chlbSelDepart.Name = "chlbSelDepart";
-            this.chlbSelDepart.Size = new System.Drawing.Size(281, 229);
-            this.chlbSelDepart.TabIndex = 7;
-            // 
-            // cmbSelMes
-            // 
-            this.cmbSelMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSelMes.FormattingEnabled = true;
-            this.cmbSelMes.Location = new System.Drawing.Point(153, 68);
-            this.cmbSelMes.Name = "cmbSelMes";
-            this.cmbSelMes.Size = new System.Drawing.Size(121, 21);
-            this.cmbSelMes.TabIndex = 6;
-            // 
-            // rbtSelectClave
-            // 
-            this.rbtSelectClave.AutoSize = true;
-            this.rbtSelectClave.Location = new System.Drawing.Point(153, 38);
-            this.rbtSelectClave.Name = "rbtSelectClave";
-            this.rbtSelectClave.Size = new System.Drawing.Size(135, 17);
-            this.rbtSelectClave.TabIndex = 5;
-            this.rbtSelectClave.Text = "Seleccionar mes y año.";
-            this.rbtSelectClave.UseVisualStyleBackColor = true;
-            this.rbtSelectClave.CheckedChanged += new System.EventHandler(this.rbtSelectClave_CheckedChanged);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(10, 96);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Año:";
             // 
             // rbtIntrodClave
             // 
             this.rbtIntrodClave.AutoSize = true;
             this.rbtIntrodClave.Checked = true;
-            this.rbtIntrodClave.Location = new System.Drawing.Point(11, 38);
+            this.rbtIntrodClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtIntrodClave.Location = new System.Drawing.Point(13, 33);
             this.rbtIntrodClave.Name = "rbtIntrodClave";
             this.rbtIntrodClave.Size = new System.Drawing.Size(123, 17);
             this.rbtIntrodClave.TabIndex = 4;
@@ -209,33 +243,56 @@
             this.rbtIntrodClave.UseVisualStyleBackColor = true;
             this.rbtIntrodClave.CheckedChanged += new System.EventHandler(this.rbtIntrodClave_CheckedChanged);
             // 
-            // label3
+            // nupMes
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 101);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Año:";
+            this.nupMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nupMes.Location = new System.Drawing.Point(46, 63);
+            this.nupMes.Name = "nupMes";
+            this.nupMes.Size = new System.Drawing.Size(67, 20);
+            this.nupMes.TabIndex = 12;
             // 
-            // label2
+            // rbtSelectClave
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Mes:";
+            this.rbtSelectClave.AutoSize = true;
+            this.rbtSelectClave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtSelectClave.Location = new System.Drawing.Point(155, 33);
+            this.rbtSelectClave.Name = "rbtSelectClave";
+            this.rbtSelectClave.Size = new System.Drawing.Size(135, 17);
+            this.rbtSelectClave.TabIndex = 5;
+            this.rbtSelectClave.Text = "Seleccionar mes y año.";
+            this.rbtSelectClave.UseVisualStyleBackColor = true;
+            this.rbtSelectClave.CheckedChanged += new System.EventHandler(this.rbtSelectClave_CheckedChanged);
+            // 
+            // cmbSelMes
+            // 
+            this.cmbSelMes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSelMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSelMes.FormattingEnabled = true;
+            this.cmbSelMes.Location = new System.Drawing.Point(155, 63);
+            this.cmbSelMes.Name = "cmbSelMes";
+            this.cmbSelMes.Size = new System.Drawing.Size(121, 21);
+            this.cmbSelMes.TabIndex = 6;
+            // 
+            // btConsultar
+            // 
+            this.btConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btConsultar.Location = new System.Drawing.Point(11, 319);
+            this.btConsultar.Name = "btConsultar";
+            this.btConsultar.Size = new System.Drawing.Size(138, 32);
+            this.btConsultar.TabIndex = 9;
+            this.btConsultar.Text = "Ejecutar consulta";
+            this.btConsultar.UseVisualStyleBackColor = true;
+            this.btConsultar.Click += new System.EventHandler(this.btConsultar_Click);
             // 
             // tbpResultados
             // 
             this.tbpResultados.AutoScroll = true;
             this.tbpResultados.Controls.Add(this.dgvAsistencia);
-            this.tbpResultados.Controls.Add(this.tableLayoutPanel1);
+            this.tbpResultados.Controls.Add(this.tlpEmpleados);
             this.tbpResultados.Location = new System.Drawing.Point(4, 22);
             this.tbpResultados.Name = "tbpResultados";
             this.tbpResultados.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpResultados.Size = new System.Drawing.Size(844, 381);
+            this.tbpResultados.Size = new System.Drawing.Size(844, 400);
             this.tbpResultados.TabIndex = 1;
             this.tbpResultados.Text = "Resultados";
             this.tbpResultados.UseVisualStyleBackColor = true;
@@ -244,74 +301,63 @@
             // 
             this.dgvAsistencia.AllowUserToAddRows = false;
             this.dgvAsistencia.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dgvAsistencia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dgvAsistencia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAsistencia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAsistencia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAsistencia.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAsistencia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAsistencia.Location = new System.Drawing.Point(6, 119);
             this.dgvAsistencia.Name = "dgvAsistencia";
-            this.dgvAsistencia.Size = new System.Drawing.Size(830, 256);
+            this.dgvAsistencia.Size = new System.Drawing.Size(830, 275);
             this.dgvAsistencia.TabIndex = 3;
             this.dgvAsistencia.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAsistencia_CellMouseDown);
             this.dgvAsistencia.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvAsistencia_DataError);
             // 
-            // tableLayoutPanel1
+            // tlpEmpleados
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tlpEmpleados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119F));
-            this.tableLayoutPanel1.Controls.Add(this.cmbDepartamentos, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbDepart, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbNombre, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbNumero, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btAsignar, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btGrupo, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btEliminar, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbMes, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.bdnEmpleados, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btTerminar, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btRegresarConsulta, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btReporte, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btGuardar, 4, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(830, 95);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // cmbDepartamentos
-            // 
-            this.cmbDepartamentos.DisplayMember = "Id";
-            this.cmbDepartamentos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDepartamentos.FormattingEnabled = true;
-            this.cmbDepartamentos.Location = new System.Drawing.Point(339, 3);
-            this.cmbDepartamentos.Name = "cmbDepartamentos";
-            this.cmbDepartamentos.Size = new System.Drawing.Size(206, 21);
-            this.cmbDepartamentos.TabIndex = 4;
-            this.cmbDepartamentos.ValueMember = "Id";
+            this.tlpEmpleados.ColumnCount = 6;
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219F));
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tlpEmpleados.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119F));
+            this.tlpEmpleados.Controls.Add(this.lbDepart, 1, 2);
+            this.tlpEmpleados.Controls.Add(this.lbNombre, 1, 0);
+            this.tlpEmpleados.Controls.Add(this.label1, 0, 0);
+            this.tlpEmpleados.Controls.Add(this.label4, 0, 1);
+            this.tlpEmpleados.Controls.Add(this.label5, 0, 2);
+            this.tlpEmpleados.Controls.Add(this.lbNumero, 1, 1);
+            this.tlpEmpleados.Controls.Add(this.btAsignar, 3, 0);
+            this.tlpEmpleados.Controls.Add(this.btGrupo, 3, 1);
+            this.tlpEmpleados.Controls.Add(this.btEliminar, 3, 2);
+            this.tlpEmpleados.Controls.Add(this.bdnEmpleados, 2, 2);
+            this.tlpEmpleados.Controls.Add(this.btTerminar, 5, 0);
+            this.tlpEmpleados.Controls.Add(this.btRegresarConsulta, 5, 1);
+            this.tlpEmpleados.Controls.Add(this.btReporte, 4, 2);
+            this.tlpEmpleados.Controls.Add(this.btGuardar, 4, 0);
+            this.tlpEmpleados.Controls.Add(this.cmbDepartamentos, 2, 1);
+            this.tlpEmpleados.Controls.Add(this.lbMes, 2, 0);
+            this.tlpEmpleados.Location = new System.Drawing.Point(6, 6);
+            this.tlpEmpleados.Name = "tlpEmpleados";
+            this.tlpEmpleados.RowCount = 4;
+            this.tlpEmpleados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tlpEmpleados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tlpEmpleados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tlpEmpleados.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpEmpleados.Size = new System.Drawing.Size(830, 95);
+            this.tlpEmpleados.TabIndex = 0;
             // 
             // lbDepart
             // 
@@ -414,17 +460,6 @@
             this.btEliminar.Text = "Eliminar";
             this.btEliminar.UseVisualStyleBackColor = true;
             this.btEliminar.Click += new System.EventHandler(this.btEliminar_Click);
-            // 
-            // lbMes
-            // 
-            this.lbMes.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lbMes.AutoSize = true;
-            this.lbMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMes.Location = new System.Drawing.Point(339, 37);
-            this.lbMes.Name = "lbMes";
-            this.lbMes.Size = new System.Drawing.Size(30, 13);
-            this.lbMes.TabIndex = 12;
-            this.lbMes.Text = "Mes";
             // 
             // bdnEmpleados
             // 
@@ -529,7 +564,7 @@
             // 
             this.btTerminar.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btTerminar.ForeColor = System.Drawing.Color.Red;
+            this.btTerminar.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btTerminar.Location = new System.Drawing.Point(714, 3);
             this.btTerminar.Name = "btTerminar";
             this.btTerminar.Size = new System.Drawing.Size(71, 22);
@@ -553,14 +588,14 @@
             // btReporte
             // 
             this.btReporte.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.tableLayoutPanel1.SetColumnSpan(this.btReporte, 2);
+            this.tlpEmpleados.SetColumnSpan(this.btReporte, 2);
             this.btReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btReporte.ForeColor = System.Drawing.Color.Red;
+            this.btReporte.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btReporte.Location = new System.Drawing.Point(636, 61);
             this.btReporte.Name = "btReporte";
             this.btReporte.Size = new System.Drawing.Size(149, 22);
             this.btReporte.TabIndex = 15;
-            this.btReporte.Text = "Reporte";
+            this.btReporte.Text = "Generar Reporte";
             this.btReporte.UseVisualStyleBackColor = true;
             this.btReporte.Click += new System.EventHandler(this.btReporte_Click);
             // 
@@ -571,22 +606,223 @@
             this.btGuardar.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btGuardar.Location = new System.Drawing.Point(636, 4);
             this.btGuardar.Name = "btGuardar";
-            this.tableLayoutPanel1.SetRowSpan(this.btGuardar, 2);
+            this.tlpEmpleados.SetRowSpan(this.btGuardar, 2);
             this.btGuardar.Size = new System.Drawing.Size(71, 50);
             this.btGuardar.TabIndex = 16;
             this.btGuardar.Text = "Guardar";
             this.btGuardar.UseVisualStyleBackColor = true;
             this.btGuardar.Click += new System.EventHandler(this.btGuardar_Click);
             // 
+            // cmbDepartamentos
+            // 
+            this.cmbDepartamentos.DisplayMember = "Id";
+            this.cmbDepartamentos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDepartamentos.FormattingEnabled = true;
+            this.cmbDepartamentos.Location = new System.Drawing.Point(339, 32);
+            this.cmbDepartamentos.Name = "cmbDepartamentos";
+            this.cmbDepartamentos.Size = new System.Drawing.Size(206, 21);
+            this.cmbDepartamentos.TabIndex = 4;
+            this.cmbDepartamentos.ValueMember = "Id";
+            // 
+            // lbMes
+            // 
+            this.lbMes.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lbMes.AutoSize = true;
+            this.lbMes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMes.Location = new System.Drawing.Point(339, 8);
+            this.lbMes.Name = "lbMes";
+            this.lbMes.Size = new System.Drawing.Size(30, 13);
+            this.lbMes.TabIndex = 17;
+            this.lbMes.Text = "Mes";
+            // 
             // tbpAdmin
             // 
+            this.tbpAdmin.Controls.Add(this.tbcAdmin);
             this.tbpAdmin.Location = new System.Drawing.Point(4, 22);
             this.tbpAdmin.Name = "tbpAdmin";
             this.tbpAdmin.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpAdmin.Size = new System.Drawing.Size(844, 381);
+            this.tbpAdmin.Size = new System.Drawing.Size(844, 400);
             this.tbpAdmin.TabIndex = 2;
             this.tbpAdmin.Text = "Administración";
             this.tbpAdmin.UseVisualStyleBackColor = true;
+            // 
+            // tbcAdmin
+            // 
+            this.tbcAdmin.Controls.Add(this.tbpUsuarios);
+            this.tbcAdmin.Controls.Add(this.tbpDirectivos);
+            this.tbcAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbcAdmin.Location = new System.Drawing.Point(3, 3);
+            this.tbcAdmin.Multiline = true;
+            this.tbcAdmin.Name = "tbcAdmin";
+            this.tbcAdmin.SelectedIndex = 0;
+            this.tbcAdmin.Size = new System.Drawing.Size(838, 394);
+            this.tbcAdmin.TabIndex = 0;
+            // 
+            // tbpUsuarios
+            // 
+            this.tbpUsuarios.Controls.Add(this.tlpUsuarios);
+            this.tbpUsuarios.Controls.Add(this.dgvUsuarios);
+            this.tbpUsuarios.Location = new System.Drawing.Point(4, 22);
+            this.tbpUsuarios.Name = "tbpUsuarios";
+            this.tbpUsuarios.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpUsuarios.Size = new System.Drawing.Size(830, 368);
+            this.tbpUsuarios.TabIndex = 0;
+            this.tbpUsuarios.Text = "Usuarios";
+            this.tbpUsuarios.UseVisualStyleBackColor = true;
+            // 
+            // tlpUsuarios
+            // 
+            this.tlpUsuarios.ColumnCount = 4;
+            this.tlpUsuarios.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpUsuarios.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpUsuarios.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpUsuarios.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpUsuarios.Controls.Add(this.btEditarUsuario, 0, 0);
+            this.tlpUsuarios.Controls.Add(this.btNuevoUsuario, 0, 0);
+            this.tlpUsuarios.Controls.Add(this.btGuardarUsuario, 3, 0);
+            this.tlpUsuarios.Controls.Add(this.btEliminarUsuario, 2, 0);
+            this.tlpUsuarios.Location = new System.Drawing.Point(20, 6);
+            this.tlpUsuarios.Name = "tlpUsuarios";
+            this.tlpUsuarios.RowCount = 1;
+            this.tlpUsuarios.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpUsuarios.Size = new System.Drawing.Size(420, 28);
+            this.tlpUsuarios.TabIndex = 1;
+            // 
+            // btEditarUsuario
+            // 
+            this.btEditarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btEditarUsuario.Location = new System.Drawing.Point(108, 3);
+            this.btEditarUsuario.Name = "btEditarUsuario";
+            this.btEditarUsuario.Size = new System.Drawing.Size(83, 22);
+            this.btEditarUsuario.TabIndex = 11;
+            this.btEditarUsuario.Text = "Editar";
+            this.btEditarUsuario.UseVisualStyleBackColor = true;
+            this.btEditarUsuario.Click += new System.EventHandler(this.btEditarUsuario_Click);
+            // 
+            // btNuevoUsuario
+            // 
+            this.btNuevoUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btNuevoUsuario.Location = new System.Drawing.Point(3, 3);
+            this.btNuevoUsuario.Name = "btNuevoUsuario";
+            this.btNuevoUsuario.Size = new System.Drawing.Size(83, 22);
+            this.btNuevoUsuario.TabIndex = 10;
+            this.btNuevoUsuario.Text = "Nuevo";
+            this.btNuevoUsuario.UseVisualStyleBackColor = true;
+            this.btNuevoUsuario.Click += new System.EventHandler(this.btNuevoUsuario_Click);
+            // 
+            // btGuardarUsuario
+            // 
+            this.btGuardarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btGuardarUsuario.Location = new System.Drawing.Point(318, 3);
+            this.btGuardarUsuario.Name = "btGuardarUsuario";
+            this.btGuardarUsuario.Size = new System.Drawing.Size(83, 22);
+            this.btGuardarUsuario.TabIndex = 13;
+            this.btGuardarUsuario.Text = "Guardar";
+            this.btGuardarUsuario.UseVisualStyleBackColor = true;
+            this.btGuardarUsuario.Click += new System.EventHandler(this.btGuardarUsuario_Click);
+            // 
+            // btEliminarUsuario
+            // 
+            this.btEliminarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btEliminarUsuario.Location = new System.Drawing.Point(213, 3);
+            this.btEliminarUsuario.Name = "btEliminarUsuario";
+            this.btEliminarUsuario.Size = new System.Drawing.Size(83, 22);
+            this.btEliminarUsuario.TabIndex = 12;
+            this.btEliminarUsuario.Text = "Eliminar";
+            this.btEliminarUsuario.UseVisualStyleBackColor = true;
+            this.btEliminarUsuario.Click += new System.EventHandler(this.btEliminarUsuario_Click);
+            // 
+            // dgvUsuarios
+            // 
+            this.dgvUsuarios.AllowUserToAddRows = false;
+            this.dgvUsuarios.AllowUserToDeleteRows = false;
+            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuarios.Location = new System.Drawing.Point(20, 60);
+            this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.Size = new System.Drawing.Size(781, 189);
+            this.dgvUsuarios.TabIndex = 0;
+            // 
+            // tbpDirectivos
+            // 
+            this.tbpDirectivos.Controls.Add(this.dgvJefes);
+            this.tbpDirectivos.Controls.Add(this.tlpDirectivos);
+            this.tbpDirectivos.Location = new System.Drawing.Point(4, 22);
+            this.tbpDirectivos.Name = "tbpDirectivos";
+            this.tbpDirectivos.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpDirectivos.Size = new System.Drawing.Size(830, 368);
+            this.tbpDirectivos.TabIndex = 1;
+            this.tbpDirectivos.Text = "Directivos";
+            this.tbpDirectivos.UseVisualStyleBackColor = true;
+            // 
+            // dgvJefes
+            // 
+            this.dgvJefes.AllowUserToAddRows = false;
+            this.dgvJefes.AllowUserToDeleteRows = false;
+            this.dgvJefes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvJefes.Location = new System.Drawing.Point(20, 60);
+            this.dgvJefes.Name = "dgvJefes";
+            this.dgvJefes.Size = new System.Drawing.Size(781, 189);
+            this.dgvJefes.TabIndex = 3;
+            // 
+            // tlpDirectivos
+            // 
+            this.tlpDirectivos.ColumnCount = 4;
+            this.tlpDirectivos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpDirectivos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpDirectivos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpDirectivos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpDirectivos.Controls.Add(this.btEditarJefe, 0, 0);
+            this.tlpDirectivos.Controls.Add(this.btNuevoJefe, 0, 0);
+            this.tlpDirectivos.Controls.Add(this.btGuardarJefe, 3, 0);
+            this.tlpDirectivos.Controls.Add(this.btEliminarJefe, 2, 0);
+            this.tlpDirectivos.Location = new System.Drawing.Point(20, 6);
+            this.tlpDirectivos.Name = "tlpDirectivos";
+            this.tlpDirectivos.RowCount = 1;
+            this.tlpDirectivos.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpDirectivos.Size = new System.Drawing.Size(420, 28);
+            this.tlpDirectivos.TabIndex = 2;
+            // 
+            // btEditarJefe
+            // 
+            this.btEditarJefe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btEditarJefe.Location = new System.Drawing.Point(108, 3);
+            this.btEditarJefe.Name = "btEditarJefe";
+            this.btEditarJefe.Size = new System.Drawing.Size(83, 22);
+            this.btEditarJefe.TabIndex = 11;
+            this.btEditarJefe.Text = "Editar";
+            this.btEditarJefe.UseVisualStyleBackColor = true;
+            // 
+            // btNuevoJefe
+            // 
+            this.btNuevoJefe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btNuevoJefe.Location = new System.Drawing.Point(3, 3);
+            this.btNuevoJefe.Name = "btNuevoJefe";
+            this.btNuevoJefe.Size = new System.Drawing.Size(83, 22);
+            this.btNuevoJefe.TabIndex = 10;
+            this.btNuevoJefe.Text = "Nuevo";
+            this.btNuevoJefe.UseVisualStyleBackColor = true;
+            this.btNuevoJefe.Click += new System.EventHandler(this.btNuevoJefe_Click);
+            // 
+            // btGuardarJefe
+            // 
+            this.btGuardarJefe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btGuardarJefe.Location = new System.Drawing.Point(318, 3);
+            this.btGuardarJefe.Name = "btGuardarJefe";
+            this.btGuardarJefe.Size = new System.Drawing.Size(83, 22);
+            this.btGuardarJefe.TabIndex = 14;
+            this.btGuardarJefe.Text = "Guardar";
+            this.btGuardarJefe.UseVisualStyleBackColor = true;
+            // 
+            // btEliminarJefe
+            // 
+            this.btEliminarJefe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btEliminarJefe.Location = new System.Drawing.Point(213, 3);
+            this.btEliminarJefe.Name = "btEliminarJefe";
+            this.btEliminarJefe.Size = new System.Drawing.Size(83, 22);
+            this.btEliminarJefe.TabIndex = 12;
+            this.btEliminarJefe.Text = "Eliminar";
+            this.btEliminarJefe.UseVisualStyleBackColor = true;
+            this.btEliminarJefe.Click += new System.EventHandler(this.btEliminarJefe_Click);
             // 
             // statusStrip1
             // 
@@ -601,8 +837,8 @@
             // tslbInfo
             // 
             this.tslbInfo.Name = "tslbInfo";
-            this.tslbInfo.Size = new System.Drawing.Size(118, 17);
-            this.tslbInfo.Text = "toolStripStatusLabel1";
+            this.tslbInfo.Size = new System.Drawing.Size(56, 17);
+            this.tslbInfo.Text = "Info label";
             // 
             // FormClient
             // 
@@ -616,16 +852,26 @@
             this.Text = "Form1";
             this.tbcControl.ResumeLayout(false);
             this.tbpConsulta.ResumeLayout(false);
-            this.tbpConsulta.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).EndInit();
+            this.groupBoxDepart.ResumeLayout(false);
+            this.groupBoxMes.ResumeLayout(false);
+            this.groupBoxMes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupAnno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nupMes)).EndInit();
             this.tbpResultados.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAsistencia)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tlpEmpleados.ResumeLayout(false);
+            this.tlpEmpleados.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bdnEmpleados)).EndInit();
             this.bdnEmpleados.ResumeLayout(false);
             this.bdnEmpleados.PerformLayout();
+            this.tbpAdmin.ResumeLayout(false);
+            this.tbcAdmin.ResumeLayout(false);
+            this.tbpUsuarios.ResumeLayout(false);
+            this.tlpUsuarios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
+            this.tbpDirectivos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvJefes)).EndInit();
+            this.tlpDirectivos.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -642,15 +888,13 @@
         private System.Windows.Forms.RadioButton rbtIntrodClave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lbSelDepart;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel tslbInfo;
         private System.Windows.Forms.Button btConsultar;
         internal System.Windows.Forms.ComboBox cmbSelMes;
         internal System.Windows.Forms.CheckedListBox chlbSelDepart;
         private System.Windows.Forms.NumericUpDown nupAnno;
         private System.Windows.Forms.NumericUpDown nupMes;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tlpEmpleados;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -672,11 +916,31 @@
         private System.Windows.Forms.Button btAsignar;
         private System.Windows.Forms.Button btGrupo;
         private System.Windows.Forms.Button btEliminar;
-        internal System.Windows.Forms.Label lbMes;
         private System.Windows.Forms.Button btReporte;
         private System.Windows.Forms.Button btRegresarConsulta;
         private System.Windows.Forms.Button btTerminar;
         private System.Windows.Forms.Button btGuardar;
-        private System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.ToolStripStatusLabel tslbInfo;
+        private System.Windows.Forms.GroupBox groupBoxDepart;
+        private System.Windows.Forms.Button btCheckAllDepts;
+        private System.Windows.Forms.Button btUncheckAllDepts;
+        private System.Windows.Forms.GroupBox groupBoxMes;
+        private System.Windows.Forms.ToolTip toolTip1;
+        internal System.Windows.Forms.Label lbMes;
+        private System.Windows.Forms.TabControl tbcAdmin;
+        private System.Windows.Forms.TabPage tbpUsuarios;
+        private System.Windows.Forms.TabPage tbpDirectivos;
+        internal System.Windows.Forms.DataGridView dgvUsuarios;
+        private System.Windows.Forms.TableLayoutPanel tlpUsuarios;
+        private System.Windows.Forms.Button btEliminarUsuario;
+        private System.Windows.Forms.Button btEditarUsuario;
+        private System.Windows.Forms.Button btNuevoUsuario;
+        private System.Windows.Forms.TableLayoutPanel tlpDirectivos;
+        private System.Windows.Forms.Button btEliminarJefe;
+        private System.Windows.Forms.Button btEditarJefe;
+        private System.Windows.Forms.Button btNuevoJefe;
+        internal System.Windows.Forms.DataGridView dgvJefes;
+        private System.Windows.Forms.Button btGuardarUsuario;
+        private System.Windows.Forms.Button btGuardarJefe;
     }
 }

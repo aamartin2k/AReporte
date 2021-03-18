@@ -75,7 +75,7 @@ namespace AReport.DAL.Writer
             catch (Exception ex)
             {
                 // log details especificos
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("EntityWriter.Execute Exception: " + ex.Message);
                 throw;
             }
 

@@ -3,9 +3,9 @@
 
 namespace AReport.DAL.Writer
 {
-    class JefesDeptWriter : IntermWriter<JefesDept>
+    class JefesDeptWriter : IntermWriter<JefeDept>
     {
-        protected override EntityWriter<JefesDept> GetDeleteWriter
+        protected override EntityWriter<JefeDept> GetDeleteWriter
         {
             get
             {
@@ -13,7 +13,7 @@ namespace AReport.DAL.Writer
             }
         }
 
-        protected override EntityWriter<JefesDept> GetInsertWriter
+        protected override EntityWriter<JefeDept> GetInsertWriter
         {
             get
             {
@@ -21,7 +21,7 @@ namespace AReport.DAL.Writer
             }
         }
 
-        protected override EntityWriter<JefesDept> GetUpdateWriter
+        protected override EntityWriter<JefeDept> GetUpdateWriter
         {
             get
             {

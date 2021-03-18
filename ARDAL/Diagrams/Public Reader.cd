@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AReport.DAL.Data.CheckinoutData" Collapsed="true">
-    <Position X="18.75" Y="0.5" Width="1.5" />
+    <Position X="18.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\CheckinoutData.cs</FileName>

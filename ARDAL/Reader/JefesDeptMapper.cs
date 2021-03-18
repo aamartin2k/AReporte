@@ -12,13 +12,13 @@ namespace AReport.DAL.Reader
 	    [UserId] [varchar](20) NOT NULL,
      */
 
-    class JefesDeptMapper : MapperBase<JefesDept>
+    class JefesDeptMapper : MapperBase<JefeDept>
     {
-        protected override JefesDept Map(IDataRecord record)
+        protected override JefeDept Map(IDataRecord record)
         {
             try
             {
-                JefesDept jef = new JefesDept();
+                JefeDept jef = new JefeDept();
 
                 jef.Id = (DBNull.Value == record["JefeId"]) ?
                             0 : (int)record["JefeId"];

@@ -10,6 +10,13 @@ namespace AReport.Support.Interface
         Collection<T> QueryCollection();
     }
 
+    // nueva INt
+    public interface ICollectionReadByInt<T>
+    {
+        Collection<T> QueryCollection(int param1);
+    }
+
+
     public interface ICollectionReadByStringDate<T>
     {
         Collection<T> QueryCollection(string param1, DateTime param2);

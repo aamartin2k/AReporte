@@ -23,19 +23,20 @@ namespace AReport.Support.Entity
         public EntityState State
         { get; set; }
 
-       
-
         public string UserId
-        { get; set; }
-
-        public string Login
-        { get; set; }
-        public string Password
         { get; set; }
 
         public int RoleId
         { get; set; }
 
+        public string Login
+        { get; set; }
+
+        public string Password
+        { get; set; }
+
+      
+        // Propiedades para GUI
         public UserRoleEnum RoleIdEnum
         {
             get
@@ -47,5 +48,8 @@ namespace AReport.Support.Entity
                 RoleId = (int)value;
             }
         }
+
+        public string Nombre
+        { get; set; }
     }
 }

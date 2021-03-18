@@ -6,21 +6,37 @@ namespace AReport.Support.Query
 {
     [Serializable]
     public class AdministracionQuery
+    { }
+ 
+
+
+    [Serializable]
+    public class AdministracionQueryResult
     {
-        public Collection<CausaIncidencia> CausasIncidencias { get; set; }
+        public Collection<Usuario> Usuarios { get; }
 
-        public Collection<Usuario> Usuarios { get; set; }
+        public Collection<JefeDept> JefesDept { get; }
 
-        public Collection<JefesDept> JefesDept { get; set; }
+        public Collection<Role> Roles { get; }
 
-        public AdministracionQuery(Collection<CausaIncidencia> causas, 
-                                   Collection<Usuario> usuarios,
-                                   Collection<JefesDept> jefes)
+        public Collection<Dept> Departamentos { get; }
+
+        public Collection<Userinfo> Userinfo { get; }
+
+        public AdministracionQueryResult(Collection<Usuario> usuarios,
+                                         Collection<JefeDept> jefes,
+                                         Collection<Role> roles,
+                                         Collection<Dept> depts,
+                                         Collection<Userinfo> userinfo)
         {
-            CausasIncidencias = causas;
+
             Usuarios = usuarios;
             JefesDept = jefes;
+            Roles = roles;
+            Departamentos = depts;
+            Userinfo = userinfo;
         }
-
     }
+
+
 }

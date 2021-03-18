@@ -255,6 +255,54 @@ namespace AReport.DAL.Reader
             }
         }
 
+        public Collection<T> ReadCollection(int id)
+        {
+            Collection<T> collection = new Collection<T>();
+
+            using (IDbConnection connection = GetConnection())
+            {
+                IDbCommand command = connection.CreateCommand();
+                command.Connection = connection;
+                command.CommandText = this.CommandText;
+                command.CommandType = this.CommandType;
+
+                foreach (IDataParameter param in this.GetParameters(command, id))
+                    command.Parameters.Add(param);
+
+                try
+                {
+                    connection.Open();
+
+                    using (IDataReader reader = command.ExecuteReader())
+                    {
+                        try
+                        {
+                            MapperBase<T> mapper = GetMapper();
+                            collection = mapper.MapAll(reader);
+                            return collection;
+                        }
+                        catch
+                        {
+                            throw;
+
+                        }
+                        finally
+                        {
+                            reader.Close();
+                        }
+                    }
+                }
+                catch
+                {
+                    throw;
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
 
         public virtual Collection<T> ReadCollectionBy2Params(string param1, DateTime param2)
         { return null; }

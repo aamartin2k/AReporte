@@ -12,23 +12,7 @@ namespace AReport.Srv.Data
     class AsistenciaUpdateData 
     {
 
-        public Incidencia InsertarNuevaIncidencia(int causa, string observacion)
-        {
-            Incidencia newInc = new Incidencia();
-            newInc.CausaId = causa;
-            newInc.Observacion = observacion;
-            newInc.State = EntityState.Added;
-            // test
-            Console.WriteLine("Nueva incidencia Id: " + newInc.Id);
-
-            IEntityWrite<Incidencia> writer = new IncidenciaData();
-            writer.WriteEntity(newInc);
-
-            Console.WriteLine("Nueva incidencia Id: " + newInc.Id);
-
-            return newInc;
-        }
-
+    
         public bool  ActualizarIncidencias(Collection<Incidencia> incidencias)
         {
             ICollectionWrite<Incidencia> writer = new IncidenciaData();
@@ -49,6 +33,17 @@ namespace AReport.Srv.Data
             ICollectionWrite<Asistencia> writer = new AsistenciaData();
 
             return writer.WriteCollection(asistencias);
+        }
+
+        public bool ComprobarAsistenciaFK_Incidencia( int IncId)
+        {
+            ICollectionReadByInt<Asistencia> reader = new AsistenciaData();
+
+            //Collection<Asistencia> QueryCollection(int param1)
+            Collection<Asistencia> col = reader.QueryCollection(IncId);
+            //DEBUG
+            Console.WriteLine(string.Format("Inc Id: {0}\t Total refs: {1}", IncId, col.Count));
+            return col.Count == 0;
         }
     }
 

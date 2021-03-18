@@ -158,8 +158,8 @@ namespace AReport.Srv.Data
         Collection<Userinfo> RetListaUsuariosQueMarcan()
         {
             //JefesDeptData jdh = new JefesDeptData();
-            ICollectionRead<JefesDept> jdh = new JefesDeptData();
-            Collection<JefesDept> jefesDept = jdh.QueryCollection();
+            ICollectionRead<JefeDept> jdh = new JefesDeptData();
+            Collection<JefeDept> jefesDept = jdh.QueryCollection();
 
             //UserinfoData udh = new UserinfoData();
             ICollectionRead<Userinfo> udh = new UserinfoData();

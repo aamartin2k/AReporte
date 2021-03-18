@@ -14,7 +14,7 @@ namespace AReport.Support.Entity
      */
 
     [Serializable]
-    public class JefesDept : IEntity
+    public class JefeDept : IEntity
     {
         public int Id
         { get; set; }
@@ -27,6 +27,14 @@ namespace AReport.Support.Entity
         { get; set; }
 
         public string UsuarioId
+        { get; set; }
+
+
+        // Propiedades para GUI
+        public string UsuarioNombre
+        { get; set; }
+
+        public string DepartamentoNombre
         { get; set; }
 
     }

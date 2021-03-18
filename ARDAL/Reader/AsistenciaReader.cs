@@ -115,5 +115,30 @@ namespace AReport.DAL.Reader
         }
     }
 
+    class AsistenciaByIncidenciaIdReader : AsistenciaReader
+    {
+        protected override string CommandText
+        {
+            get
+            {
+                // return "SELECT [Id], [FechaId], [Userid], [ChekInId], [ChekOutId], [IncidenciaId], 
+                //                [Observacion] FROM dbo.[AA_Asistencias]"
+                return base.CommandText + " WHERE [IncidenciaId] = " + Constants.IdParam;
+            }
+        }
 
+        protected override Collection<IDataParameter> GetParameters(IDbCommand command, int id)
+        {
+            // Creando Parametro para filtrar por Id
+            Collection<IDataParameter> collection = new Collection<IDataParameter>();
+
+            IDataParameter param1 = command.CreateParameter();
+            param1.ParameterName = Constants.IdParam;
+            param1.DbType = DbType.Int32;
+            param1.Value = id;
+            command.Parameters.Add(param1);
+
+            return collection;
+        }
+    }
 }

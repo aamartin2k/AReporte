@@ -34,3 +34,14 @@ Al editar la plantilla de reporte en el programa Designer.exe, SE PIERDE el tipo
 	 <DataBand Name="Data1" Top="41.8" Width="718.2" Height="103.95" StartNewPage="true" KeepTogether="true" DataSource="Empleados">
 
 	 <DataBand Name="Data2" Top="149.75" Width="718.2" Height="18.9" KeepTogether="true" DataSource="Asistencias">
+
+
+	 Inicio de Implementacion Asíncrona en WinClient para SystemService ConsultarAsistencias
+
+	 Analizar e implementar SALVA a la DB al terminar la accion del dialogo Nuevo, Edit y Eliminar;
+
+	 Estado de acciones de configuracion
+				Nuevo	Editar	Eliminar	Guardar
+	 Usuarios	  x		  x		  x
+	 Directivos
+

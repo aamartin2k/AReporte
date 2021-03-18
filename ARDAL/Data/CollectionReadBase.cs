@@ -22,5 +22,12 @@ namespace AReport.DAL.Data
             Collection<T> collection = reader.ReadCollectionBy2Params(param1, param2);
             return collection;
         }
+
+        protected Collection<T> Collection(int param1)
+        {
+            ObjectReaderBase<T> reader = GetReader();
+            Collection<T> collection = reader.ReadCollection(param1);
+            return collection;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace AReport.DAL.Reader
 	    [UserId] [varchar](20) NOT NULL,
      */
 
-    class JefesDeptReader : ObjectReaderBase<JefesDept>
+    class JefesDeptReader : ObjectReaderBase<JefeDept>
     {
        
         protected override string CommandText
@@ -20,9 +20,9 @@ namespace AReport.DAL.Reader
             get { return "SELECT [JefeId], [DeptId], [UserId] FROM dbo.[AA_JefesDept]"; }
         }
 
-        protected override MapperBase<JefesDept> GetMapper()
+        protected override MapperBase<JefeDept> GetMapper()
         {
-            MapperBase<JefesDept> mapper = new JefesDeptMapper();
+            MapperBase<JefeDept> mapper = new JefesDeptMapper();
             return mapper;
         }
         protected override Collection<IDataParameter> GetParameters(IDbCommand command)

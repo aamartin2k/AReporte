@@ -10,31 +10,52 @@ namespace AReport.Srv
     {
         static void Main(string[] args)
         {
+    
             CreateServer();
         }
 
         private static void CreateServer()
         {
-            // Crear nuevo Zyan ComponentHost
+            // Crear nuevo Zyan ComponentHost.
             using (var host = new ZyanComponentHost(Constants.ZyanServerName, Constants.ZyanServerPort))
             {
-                Func<MessageDispatch> createServicio = createServicioDisp;
+                Func<MessageHandler> createNewServicio = CreateServicioInstance;
 
-                //// register the service implementation by its interface
-                host.RegisterComponent<Support.Interface.IMessageHandling>(createServicio, ActivationType.Singleton);
+                // Registrar la implementacion del servicio por su interfase.
+                host.RegisterComponent<Support.Interface.IMessageHandler>(createNewServicio, ActivationType.Singleton);
 
-                // print information and keep server process running
-                
+                // Enlazar Event Handlers.
+                host.ClientLoggedOn += ClientLoggedOn;
+                host.ClientLoggedOff += ClientLoggedOff;
+
+                // Mostrar informacion y  mantener proceso en ejecucion. Se cambiará al implementar servicio de windows.
+
                 Console.WriteLine(string.Format("Iniciado Zyan Component {0} en localhost, puerto {1}, oprima cualquier tecla para terminar.", Constants.ZyanServerName, Constants.ZyanServerPort));
                 Console.ReadKey();
             }
+        }
+
+        private static void ClientLoggedOn(object sender, LoginEventArgs e)
+        {
+            string msg = "Usuario: {0} Ip: {1} inicia sesion de supervision en: {2}";
+            string name = string.IsNullOrEmpty(e.Identity.Name) ? "anonimo" : e.Identity.Name;
+
+            Console.WriteLine(string.Format(msg, name, e.ClientAddress, e.Timestamp.ToString()));
 
         }
 
-        private static MessageDispatch createServicioDisp()
+        private static void ClientLoggedOff(object sender, LoginEventArgs e)
+        {
+            string msg = "Usuario: {0} Ip: {1} termina sesion de supervision en: {2}";
+            string name = string.IsNullOrEmpty(e.Identity.Name) ? "anonimo" : e.Identity.Name;
+
+            Console.WriteLine(string.Format(msg, name, e.ClientAddress, e.Timestamp.ToString()));
+        }
+
+        private static MessageHandler CreateServicioInstance()
         {
             // funcion factory para inyectar dependencias en constructor o propiedades
-            MessageDispatch srv = new MessageDispatch();
+            MessageHandler srv = new MessageHandler();
             return srv;
         }
 

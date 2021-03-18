@@ -9,6 +9,7 @@ using AReport.Support.Command;
 using AReport.Support.Query;
 using AReport.DAL.Data;
 using AReport.Support.Entity;
+using AMGS.Application.Utils.Log;
 
 namespace ConsoleClient
 {
@@ -19,25 +20,209 @@ namespace ConsoleClient
         /// </summary>
         static void Main(string[] args)
         {
-            // Pruebas a DAL
-            //Test_Tablas_Lectura();
-            //Test_Tablas_Escritura();
+            // Declaraciones
+            bool ret;
 
-            // Pruebas BOD
-            //Test_BOGenerator();
+            // Secuencia de Inicio
+           
+            //Log
+            Log.WriteStart();
 
 
-            // Pruebas a Servidor
-            ConnectSync();
+            // Ejecutar tareas de inicio
+            ret = SystemService.TareasInicio();
+            if (!ret)
+                goto FinalError;
 
-            //TestConcat();
+            // Cargar configuracion
+            ret = SystemService.LeerConfiguracion();
+            if (!ret)
+                goto FinalError;
 
-            Console.ReadKey();
+            // Intentar conexion
+            ret = SystemService.ConectarNuevoServidor();
+            if (!ret)
+                goto FinalError;
 
+            // DEBUG
+            // Chequear arg de linea de comando para autologin
+            if (args.Length > 0)
+            {
+                
+                if (args[0].StartsWith("al"))
+                {
+                    // Iniciar secuencia de auto login;
+                    SystemService.IniciarNuevoAutoLogin(args[0]);
+
+                    if (ret)
+                        goto ApplicationRun;
+                    else
+                        goto FinalOK;
+                }
+            }
+
+            // Iniciar secuencia de login de usuario;
+            ret = SystemService.IniciarNuevoLogin();
+            if (!ret)
+                goto FinalError;
+            else
+                goto ApplicationRun;
+
+            // La nueva secuencia de ejecucion termina aqui, las llamadas a comandos en el servidor
+            // retornan asincronamente a otros procedimientos.
+            // RealizarNuevoLogin retorna unicamente por la via de FALSE si el usuario cancela, se agotan
+            // los intentos o se produce una exception.
+
+                // Consultar User Role para configurar form de acuerdo
+            ret = SystemService.ConsultarRol();
+            if (!ret)
+                goto FinalError;
+
+            // 
+            // Configurar Form
+            ret = SystemService.ConfigurarMainForm();
+            if (!ret)
+                goto FinalError;
+
+            // Leer datos de inicio
+            ret = SystemService.LeerDatosInicio();
+            if (!ret)
+                goto FinalError;
+
+            ApplicationRun:
+
+            // Ejecutar posibles pruebas
+
+            // Parada de espera
+            Console.WriteLine("Secuencia de inicio terminada. Presione ENTER para terminar...");
+            Console.ReadLine();
+
+            FinalOK:
+            // Termino de la aplicacion sin ocurrir errores durante la ejecucion de Main 
+            //  o termino normal por cierre de Mainform por usurio.
+
+            SystemService.DesconectarServidor();
+
+            // guardar config
+            ret = SystemService.GuardarConfiguracion();
+            if (!ret)
+                goto FinalError;
+
+
+            // realizar tareas de fin
+            ret = SystemService.TareasFin();
+            if (!ret)
+                goto FinalError;
+
+            Log.WriteEndOK();
+            // the end when everything goes OK!
+            return;
+
+            //  
+            FinalError:
+            // Termino de la aplicacion con un error en la ejecucion de Main
+            Log.WriteEndError();
+            // the end when something goes wrong!
         }
 
-        
-       
+        /*
+        static void MainBak(string[] args)
+        {
+            // Declaraciones
+            bool ret;
+
+            // Secuencia de Inicio
+
+            //Log
+            Log.WriteStart();
+
+
+            // Ejecutar tareas de inicio
+            ret = SystemService.TareasInicio();
+            if (!ret)
+                goto FinalError;
+
+            // Cargar configuracion
+            ret = SystemService.LeerConfiguracion();
+            if (!ret)
+                goto FinalError;
+
+            // Intentar conexion
+            ret = SystemService.ConectarNuevoServidor();
+            if (!ret)
+                goto FinalError;
+
+            // DEBUG
+            // Chequear arg de linea de comando para autologin
+            if (args.Length > 0)
+            {
+                if (args[0].StartsWith("al"))
+                {
+                    ret = SystemService.RealizarAutoLogin(args[0]);
+
+                    if (ret)
+                        goto ApplicationRun;
+                    else
+                        goto FinalOK;
+                }
+            }
+
+
+            // Ejecutar User Login RealizarLogin()
+            ret = SystemService.RealizarLogin();
+            if (!ret)
+                goto FinalError;
+
+            // Consultar User Role para configurar form de acuerdo
+            ret = SystemService.ConsultarRol();
+            if (!ret)
+                goto FinalError;
+
+            // 
+            // Configurar Form
+            ret = SystemService.ConfigurarMainForm();
+            if (!ret)
+                goto FinalError;
+
+            // Leer datos de inicio
+            ret = SystemService.LeerDatosInicio();
+            if (!ret)
+                goto FinalError;
+
+            ApplicationRun:
+
+            // Ejecutar posibles pruebas
+
+            FinalOK:
+            // Termino de la aplicacion sin ocurrir errores durante la ejecucion de Main 
+            //  o termino normal por cierre de Mainform por usurio.
+
+            SystemService.DesconectarServidor();
+
+            // guardar config
+            ret = SystemService.GuardarConfiguracion();
+            if (!ret)
+                goto FinalError;
+
+
+            // realizar tareas de fin
+            ret = SystemService.TareasFin();
+            if (!ret)
+                goto FinalError;
+
+            Log.WriteEndOK();
+            // the end when everything goes OK!
+            return;
+
+            //  
+            FinalError:
+            // Termino de la aplicacion con un error en la ejecucion de Main
+            Log.WriteEndError();
+            // the end when something goes wrong!
+        }
+        */
+
+
         #region Test Server
 
         static void ConnectSync()

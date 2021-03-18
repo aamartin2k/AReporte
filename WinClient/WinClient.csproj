@@ -90,14 +90,32 @@
     <Compile Include="Forms\FormClient.designer.cs">
       <DependentUpon>FormClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Forms\FormUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUsuarios.Designer.cs">
+      <DependentUpon>FormUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\report.cs" />
+    <Compile Include="Services\PS_Asistencias.cs" />
+    <Compile Include="Services\PS_Datos_Admin.cs" />
+    <Compile Include="Services\PS_Datos_Jefe_Grupo.cs" />
+    <Compile Include="Services\PS_Datos_Supervisor.cs" />
+    <Compile Include="Services\PS_Declarations.cs" />
+    <Compile Include="Services\PS_Espera.cs" />
+    <Compile Include="Services\PS_Incidencias.cs" />
+    <Compile Include="Services\PS_Reportes.cs" />
+    <Compile Include="Services\PS_Startup.cs" />
     <Compile Include="Services\SystemService.cs" />
     <EmbeddedResource Include="Forms\FormAsigIncidencia.resx">
       <DependentUpon>FormAsigIncidencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormClient.resx">
       <DependentUpon>FormClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormUsuarios.resx">
+      <DependentUpon>FormUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -122,7 +140,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Reports\report.frx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

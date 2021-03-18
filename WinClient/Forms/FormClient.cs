@@ -19,18 +19,28 @@ namespace AReport.Client.Forms
     public partial class FormClient : Form
     {
         #region Declaraciones
-        // Componentes de DataGridView
-        private DataGridViewCellStyle dataGridViewCellStyle3, dataGridViewCellStyle4;
+        // Componentes de DataGridView Asistencias
+        private DataGridViewCellStyle cellStyleAlignMiddleCenter, cellStyleAlignMiddleLeft;
         private DataGridViewTextBoxColumn fechaTextBoxColumn;
         private DataGridViewTextBoxColumn diaSemanaTextBoxColumn;
         private DataGridViewTextBoxColumn chekinTimeTextBoxColumn;
         private DataGridViewTextBoxColumn chekoutTimeTextBoxColumn;
         //internal DataGridViewComboBoxColumn incidCausaIncidenciaComboBoxColumn;
-        private DataGridViewTextBoxColumn incidCausaIncidenciaComboBoxColumn;
+        private DataGridViewTextBoxColumn incidCausaIncidenciaTextBoxColumn;
         private DataGridViewTextBoxColumn incidObservacionTextBoxColumn;
 
+        // Componentes de DataGridView Usuarios
+        private DataGridViewTextBoxColumn loginTextBoxColumn;
+        private DataGridViewTextBoxColumn passwordTextBoxColumn;
+        private DataGridViewTextBoxColumn nombreTextBoxColumn;
+        private DataGridViewTextBoxColumn rolTextBoxColumn;
+
+        // Componentes de DataGridView Jefes
+        private DataGridViewTextBoxColumn departTextBoxColumn;
+        private DataGridViewTextBoxColumn jefeTextBoxColumn;
+
         // Control de Cambios pendientes
-        private bool cambiosPendientes;
+        private bool _cambiosPendientes;
 
         #endregion
 
@@ -41,9 +51,10 @@ namespace AReport.Client.Forms
 
         #region Configurar Editor
 
-        // Navegacion entre Tabs
-        private enum TabNavigationStatus { Consulta, Resultados, Administracion }
-        private void  TabNavigationMode(TabNavigationStatus mode)
+        #region Navegar entre Tabs
+        // Navegacion entre Tabs de acuerdo a operacion.
+        internal enum TabNavigationStatus { Consulta, Resultados, Administracion }
+        internal void  TabNavigationMode(TabNavigationStatus mode)
         {
             switch (mode)
             {
@@ -112,6 +123,11 @@ namespace AReport.Client.Forms
             tbcControl.SelectTab(tbpAdmin);
         }
 
+        #endregion
+
+        #region Configurar controles
+        // Configuracion de controles de acuerdo al modo de operacion, que depende
+        // del rol del usuario.
         private UserRoleEnum _editMode;
         internal UserRoleEnum EditMode
         {
@@ -127,8 +143,7 @@ namespace AReport.Client.Forms
         {
             string text;
 
-            ConfigurarDataGridView();
-
+            
             switch (mode)
             {
                 case UserRoleEnum.JefeDepartamento:
@@ -151,19 +166,19 @@ namespace AReport.Client.Forms
             tslbInfo.Text = text;
         }
 
-        private void ConfigurarDataGridView()
+        private void ConfigurarDataGridViewAsistencias()
         {
             // Creación
-            dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            cellStyleAlignMiddleCenter = new DataGridViewCellStyle();
+            cellStyleAlignMiddleLeft = new DataGridViewCellStyle();
             
             fechaTextBoxColumn = new DataGridViewTextBoxColumn();
             diaSemanaTextBoxColumn = new DataGridViewTextBoxColumn();
             chekinTimeTextBoxColumn = new DataGridViewTextBoxColumn();
             chekoutTimeTextBoxColumn = new DataGridViewTextBoxColumn();
-            // Remplazar columna combo por textoo 
+            // Remplazar columna combo por texto
             //incidCausaIncidenciaComboBoxColumn = new DataGridViewComboBoxColumn();
-            incidCausaIncidenciaComboBoxColumn = new DataGridViewTextBoxColumn();
+            incidCausaIncidenciaTextBoxColumn = new DataGridViewTextBoxColumn();
 
             incidObservacionTextBoxColumn = new DataGridViewTextBoxColumn();
 
@@ -178,48 +193,48 @@ namespace AReport.Client.Forms
                 diaSemanaTextBoxColumn,
                 chekinTimeTextBoxColumn,
                 chekoutTimeTextBoxColumn,
-                incidCausaIncidenciaComboBoxColumn,
+                incidCausaIncidenciaTextBoxColumn,
                 incidObservacionTextBoxColumn});
 
             // fechaTextBoxColumn
             fechaTextBoxColumn.DataPropertyName = "Fecha";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            fechaTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            cellStyleAlignMiddleCenter.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            fechaTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
             fechaTextBoxColumn.HeaderText = "Fecha";
             fechaTextBoxColumn.ReadOnly = true;
             // 
             // diaSemanaTextBoxColumn 
             diaSemanaTextBoxColumn.DataPropertyName = "DiaSemana";
             
-            diaSemanaTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            diaSemanaTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
             diaSemanaTextBoxColumn.HeaderText = "Dia";
             diaSemanaTextBoxColumn.ReadOnly = true;
             // 
             // chekinTimeTextBoxColumn
             chekinTimeTextBoxColumn.DataPropertyName = "ChekinTime";
-            chekinTimeTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            chekinTimeTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
             chekinTimeTextBoxColumn.HeaderText = "Entrada";
             chekinTimeTextBoxColumn.ReadOnly = true;
             // 
             // chekoutTimeTextBoxColumn
             chekoutTimeTextBoxColumn.DataPropertyName = "ChekoutTime";
-            chekoutTimeTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            chekoutTimeTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
             chekoutTimeTextBoxColumn.HeaderText = "Salida";
             chekoutTimeTextBoxColumn.ReadOnly = true;
             // 
             // incidCausaIncidenciaComboBoxColumn
             //incidCausaIncidenciaComboBoxColumn.DataPropertyName = "IncidenciaCausaIncidencia";
-            incidCausaIncidenciaComboBoxColumn.DataPropertyName = "IncidenciaCausaDesc";
-            incidCausaIncidenciaComboBoxColumn.HeaderText = "Incidencia";
+            incidCausaIncidenciaTextBoxColumn.DataPropertyName = "IncidenciaCausaDesc";
+            incidCausaIncidenciaTextBoxColumn.HeaderText = "Incidencia";
             //incidCausaIncidenciaComboBoxColumn.MaxDropDownItems = 9;
             //incidCausaIncidenciaComboBoxColumn.Resizable = DataGridViewTriState.True;
             //incidCausaIncidenciaComboBoxColumn.SortMode = DataGridViewColumnSortMode.Automatic;
-            incidCausaIncidenciaComboBoxColumn.ReadOnly = true;
+            incidCausaIncidenciaTextBoxColumn.ReadOnly = true;
             // 
             // incidObservacionTextBoxColumn 
             incidObservacionTextBoxColumn.DataPropertyName = "IncidenciaObservacion";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            incidObservacionTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            cellStyleAlignMiddleLeft.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            incidObservacionTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleLeft;
             incidObservacionTextBoxColumn.HeaderText = "Observación";
             incidObservacionTextBoxColumn.ReadOnly = true;
 
@@ -243,9 +258,17 @@ namespace AReport.Client.Forms
 
         private void ConfigurarModoJefeGrupo()
         {
-            lbSelDepart.Visible = false;
-            chlbSelDepart.Visible = false;
+        
+            ConfigurarDataGridViewAsistencias();
+
+            // Ubicar boton [Ejecutar consulta] en posicion Horizontal, debajo del GroupBox
+            // correspondiente.
+            btConsultar.Left = groupBoxMes.Left;
+            // Ocultar GroupBox [Seleccionar Departamentos].  
+            groupBoxDepart.Visible = false;
+            // Ocultar ComboBox [Seleccionar Departamentos].
             cmbDepartamentos.Visible = false;
+            // Ocultar boton [Asignar Incidencias a Grupo]
             btGrupo.Visible = false;
 
             // Mostrar tabControl page Consulta y ocultar las demas.
@@ -257,12 +280,14 @@ namespace AReport.Client.Forms
 
         private void ConfigurarModoSupervisor()
         {
-            lbSelDepart.Visible = true;
-            chlbSelDepart.Visible = true;
+            ConfigurarDataGridViewAsistencias();
+
+            btConsultar.Left = groupBoxDepart.Left;
+            groupBoxDepart.Visible = true;
+
             cmbDepartamentos.Visible = true;
             btGrupo.Visible = true;
 
-            // Mostrar tabControl page Consulta y ocultar las demas.
             TabNavigationMode(TabNavigationStatus.Consulta);
 
             ConfigurarConstante();
@@ -270,13 +295,140 @@ namespace AReport.Client.Forms
 
         private void ConfigurarModoAdministrador()
         {
+            ConfigurarDataGridViewAdministracion();
+
             // Mostrar tabControl page Consulta y ocultar las demas.
             TabNavigationMode(TabNavigationStatus.Administracion);
         }
 
+        private void ConfigurarDataGridViewAdministracion()
+        {
+            // Configurar Grid Usuarios
+            // Columnas Nombre, Rol, Login y Password
+            loginTextBoxColumn = new DataGridViewTextBoxColumn();
+            passwordTextBoxColumn = new DataGridViewTextBoxColumn();
+            nombreTextBoxColumn = new DataGridViewTextBoxColumn();
+            rolTextBoxColumn = new DataGridViewTextBoxColumn();
+
+            dgvUsuarios.AutoGenerateColumns = false;
+            dgvUsuarios.MultiSelect = false;
+
+            dgvUsuarios.Columns.AddRange(new DataGridViewColumn[]
+                {
+                    nombreTextBoxColumn,
+                    rolTextBoxColumn,
+                    loginTextBoxColumn,
+                    passwordTextBoxColumn
+                });
+
+            // nombreTextBoxColumn
+            nombreTextBoxColumn.DataPropertyName = "Nombre";
+            nombreTextBoxColumn.HeaderText = "Nombre";
+            nombreTextBoxColumn.ReadOnly = true;
+            nombreTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+
+            // rolComboBoxColumn
+            rolTextBoxColumn.DataPropertyName = "RoleIdEnum";
+            rolTextBoxColumn.HeaderText = "Rol";
+            rolTextBoxColumn.ReadOnly = true;
+            rolTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+
+            // loginTextBoxColumn
+            loginTextBoxColumn.DataPropertyName = "Login";
+            loginTextBoxColumn.HeaderText = "Login";
+            loginTextBoxColumn.ReadOnly = true;
+            loginTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+
+            // passwordTextBoxColumn
+            passwordTextBoxColumn.DataPropertyName = "Password";
+            passwordTextBoxColumn.HeaderText = "Password";
+            
+            passwordTextBoxColumn.ReadOnly = true;
+            passwordTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+
+
+            // Configurar Grid Jefes DEpartamentos
+            // Columnas Departamento y Responsable texto
+            departTextBoxColumn = new DataGridViewTextBoxColumn();
+            jefeTextBoxColumn = new DataGridViewTextBoxColumn();
+
+            dgvJefes.AutoGenerateColumns = false;
+            dgvJefes.MultiSelect = false;
+
+            dgvJefes.Columns.AddRange(new DataGridViewColumn[]
+                {
+                    departTextBoxColumn,
+                    jefeTextBoxColumn
+                });
+
+            // departTextBoxColumn
+            departTextBoxColumn.DataPropertyName = "DepartamentoNombre";
+            departTextBoxColumn.HeaderText = "Departamento";
+            departTextBoxColumn.ReadOnly = true;
+            departTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+
+            // jefeTextBoxColumn
+            jefeTextBoxColumn.DataPropertyName = "UsuarioNombre";
+            jefeTextBoxColumn.HeaderText = "Responsable";
+            jefeTextBoxColumn.ReadOnly = true;
+            jefeTextBoxColumn.DefaultCellStyle = cellStyleAlignMiddleCenter;
+        }
+
+
+        #endregion
+
         #endregion
 
         #region Controladores de Eventos de Formulario
+
+        #region Usuarios
+        private void btNuevoUsuario_Click(object sender, EventArgs e)
+        {
+            if (SystemService.CrearUsuario())
+                SetCambiosPendientes();
+        }
+
+        private void btEditarUsuario_Click(object sender, EventArgs e)
+        {
+            if (SystemService.EditarUsuario())
+                SetCambiosPendientes();
+        }
+        
+        private void btGuardarUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btEliminarUsuario_Click(object sender, EventArgs e)
+        {
+            if (!ExistsSelectionInGrid(dgvUsuarios, "Eliminar Usuario."))
+                return;
+
+            if (SystemService.EliminarUsuario())
+                SetCambiosPendientes();
+        }
+
+        #endregion
+
+        #region Directivos
+        private void btNuevoJefe_Click(object sender, EventArgs e)
+        {
+            if (SystemService.CrearDirectivo())
+                SetCambiosPendientes();
+        }
+
+       
+        private void btEliminarJefe_Click(object sender, EventArgs e)
+        {
+            if (!ExistsSelectionInGrid(dgvJefes, "Eliminar Directivo."))
+                return;
+
+            if (SystemService.EliminarDirectivo())
+                SetCambiosPendientes();
+        }
+
+
+        #endregion
 
         private void btRegresarConsulta_Click(object sender, EventArgs e)
         {
@@ -288,62 +440,55 @@ namespace AReport.Client.Forms
 
         private void btTerminar_Click(object sender, EventArgs e)
         {
-
-            ChequeoCambios();
+            if (ChequeoCambios())
+                this.Close();
         }
 
         private void btReporte_Click(object sender, EventArgs e)
         {
-            ChequeoCambios();
-            SystemService.MostrarReporte();
+            if (ChequeoCambios())
+                SystemService.GenerarReporte();
         }
 
         private void btGuardar_Click(object sender, EventArgs e)
         {
-            SystemService.ActualizarAsistencias();
+            if (SystemService.ActualizarAsistencias())
+                ResetCambiosPendientes();
         }
 
         private void btEliminar_Click(object sender, EventArgs e)
         {
-            if (!ExistsSelectionInGrid())
+            if (!ExistsSelectionInGrid(dgvAsistencia, "Eliminar Incidencia."))
                 return;
 
-            SystemService.EliminarIncidencia();
-            cambiosPendientes = true;
+            if (SystemService.EliminarIncidencia())
+                SetCambiosPendientes();
+   
         }
 
         private void btGrupo_Click(object sender, EventArgs e)
         {
-            if (!ExistsSelectionInGrid())
+            if (!ExistsSelectionInGrid(dgvAsistencia, "Asignar Incidencia."))
                 return;
 
-            SystemService.AsignarIncidenciaGrupo();
-            cambiosPendientes = true;
+            if (SystemService.AsignarIncidenciaGrupo())
+                SetCambiosPendientes();
         }
 
         private void btAsignar_Click(object sender, EventArgs e)
         {
-            // comprobar que hay rows seleccionadas
-            if (!ExistsSelectionInGrid())
+            // Comprobar que hay rows seleccionadas.
+            if (!ExistsSelectionInGrid(dgvAsistencia, "Asignar Incidencia."))
                 return;
 
-            // llamada a Sys serv y mostrar dialogo
-            SystemService.AsignarIncidencia();
-
-            cambiosPendientes = true;
+            // Llamada a Sys serv y mostrar dialogo.
+            if (SystemService.AsignarIncidencia())
+                SetCambiosPendientes();
         }
-
 
         private void btConsultar_Click(object sender, System.EventArgs e)
         {
             bool ret = false;
-
-            // Indicar espera con puntero
-            tslbInfo.Text = "Esperando resultado de consulta...";
-            Application.UseWaitCursor = true;
-    
-            Application.DoEvents();
-
 
             // Separar segun rol
             if (EditMode == UserRoleEnum.JefeDepartamento)
@@ -364,28 +509,7 @@ namespace AReport.Client.Forms
                     if (ret)
                         ConsultarSupervisor();
                 }
-                
             }
-
-            if (ret)
-            {
-                // Indicar fin espera con puntero
-                tslbInfo.Text = "Resultados de consulta recibidos.";
-                Application.UseWaitCursor = false;
-
-                Application.DoEvents();
-
-                // mostrar tab resultados
-                TabNavigationMode(TabNavigationStatus.Resultados);
-            }
-            else
-            {
-                UseWaitCursor = false;
-                tslbInfo.Text = "No se ha realizado la consulta.";
-            }
-
-
-
         }
 
         private void rbtIntrodClave_CheckedChanged(object sender, System.EventArgs e)
@@ -436,18 +560,34 @@ namespace AReport.Client.Forms
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void btCheckAllDepts_Click(object sender, EventArgs e)
+        {
+            SetItemState(chlbSelDepart, true);
+        }
+
+        private void btUncheckAllDepts_Click(object sender, EventArgs e)
+        {
+            SetItemState(chlbSelDepart, false);
+        }
+
         #endregion
-
-       
-
 
         #region Metodos privados
 
-        private bool ExistsSelectionInGrid()
+
+        private void SetCambiosPendientes()
+        { _cambiosPendientes = true; }
+
+        private void ResetCambiosPendientes()
+        { _cambiosPendientes = false; }
+
+        
+
+        private bool ExistsSelectionInGrid(DataGridView list, string caption)
         {
-            if (dgvAsistencia.SelectedRows.Count < 1)
+            if (list.SelectedRows.Count < 1)
             {
-                MessageBox.Show("Debe seleccionar al menos una fila.", "Asignar incidencias.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe seleccionar al menos una fila.", caption, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
             else
@@ -520,7 +660,6 @@ namespace AReport.Client.Forms
             return false;
         }
 
-
         private void ConsultarSupervisor()
         {
             // Leer departamentos seleccionados
@@ -553,7 +692,7 @@ namespace AReport.Client.Forms
         private bool ChequeoCambios()
         {
             // Advertencia cambios
-            if (cambiosPendientes)
+            if (_cambiosPendientes)
             {
                 string warning = "Existen cambios sin guardar que pueden perderse. Seguro desea continuar?";
                 var ret = MessageBox.Show(warning, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -563,6 +702,16 @@ namespace AReport.Client.Forms
 
             return true;
         }
+
+        private void SetItemState(CheckedListBox list, bool state)
+        {
+            for (int i = 0; i < list.Items.Count; i++)
+            {
+                list.SetItemChecked(i, state);
+            }
+        }
+
+       
 
         private void HandleSelectClave(bool status)
         {

@@ -166,13 +166,13 @@ namespace AReport.Srv.Command
                 if (!ret)
                     return new Failure("Error actualizando Asistencias Incidencias Insert");
 
-                // IMplementar Update
+                // No es necesario IMplementar Update para Incidencias
 
 
-                // Procesar Incidencias Eliminadas
-                
+                // Procesar Asistencias con Incidencias Eliminadas
 
-                //var IncidDeleted = command.Asistencias.Select(ast => ast.IncidenciaRef).Where(inci => inci != null && inci.State == EntityState.Deleted);
+
+                // Obtener lista de Asistencias con referencia a Incidencia No NULL y Incidencia estado Deleted
                 var AsistIncDeleted = command.Asistencias.Select(ast => ast).Where(ast => ast.IncidenciaRef != null && ast.IncidenciaRef.State == EntityState.Deleted);
 
                 //colIncid = new Collection<Incidencia>(IncidDeleted.ToArray());
@@ -184,11 +184,24 @@ namespace AReport.Srv.Command
                 if (!ret)
                     return new Failure("Error actualizando Asistencias Inc Delete");
 
-                // Actualizar Incidencias, se borra PK
-                ret = _data.ActualizarIncidencias(command.Incidencias);
+                // Actualizar Incidencias, se borra si no hay mas ref a PK
+                //ret = _data.ActualizarIncidencias(command.Incidencias);
+                //if (!ret)
+                //    return new Failure("Error actualizando Incidencias Delete");
+
+                // Ciclo para cada inc marcada borrada
+                colIncid = new Collection<Incidencia>();
+                //  comprobar asis.id inc.id
+                foreach (var inc in command.Incidencias)
+                {
+                    if (_data.ComprobarAsistenciaFK_Incidencia(inc.Id))
+                        colIncid.Add(inc);
+                }
+
+                
+                ret = _data.ActualizarIncidencias(colIncid);
                 if (!ret)
                     return new Failure("Error actualizando Incidencias Delete");
-
 
                 // Terminar transaccion
                 //_data.CommitTransaction();
@@ -207,7 +220,8 @@ namespace AReport.Srv.Command
         }
 
 
-        /*  Comprobar todos los casos     *************  
+        /*  
+           Comprobar todos los casos     *************  
          
             Para gestionar Incidencias y Asistencias
 
@@ -222,8 +236,11 @@ namespace AReport.Srv.Command
 	 0				 Not NULL		Delete, se ha eliminado la Incidencia de la Asistencia. Actualizar Asistencia, Eliminar Incidencia (obtener ent por referencia y eliminar de la db por Id)
 	 Not 0			 NULL			Insert, se ha añadido la Incidencia a la Asistencia.  Crear nueva ent Incidencia, insertar (se actualiza Id). Copiar id en propiedad de Asistencia y Actualizar Asistencia en db.
 	 Not 0			 Not NULL   	Posible Update, se puede hacer update o comparar valores
+
          */
 
+
+            /*
         public CommandStatus HandleX(AsistenciaUpdateCommand command)
         {
             try
@@ -319,6 +336,7 @@ namespace AReport.Srv.Command
            
         }
 
+        */
     }
 
 
